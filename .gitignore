@@ -1,0 +1,15 @@
+.metadata/
+.recommenders/
+RemoteSystemsTempFiles/
+*.tmp
+*.bak
+*.swp
+local.properties
+bin/
+build/
+/WebContent/WEB-INF/classes/
+/src/main/webapp/WEB-INF/classes/
+/Servers/
+*.log
+.DS_Store
+Thumbs.db
