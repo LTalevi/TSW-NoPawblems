@@ -8,7 +8,11 @@ public class Ordine implements Serializable {
 	
 	private long idOrdine;
 	private long utente;
-	private long indirizzo;
+	private String viaSpedizione;
+    private String cittaSpedizione;
+    private String capSpedizione;
+    private String provinciaSpedizione;
+    private String nazioneSpedizione;
 	private LocalDateTime dataOrdine;
 	private String stato;
 	private float totale;
@@ -17,13 +21,18 @@ public class Ordine implements Serializable {
 	public Ordine() {
 		
 	}
-	
-	public Ordine(long id_ordine, long utente, long indirizzo, LocalDateTime dataOrdine, String stato, float totale,
+
+	public Ordine(long idOrdine, long utente, String viaSpedizione, String cittaSpedizione, String capSpedizione,
+			String provinciaSpedizione, String nazioneSpedizione, LocalDateTime dataOrdine, String stato, float totale,
 			String numerFattura) {
 		super();
-		this.idOrdine = id_ordine;
+		this.idOrdine = idOrdine;
 		this.utente = utente;
-		this.indirizzo = indirizzo;
+		this.viaSpedizione = viaSpedizione;
+		this.cittaSpedizione = cittaSpedizione;
+		this.capSpedizione = capSpedizione;
+		this.provinciaSpedizione = provinciaSpedizione;
+		this.nazioneSpedizione = nazioneSpedizione;
 		this.dataOrdine = dataOrdine;
 		this.stato = stato;
 		this.totale = totale;
@@ -46,12 +55,44 @@ public class Ordine implements Serializable {
 		this.utente = utente;
 	}
 
-	public long getIndirizzo() {
-		return indirizzo;
+	public String getViaSpedizione() {
+		return viaSpedizione;
 	}
 
-	public void setIndirizzo(long indirizzo) {
-		this.indirizzo = indirizzo;
+	public void setViaSpedizione(String viaSpedizione) {
+		this.viaSpedizione = viaSpedizione;
+	}
+
+	public String getCittaSpedizione() {
+		return cittaSpedizione;
+	}
+
+	public void setCittaSpedizione(String cittaSpedizione) {
+		this.cittaSpedizione = cittaSpedizione;
+	}
+
+	public String getCapSpedizione() {
+		return capSpedizione;
+	}
+
+	public void setCapSpedizione(String capSpedizione) {
+		this.capSpedizione = capSpedizione;
+	}
+
+	public String getProvinciaSpedizione() {
+		return provinciaSpedizione;
+	}
+
+	public void setProvinciaSpedizione(String provinciaSpedizione) {
+		this.provinciaSpedizione = provinciaSpedizione;
+	}
+
+	public String getNazioneSpedizione() {
+		return nazioneSpedizione;
+	}
+
+	public void setNazioneSpedizione(String nazioneSpedizione) {
+		this.nazioneSpedizione = nazioneSpedizione;
 	}
 
 	public LocalDateTime getDataOrdine() {
@@ -88,7 +129,9 @@ public class Ordine implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ordine [idOrdine=" + idOrdine + ", utente=" + utente + ", indirizzo=" + indirizzo + ", dataOrdine="
-				+ dataOrdine + ", stato=" + stato + ", totale=" + totale + ", numerFattura=" + numerFattura + "]";
+		return "Ordine [idOrdine=" + idOrdine + ", utente=" + utente + ", viaSpedizione=" + viaSpedizione
+				+ ", cittaSpedizione=" + cittaSpedizione + ", capSpedizione=" + capSpedizione + ", provinciaSpedizione="
+				+ provinciaSpedizione + ", nazioneSpedizione=" + nazioneSpedizione + ", dataOrdine=" + dataOrdine
+				+ ", stato=" + stato + ", totale=" + totale + ", numerFattura=" + numerFattura + "]";
 	}
 }

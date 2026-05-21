@@ -14,27 +14,27 @@ public class Categoria implements Serializable{
 		
 	}
 
-	public Categoria(long id_categoria, long id_padre, String nome, String descrizione) {
+	public Categoria(long idCategoria, long idPadre, String nome, String descrizione) {
 		super();
-		this.idCategoria = id_categoria;
-		this.idPadre = id_padre;
+		this.idCategoria = idCategoria;
+		this.idPadre = idPadre;
 		this.nome = nome;
 		this.descrizione = descrizione;
 	}
 
-	public long getId_categoria() {
+	public long getIdCategoria() {
 		return idCategoria;
 	}
 
-	public void setId_categoria(long id_categoria) {
+	public void setIdCategoria(long id_categoria) {
 		this.idCategoria = id_categoria;
 	}
 
-	public long getId_padre() {
+	public long getIdPadre() {
 		return idPadre;
 	}
 
-	public void setId_padre(long id_padre) {
+	public void setIdPadre(long id_padre) {
 		this.idPadre = id_padre;
 	}
 
@@ -56,7 +56,7 @@ public class Categoria implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Categoria [id_categoria=" + idCategoria + ", id_padre=" + idPadre + ", nome=" + nome
+		return "Categoria [idCategoria=" + idCategoria + ", idPadre=" + idPadre + ", nome=" + nome
 				+ ", descrizione=" + descrizione + "]";
 	}
 }

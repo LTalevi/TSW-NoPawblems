@@ -9,7 +9,7 @@ public class Prodotto implements Serializable {
 	private long categoria;
 	private String nome;
 	private String descrizione;
-	private String tagli;
+	private String taglia;
 	private String colore;
 	private float prezzo;
 	private int iva;
@@ -20,14 +20,14 @@ public class Prodotto implements Serializable {
 		
 	}
 	
-	public Prodotto(long id_prodotto, long categoria, String nome, String descrizione, String tagli, String colore,
+	public Prodotto(long idProdotto, long categoria, String nome, String descrizione, String taglia, String colore,
 			float prezzo, int iva, int disponibilita, boolean isActive) {
 		super();
-		this.idProdotto = id_prodotto;
+		this.idProdotto = idProdotto;
 		this.categoria = categoria;
 		this.nome = nome;
 		this.descrizione = descrizione;
-		this.tagli = tagli;
+		this.taglia = taglia;
 		this.colore = colore;
 		this.prezzo = prezzo;
 		this.iva = iva;
@@ -35,11 +35,11 @@ public class Prodotto implements Serializable {
 		this.isActive = isActive;
 	}
 
-	public long getId_prodotto() {
+	public long getIdProdotto() {
 		return idProdotto;
 	}
 
-	public void setId_prodotto(long id_prodotto) {
+	public void setIdProdotto(long id_prodotto) {
 		this.idProdotto = id_prodotto;
 	}
 
@@ -67,12 +67,12 @@ public class Prodotto implements Serializable {
 		this.descrizione = descrizione;
 	}
 
-	public String getTagli() {
-		return tagli;
+	public String getTaglia() {
+		return taglia;
 	}
 
-	public void setTagli(String tagli) {
-		this.tagli = tagli;
+	public void setTaglia(String tagli) {
+		this.taglia = tagli;
 	}
 
 	public String getColore() {
@@ -117,8 +117,8 @@ public class Prodotto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Prodotto [id_prodotto=" + idProdotto + ", categoria=" + categoria + ", nome=" + nome + ", descrizione="
-				+ descrizione + ", tagli=" + tagli + ", colore=" + colore + ", prezzo=" + prezzo + ", iva=" + iva
+		return "Prodotto [idProdotto=" + idProdotto + ", categoria=" + categoria + ", nome=" + nome + ", descrizione="
+				+ descrizione + ", taglia=" + taglia + ", colore=" + colore + ", prezzo=" + prezzo + ", iva=" + iva
 				+ ", disponibilita=" + disponibilita + ", isActive=" + isActive + "]";
 	}
 }

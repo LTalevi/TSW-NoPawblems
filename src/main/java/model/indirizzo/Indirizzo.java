@@ -6,7 +6,7 @@ public class Indirizzo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private long idIndirizzo;
-	private long utetnte;
+	private long utente;
 	private String via;
 	private String citta;
 	private String cap;
@@ -18,11 +18,11 @@ public class Indirizzo implements Serializable{
 		
 	}
 	
-	public Indirizzo(long id_indirizzo, long utetnte, String via, String citta, String cap, String provincia,
+	public Indirizzo(long idIndirizzo, long utente, String via, String citta, String cap, String provincia,
 			String nazione, boolean isActive) {
 		super();
-		this.idIndirizzo = id_indirizzo;
-		this.utetnte = utetnte;
+		this.idIndirizzo = idIndirizzo;
+		this.utente = utente;
 		this.via = via;
 		this.citta = citta;
 		this.cap = cap;
@@ -31,20 +31,20 @@ public class Indirizzo implements Serializable{
 		this.isActive = isActive;
 	}
 
-	public long getId_indirizzo() {
+	public long getIdIndirizzo() {
 		return idIndirizzo;
 	}
 
-	public void setId_indirizzo(long id_indirizzo) {
+	public void setIdIndirizzo(long id_indirizzo) {
 		this.idIndirizzo = id_indirizzo;
 	}
 
-	public long getUtetnte() {
-		return utetnte;
+	public long getUtente() {
+		return utente;
 	}
 
-	public void setUtetnte(long utetnte) {
-		this.utetnte = utetnte;
+	public void setUtente(long utetnte) {
+		this.utente = utetnte;
 	}
 
 	public String getVia() {
@@ -97,7 +97,7 @@ public class Indirizzo implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Indirizzo [id_indirizzo=" + idIndirizzo + ", utetnte=" + utetnte + ", via=" + via + ", citta=" + citta
+		return "Indirizzo [idIndirizzo=" + idIndirizzo + ", utente=" + utente + ", via=" + via + ", citta=" + citta
 				+ ", cap=" + cap + ", provincia=" + provincia + ", nazione=" + nazione + ", isActive=" + isActive + "]";
 	}
 }

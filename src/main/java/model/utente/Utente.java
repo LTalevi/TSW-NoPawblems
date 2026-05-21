@@ -17,8 +17,9 @@ public class Utente implements Serializable {
 		
 	}
 
-	public Utente(long id_utente, String nome, String cognome, String email, String telefono, String password, boolean isAdmin) {
-		this.idUtente = id_utente;
+	public Utente(long idUtente, String nome, String cognome, String email, String telefono, String password, boolean isAdmin) {
+		super();
+		this.idUtente = idUtente;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
@@ -27,11 +28,11 @@ public class Utente implements Serializable {
 		this.isAdmin = isAdmin;
 	}
 
-	public long getId_utente() {
+	public long getIdUtente() {
 		return idUtente;
 	}
 
-	public void setId_utente(long id_utente) {
+	public void setIdUtente(long id_utente) {
 		this.idUtente = id_utente;
 	}
 
@@ -85,7 +86,7 @@ public class Utente implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Utente [id_utente=" + idUtente + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email
+		return "Utente [idUtente=" + idUtente + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email
 				+ ", telefono=" + telefono + ", password=" + password + ", isAdmin=" + isAdmin + "]";
 	}
 }
