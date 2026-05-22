@@ -16,7 +16,7 @@ public class Ordine implements Serializable {
 	private LocalDateTime dataOrdine;
 	private String stato;
 	private float totale;
-	private String numerFattura;
+	private String numeroFattura;
 	
 	public Ordine() {
 		
@@ -24,7 +24,7 @@ public class Ordine implements Serializable {
 
 	public Ordine(long idOrdine, long utente, String viaSpedizione, String cittaSpedizione, String capSpedizione,
 			String provinciaSpedizione, String nazioneSpedizione, LocalDateTime dataOrdine, String stato, float totale,
-			String numerFattura) {
+			String numeroFattura) {
 		super();
 		this.idOrdine = idOrdine;
 		this.utente = utente;
@@ -36,7 +36,7 @@ public class Ordine implements Serializable {
 		this.dataOrdine = dataOrdine;
 		this.stato = stato;
 		this.totale = totale;
-		this.numerFattura = numerFattura;
+		this.numeroFattura = numeroFattura;
 	}
 
 	public long getIdOrdine() {
@@ -119,12 +119,12 @@ public class Ordine implements Serializable {
 		this.totale = totale;
 	}
 
-	public String getNumerFattura() {
-		return numerFattura;
+	public String getNumeroFattura() {
+		return numeroFattura;
 	}
 
-	public void setNumerFattura(String numerFattura) {
-		this.numerFattura = numerFattura;
+	public void setNumeroFattura(String numerFattura) {
+		this.numeroFattura = numerFattura;
 	}
 
 	@Override
@@ -132,6 +132,6 @@ public class Ordine implements Serializable {
 		return "Ordine [idOrdine=" + idOrdine + ", utente=" + utente + ", viaSpedizione=" + viaSpedizione
 				+ ", cittaSpedizione=" + cittaSpedizione + ", capSpedizione=" + capSpedizione + ", provinciaSpedizione="
 				+ provinciaSpedizione + ", nazioneSpedizione=" + nazioneSpedizione + ", dataOrdine=" + dataOrdine
-				+ ", stato=" + stato + ", totale=" + totale + ", numerFattura=" + numerFattura + "]";
+				+ ", stato=" + stato + ", totale=" + totale + ", numeroFattura=" + numeroFattura + "]";
 	}
 }

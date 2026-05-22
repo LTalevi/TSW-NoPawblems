@@ -59,7 +59,7 @@ public class IndirizzoDAO implements InterfaceDAO<Indirizzo, Long> {
 					indirizzo.setProvincia(result.getString("provincia"));
 					indirizzo.setNazione(result.getString("nazione"));
                 
-                list.add(indirizzo);
+					list.add(indirizzo);
 				}
 			}
 		}

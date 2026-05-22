@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class DettaglioOrdine implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private long idDettaglioOrdine;
 	private long ordine;
 	private long prodotto;
 	private int quantita;
@@ -15,13 +16,23 @@ public class DettaglioOrdine implements Serializable {
 		
 	}
 
-	public DettaglioOrdine(long ordine, long prodotto, int quantita, float prezzoAcquisto, int ivaAcquisto) {
+	public DettaglioOrdine(long idDettaglioOrdine, long ordine, long prodotto, int quantita, float prezzoAcquisto,
+			int ivaAcquisto) {
 		super();
+		this.idDettaglioOrdine = idDettaglioOrdine;
 		this.ordine = ordine;
 		this.prodotto = prodotto;
 		this.quantita = quantita;
 		this.prezzoAcquisto = prezzoAcquisto;
 		this.ivaAcquisto = ivaAcquisto;
+	}
+
+	public long getIdDettaglioOrdine() {
+		return idDettaglioOrdine;
+	}
+
+	public void setIdDettaglioOrdine(long idDettaglioOrdine) {
+		this.idDettaglioOrdine = idDettaglioOrdine;
 	}
 
 	public long getOrdine() {
@@ -66,7 +77,8 @@ public class DettaglioOrdine implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DettaglioOrdine [ordine=" + ordine + ", prodotto=" + prodotto + ", quantita=" + quantita
-				+ ", prezzoAcquisto=" + prezzoAcquisto + ", ivaAcquisto=" + ivaAcquisto + "]";
+		return "DettaglioOrdine [idDettaglioOrdine=" + idDettaglioOrdine + ", ordine=" + ordine + ", prodotto="
+				+ prodotto + ", quantita=" + quantita + ", prezzoAcquisto=" + prezzoAcquisto + ", ivaAcquisto="
+				+ ivaAcquisto + "]";
 	}
 }

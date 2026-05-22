@@ -14,19 +14,19 @@ public class Immagine implements Serializable{
 		
 	}
 
-	public Immagine(long id_immagine, long prodotto, String url, String alt) {
+	public Immagine(long idImmagine, long prodotto, String url, String alt) {
 		super();
-		this.idImmagine = id_immagine;
+		this.idImmagine = idImmagine;
 		this.prodotto = prodotto;
 		this.url = url;
 		this.alt = alt;
 	}
 
-	public long getId_immagine() {
+	public long getIdImmagine() {
 		return idImmagine;
 	}
 
-	public void setId_immagine(long id_immagine) {
+	public void setIdImmagine(long id_immagine) {
 		this.idImmagine = id_immagine;
 	}
 
@@ -56,7 +56,7 @@ public class Immagine implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Immagine [id_immagine=" + idImmagine + ", prodotto=" + prodotto + ", url=" + url + ", alt=" + alt
+		return "Immagine [idImmagine=" + idImmagine + ", prodotto=" + prodotto + ", url=" + url + ", alt=" + alt
 				+ "]";
 	}
 }
