@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+:root {
+	--background-color: #FFF8F9;
+	--color: #FFF8F9;
+	--primary-color: #3F778D;
+}
+
+footer {
+	padding: 40px 0 20px 0;
+	margin: 30px 0 0 0;
+	bottom: 0;
+
+	background-color: var(--primary-color);
+	color: var(--color);
+}
+
+.footer_wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: space-between;
+	gap: 20px;
+	
+	margin: 30px;
+}
+
+.copyright {
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	gap: 15px;
+	margin: 40px 0 0 0;
+}
+
+.logo_copy {
+	font-size: 12px;
+	display: block;
+}
+
+.testo_copy {
+	font-size: 12px;
+	font-style: italic;
+}
+
+.Lista_links {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin: 20px 20px 10px 0;
+	
+	list-style-type: none; 
+	padding: 0;           
+	margin: 0;  
+}
+
+.icona_zampa {
+	font-size: 16px;
+	vertical-align: middle;
+	margin: 10px;
+}
+
+.links_footer a {
+	color: var(--color);
+	text-decoration: none;
+	font-size: 16px;
+	padding: 5px;
+	
+	border-color: var(--primary-color);
+	border-radius: 20px;
+}
+
+.links_footer a:hover {
+	background-color: var(--background-color);
+	color: var(--primary-color);
+}
+
+.links_footer a:after {
+	background-color: var(--primary-color);
+	color: var(--background-color);
+}
+
+.logo_footer {
+	display: block;
+	height: 45px;
+	width: 55px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	border: 2px solid;
+	 
+	border-color: #13112B;
+	background-color: var(--background-color);
+}
+
+.logo_footer img {
+	width: 100%;
+	aspect-ratio: 16/9;
+}
