@@ -116,4 +116,29 @@ public class UtenteDAO implements InterfaceDAO<Utente, Long> {
 			preparedStatement.executeUpdate();
 		}
 	}
+
+	public Utente doRetrieveByEmail(String email) throws SQLException {
+		String query = "SELECT * FROM utente WHERE email = ?";
+		Utente utente = null;
+		
+		try (Connection connection = ConnectionPool.getConnection()){
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setString(1, email);
+			
+			try (ResultSet result = preparedStatement.executeQuery()){
+				if(result.next()) {
+					utente = new Utente();
+					utente.setIdUtente(result.getLong("id_utente"));
+					utente.setNome(result.getString("nome"));
+					utente.setCognome(result.getString("cognome"));
+					utente.setEmail(result.getString("email"));
+					utente.setTelefono(result.getString("telefono"));
+                    utente.setPassword(result.getString("password"));
+                    utente.setAdmin(result.getBoolean("admin"));
+				}	
+			}
+		}
+		return utente;
+	}
 }
