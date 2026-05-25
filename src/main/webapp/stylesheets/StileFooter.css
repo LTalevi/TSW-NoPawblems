@@ -18,7 +18,8 @@ footer {
 .footer_wrapper {
 	display: flex;
 	flex-direction: column;
-	align-items: space-between;
+	align-items: flex-start;
+	justify-content: space-between;
 	gap: 20px;
 	
 	margin: 30px;
@@ -42,7 +43,7 @@ footer {
 	font-style: italic;
 }
 
-.Lista_links {
+.lista_links {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
