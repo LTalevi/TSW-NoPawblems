@@ -199,4 +199,107 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 			preparedStatement.executeUpdate();
 		}
 	}
+	
+	public List<Prodotto> doRetrieveByFilter(Long idCategoria, Float prezzoMin, Float prezzoMax, String ricerca, String ordinamento) throws SQLException {
+		String query = "SELECT p.*, "
+				+ "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
+				+ "i.id_immagine, i.url, i.alt "
+				+ "FROM prodotto p "
+				+ "JOIN categoria c "
+				+ "ON p.categoria = c.id_categoria "
+				+ "LEFT JOIN immagine i "
+				+ "ON p.id_prodotto = i.prodotto "
+                + "WHERE p.attivo = true";
+		
+		List<Object> parametri = new ArrayList<>();
+		
+		if (idCategoria != null && idCategoria > 0) {
+			query += " AND p.categoria = ? ";
+			parametri.add(idCategoria);
+		}
+		
+		if (prezzoMin != null && prezzoMin >= 0) {
+			query += " AND p.prezzo >= ? ";
+			parametri.add(prezzoMin);
+		}
+		
+		if (prezzoMax != null && prezzoMax >= 0) {
+			query += " AND p.prezzo <= ? ";
+			parametri.add(prezzoMax);
+		}
+		
+		if (ricerca != null && !ricerca.trim().isEmpty()) {
+	        query += " AND p.nome LIKE ?";
+	        parametri.add("%" + ricerca.trim() + "%"); 
+	    }
+		
+		if (ordinamento != null) {
+	        switch (ordinamento) {
+	            case "prezzoCrescente":
+	                query += " ORDER BY p.prezzo ASC";
+	                break;
+	            case "prezzoDecrescente":
+	            	query += " ORDER BY p.prezzo DESC";
+	                break;
+	            case "nomeAZ":
+	            	query += " ORDER BY p.nome ASC";
+	                break;
+	            default:
+	            	query += " ORDER BY p.id_prodotto"; 
+	                break;
+	        }
+	    } else {
+	    	query += " ORDER BY p.id_prodotto";
+	    }
+		
+		Map<Long, Prodotto> mappaProdotti = new LinkedHashMap<>();
+
+	    try (Connection connection = ConnectionPool.getConnection()) {
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+	        for (int i = 0; i < parametri.size(); i++) {
+	            preparedStatement.setObject(i + 1, parametri.get(i));
+	        }
+
+	        try (ResultSet result = preparedStatement.executeQuery()) {
+	            while (result.next()) {
+	                long idProdotto = result.getLong("id_prodotto");
+	                Prodotto prodotto = mappaProdotti.get(idProdotto);
+
+	                if (prodotto == null) {
+	                    prodotto = new Prodotto();
+	                    prodotto.setIdProdotto(idProdotto);
+	                    prodotto.setNome(result.getString("nome"));
+	                    prodotto.setDescrizione(result.getString("descrizione"));
+	                    prodotto.setTaglia(result.getString("taglia"));
+	                    prodotto.setColore(result.getString("colore"));
+	                    prodotto.setPrezzo(result.getFloat("prezzo"));
+	                    prodotto.setIva(result.getInt("iva"));
+	                    prodotto.setDisponibilita(result.getInt("disponibilita"));
+	                    prodotto.setActive(result.getBoolean("attivo"));
+
+	                    Categoria categoria = new Categoria();
+	                    categoria.setIdCategoria(result.getLong("id_categoria"));
+	                    categoria.setIdPadre(result.getLong("id_padre")); 
+	                    categoria.setNome(result.getString("nome_categoria"));
+	                    categoria.setDescrizione(result.getString("descrizione_categoria")); 
+
+	                    prodotto.setCategoria(categoria);
+	                    mappaProdotti.put(idProdotto, prodotto);
+	                }
+
+	                long idImmagine = result.getLong("id_immagine");
+	                if (idImmagine != 0 && !result.wasNull()) {
+	                    Immagine immagine = new Immagine();
+	                    immagine.setIdImmagine(idImmagine);
+	                    immagine.setUrl(result.getString("url"));
+	                    immagine.setAlt(result.getString("alt"));
+	                    
+	                    prodotto.getImmagini().add(immagine);
+	                }
+	            }
+	        }
+	    }
+	    return new ArrayList<>(mappaProdotti.values());
+	}
 }

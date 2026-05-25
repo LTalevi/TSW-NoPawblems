@@ -18,6 +18,7 @@ import model.utente.Utente;
 
 @WebFilter("/AdminFilter")
 public class AdminFilter extends HttpFilter implements Filter {
+	private static final long serialVersionUID = 1L;
        
     public AdminFilter() {
         super();

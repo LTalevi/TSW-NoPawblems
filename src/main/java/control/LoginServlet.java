@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.prodottocarrello.ProdottoCarrello;
+import model.prodottocarrello.ProdottoCarrelloDAO;
+import model.utente.Utente;
+import model.utente.UtenteDAO;
 import model.utils.Encryption;
-import model.utente.*;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -46,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 	        return;
 		}
 		
-		UtenteDAO utenteDAO= new UtenteDAO();
+		UtenteDAO utenteDAO = new UtenteDAO();
 		Utente utente = null;
 		
 		try {
@@ -58,13 +62,36 @@ public class LoginServlet extends HttpServlet {
 			return; 
 		}
 		
+		HttpSession session = request.getSession();
+		
 		if (utente != null && utente.getPassword().equals(Encryption.hashPassword(password))) {
-			HttpSession session = request.getSession();
 			session.setAttribute("utente", utente);
-			response.sendRedirect(request.getContextPath() + "/HomepageServlet");
 		} else {
 			request.setAttribute("error", "Email o password errate");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;
 		}
+		
+		ProdottoCarrelloDAO prodottoCarrelloDAO = new ProdottoCarrelloDAO();
+		List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) session.getAttribute("carrello");
+		
+		if (carrello != null) {
+			for (ProdottoCarrello item : carrello) {
+				item.setUtente(utente.getIdUtente());
+				try {
+					prodottoCarrelloDAO.doSave(item);
+				} catch (SQLException s){
+					s.printStackTrace();
+					request.setAttribute("error", "Errore nell'aggiornamento dal carrello: " + s.getMessage());
+		            request.getRequestDispatcher("/500.jsp").forward(request, response);
+		            return;
+				}
+	        }
+		}
+		
+		session.removeAttribute("carrello");
+		session.removeAttribute("numeroPezziCarrello");
+		
+		response.sendRedirect(request.getContextPath() + "/HomepageServlet");
 	}
 }

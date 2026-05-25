@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter("/*")
 public class AutenticazioneFilter extends HttpFilter implements Filter {
+	private static final long serialVersionUID = 1L;
        
     public AutenticazioneFilter() {
         super();
