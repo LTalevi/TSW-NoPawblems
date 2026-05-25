@@ -2,12 +2,14 @@ package model.dettaglioordine;
 
 import java.io.Serializable;
 
+import model.prodotto.Prodotto;
+
 public class DettaglioOrdine implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long idDettaglioOrdine;
 	private long ordine;
-	private long prodotto;
+	private Prodotto prodotto;
 	private int quantita;
 	private float prezzoAcquisto;
 	private int ivaAcquisto;
@@ -16,7 +18,7 @@ public class DettaglioOrdine implements Serializable {
 		
 	}
 
-	public DettaglioOrdine(long idDettaglioOrdine, long ordine, long prodotto, int quantita, float prezzoAcquisto,
+	public DettaglioOrdine(long idDettaglioOrdine, long ordine, Prodotto prodotto, int quantita, float prezzoAcquisto,
 			int ivaAcquisto) {
 		super();
 		this.idDettaglioOrdine = idDettaglioOrdine;
@@ -43,11 +45,11 @@ public class DettaglioOrdine implements Serializable {
 		this.ordine = ordine;
 	}
 
-	public long getProdotto() {
+	public Prodotto getProdotto() {
 		return prodotto;
 	}
 
-	public void setProdotto(long prodotto) {
+	public void setProdotto(Prodotto prodotto) {
 		this.prodotto = prodotto;
 	}
 

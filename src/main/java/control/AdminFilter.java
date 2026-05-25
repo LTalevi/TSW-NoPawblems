@@ -39,7 +39,7 @@ public class AdminFilter extends HttpFilter implements Filter {
 		
 		Utente utente = (Utente) session.getAttribute("utente");
 		if (!utente.isAdmin()) {
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/403.jsp");
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/Errore403.jsp");
 			return;
 		}
 		

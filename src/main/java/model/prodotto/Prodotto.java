@@ -1,12 +1,17 @@
 package model.prodotto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.categoria.Categoria;
+import model.immagine.Immagine;
 
 public class Prodotto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long idProdotto;
-	private long categoria;
+	private Categoria categoria;
 	private String nome;
 	private String descrizione;
 	private String taglia;
@@ -15,13 +20,14 @@ public class Prodotto implements Serializable {
 	private int iva;
 	private int disponibilita;
 	private boolean isActive;
+	private List<Immagine> immagini;
 	
 	public Prodotto() {
 		
 	}
 	
-	public Prodotto(long idProdotto, long categoria, String nome, String descrizione, String taglia, String colore,
-			float prezzo, int iva, int disponibilita, boolean isActive) {
+	public Prodotto(long idProdotto, Categoria categoria, String nome, String descrizione, String taglia, String colore,
+			float prezzo, int iva, int disponibilita, boolean isActive, List<Immagine> immagini) {
 		super();
 		this.idProdotto = idProdotto;
 		this.categoria = categoria;
@@ -33,6 +39,7 @@ public class Prodotto implements Serializable {
 		this.iva = iva;
 		this.disponibilita = disponibilita;
 		this.isActive = isActive;
+		this.immagini = immagini != null ? immagini : new ArrayList<>();
 	}
 
 	public long getIdProdotto() {
@@ -43,11 +50,11 @@ public class Prodotto implements Serializable {
 		this.idProdotto = id_prodotto;
 	}
 
-	public long getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(long categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
@@ -71,8 +78,8 @@ public class Prodotto implements Serializable {
 		return taglia;
 	}
 
-	public void setTaglia(String tagli) {
-		this.taglia = tagli;
+	public void setTaglia(String taglia) {
+		this.taglia = taglia;
 	}
 
 	public String getColore() {
@@ -115,10 +122,18 @@ public class Prodotto implements Serializable {
 		this.isActive = isActive;
 	}
 
+	public List<Immagine> getImmagini() {
+		return immagini;
+	}
+
+	public void setImmagini(List<Immagine> immagini) {
+		this.immagini = immagini;
+	}
+
 	@Override
 	public String toString() {
 		return "Prodotto [idProdotto=" + idProdotto + ", categoria=" + categoria + ", nome=" + nome + ", descrizione="
 				+ descrizione + ", taglia=" + taglia + ", colore=" + colore + ", prezzo=" + prezzo + ", iva=" + iva
-				+ ", disponibilita=" + disponibilita + ", isActive=" + isActive + "]";
+				+ ", disponibilita=" + disponibilita + ", isActive=" + isActive + ", immagini=" + immagini + "]";
 	}
 }

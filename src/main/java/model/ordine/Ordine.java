@@ -2,6 +2,10 @@ package model.ordine;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.dettaglioordine.DettaglioOrdine;
 
 public class Ordine implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +21,8 @@ public class Ordine implements Serializable {
 	private String stato;
 	private float totale;
 	private String numeroFattura;
+	
+	private List<DettaglioOrdine> dettagli;
 	
 	public Ordine() {
 		
@@ -37,6 +43,7 @@ public class Ordine implements Serializable {
 		this.stato = stato;
 		this.totale = totale;
 		this.numeroFattura = numeroFattura;
+		this.dettagli = new ArrayList<>();
 	}
 
 	public long getIdOrdine() {
@@ -127,11 +134,20 @@ public class Ordine implements Serializable {
 		this.numeroFattura = numerFattura;
 	}
 
+	public List<DettaglioOrdine> getDettagli() {
+		return dettagli;
+	}
+
+	public void setDettagli(List<DettaglioOrdine> dettagli) {
+		this.dettagli = dettagli;
+	}
+
 	@Override
 	public String toString() {
 		return "Ordine [idOrdine=" + idOrdine + ", utente=" + utente + ", viaSpedizione=" + viaSpedizione
 				+ ", cittaSpedizione=" + cittaSpedizione + ", capSpedizione=" + capSpedizione + ", provinciaSpedizione="
 				+ provinciaSpedizione + ", nazioneSpedizione=" + nazioneSpedizione + ", dataOrdine=" + dataOrdine
-				+ ", stato=" + stato + ", totale=" + totale + ", numeroFattura=" + numeroFattura + "]";
+				+ ", stato=" + stato + ", totale=" + totale + ", numeroFattura=" + numeroFattura + ", dettagli="
+				+ dettagli + "]";
 	}
 }

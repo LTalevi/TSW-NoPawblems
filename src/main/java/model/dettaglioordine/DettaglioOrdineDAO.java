@@ -10,12 +10,17 @@ import java.util.List;
 
 import model.ConnectionPool;
 import model.InterfaceDAO;
+import model.prodotto.Prodotto;
 
 public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 
 	@Override
 	public DettaglioOrdine doRetrieveByKey(Long key) throws SQLException {
-		String query = "SELECT * FROM dettaglio_ordine WHERE id_dettaglio_ordine = ?";
+		String query = "SELECT d.*, p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, p.taglia, p.colore "
+				+ "FROM dettaglio_ordine d "
+				+ "JOIN prodotto p "
+				+ "ON d.prodotto = p.id_prodotto "
+				+ "WHERE d.id_dettaglio_ordine = ?";
 		DettaglioOrdine dettaglioOrdine = null;
 		
 		try(Connection connection = ConnectionPool.getConnection()){
@@ -28,7 +33,15 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 					dettaglioOrdine = new DettaglioOrdine();
 					dettaglioOrdine.setIdDettaglioOrdine(result.getLong("id_dettaglio_ordine"));
 					dettaglioOrdine.setOrdine(result.getLong("ordine"));
-					dettaglioOrdine.setProdotto(result.getLong("prodotto"));
+					
+					Prodotto prodotto = new Prodotto();
+					prodotto.setIdProdotto(result.getLong("prodotto"));
+					prodotto.setNome(result.getString("nome_prodotto"));
+					prodotto.setDescrizione(result.getString("descrizione_prodotto"));
+					prodotto.setTaglia(result.getString("taglia"));
+					prodotto.setColore(result.getString("colore"));
+					
+					dettaglioOrdine.setProdotto(prodotto);
 					dettaglioOrdine.setQuantita(result.getInt("quantita"));
 					dettaglioOrdine.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
 					dettaglioOrdine.setIvaAcquisto(result.getInt("iva_acquisto"));
@@ -40,7 +53,9 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 
 	@Override
 	public List<DettaglioOrdine> doRetrieveAll() throws SQLException {
-		String query = "SELECT * FROM dettaglio_ordine";
+		String query = "SELECT d.*, p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, p.taglia, p.colore "
+				+ "FROM dettaglio_ordine d "
+				+ "JOIN prodotto p ON d.prodotto = p.id_prodotto";
 		List<DettaglioOrdine> list = new ArrayList<DettaglioOrdine>();
 		DettaglioOrdine dettaglioOrdine = null;
 		
@@ -52,7 +67,15 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 					dettaglioOrdine = new DettaglioOrdine();
 					dettaglioOrdine.setIdDettaglioOrdine(result.getLong("id_dettaglio_ordine"));
 					dettaglioOrdine.setOrdine(result.getLong("ordine"));
-					dettaglioOrdine.setProdotto(result.getLong("prodotto"));
+					
+					Prodotto prodotto = new Prodotto();
+					prodotto.setIdProdotto(result.getLong("prodotto"));
+					prodotto.setNome(result.getString("nome_prodotto"));
+					prodotto.setDescrizione(result.getString("descrizione_prodotto"));
+					prodotto.setTaglia(result.getString("taglia"));
+					prodotto.setColore(result.getString("colore"));
+					
+					dettaglioOrdine.setProdotto(prodotto);
 					dettaglioOrdine.setQuantita(result.getInt("quantita"));
 					dettaglioOrdine.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
 					dettaglioOrdine.setIvaAcquisto(result.getInt("iva_acquisto"));
@@ -72,7 +95,7 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			
 			preparedStatement.setLong(1, item.getOrdine());
-			preparedStatement.setLong(2, item.getProdotto());
+			preparedStatement.setLong(2, item.getProdotto().getIdProdotto());
 			preparedStatement.setInt(3, item.getQuantita());
 			preparedStatement.setFloat(4, item.getPrezzoAcquisto());
 			preparedStatement.setInt(5, item.getIvaAcquisto());
@@ -89,7 +112,7 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			
 			preparedStatement.setLong(1, item.getOrdine());
-			preparedStatement.setLong(2, item.getProdotto());
+			preparedStatement.setLong(2, item.getProdotto().getIdProdotto());
 			preparedStatement.setInt(3, item.getQuantita());
 			preparedStatement.setFloat(4, item.getPrezzoAcquisto());
 			preparedStatement.setInt(5, item.getIvaAcquisto());
