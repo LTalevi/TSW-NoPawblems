@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.prodotto.Prodotto;
 import model.prodottocarrello.ProdottoCarrello;
 import model.prodottocarrello.ProdottoCarrelloDAO;
 import model.utente.Utente;
+import model.varianteprodotto.VarianteProdotto;
 
 @WebServlet("/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
@@ -73,17 +73,17 @@ public class CarrelloServlet extends HttpServlet {
 	    }
 		
 		ProdottoCarrelloDAO prodottoCarrelloDAO = new ProdottoCarrelloDAO();
-    	Long idProdotto = Long.parseLong(request.getParameter("idProdotto"));
+		Long idVariante = Long.parseLong(request.getParameter("idVariante"));
 		try {
 	        switch (action) {
 	            case "aggiungi":
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
                 	
-                    Prodotto prod = new Prodotto();
-                    prod.setIdProdotto(idProdotto);
+                    VarianteProdotto var = new VarianteProdotto();
+                    var.setIdVariante(idVariante);
                     
                     ProdottoCarrello prodottoCarrello = new ProdottoCarrello();
-                    prodottoCarrello.setProdotto(prod);
+                    prodottoCarrello.setVariante(var);
                     prodottoCarrello.setQuantita(quantita);
                     
 	                if (utente != null) {
@@ -97,7 +97,7 @@ public class CarrelloServlet extends HttpServlet {
 	                	
 	                	boolean trovato = false;
 	                    for (ProdottoCarrello item : carrello) {
-	                        if (item.getProdotto().getIdProdotto() == idProdotto) {
+	                        if (item.getVariante().getIdVariante() == idVariante) {
 	                            item.setQuantita(item.getQuantita() + quantita);
 	                            trovato = true;
 	                            break;
@@ -114,7 +114,7 @@ public class CarrelloServlet extends HttpServlet {
 	                
 	            case "rimuovi":
 	            	if (utente != null) {
-	                	prodottoCarrelloDAO.doDelete(utente.getIdUtente(), idProdotto);
+	            		prodottoCarrelloDAO.doDelete(utente.getIdUtente(), idVariante);
 	                } else {
 	                	List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) session.getAttribute("carrello");
 	                	if (carrello == null) {
@@ -124,7 +124,7 @@ public class CarrelloServlet extends HttpServlet {
 	                	
 	                	ProdottoCarrello daRimuovere = null;
 	                	for (ProdottoCarrello item : carrello) {
-	                		if(item.getProdotto().getIdProdotto() == idProdotto) {
+	                		if(item.getVariante().getIdVariante() == idVariante) {
 	                			daRimuovere = item;
 	                			break;
 	                		}
@@ -138,7 +138,7 @@ public class CarrelloServlet extends HttpServlet {
 	            case "modifica":
 	            	int nuovaQuantita = Integer.parseInt(request.getParameter("nuovaQuantita"));
 	            	if (utente != null) {
-	                	prodottoCarrelloDAO.doUpdate(utente.getIdUtente(), idProdotto, nuovaQuantita);
+	                	prodottoCarrelloDAO.doUpdate(utente.getIdUtente(), idVariante, nuovaQuantita);
 	                } else {
 	                	List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) session.getAttribute("carrello");
 	                	if (carrello == null) {
@@ -146,7 +146,7 @@ public class CarrelloServlet extends HttpServlet {
 	                    }
 
 	                	for (ProdottoCarrello item : carrello) {
-	                		if(item.getProdotto().getIdProdotto() == idProdotto) {
+	                		if(item.getVariante().getIdVariante() == idVariante) {
 	                			item.setQuantita(nuovaQuantita);
 	                			break;
 	                		}

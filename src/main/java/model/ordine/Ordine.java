@@ -25,7 +25,7 @@ public class Ordine implements Serializable {
 	private List<DettaglioOrdine> dettagli;
 	
 	public Ordine() {
-		
+		dettagli = new ArrayList<DettaglioOrdine>();
 	}
 
 	public Ordine(long idOrdine, long utente, String viaSpedizione, String cittaSpedizione, String capSpedizione,
@@ -43,7 +43,7 @@ public class Ordine implements Serializable {
 		this.stato = stato;
 		this.totale = totale;
 		this.numeroFattura = numeroFattura;
-		this.dettagli = new ArrayList<>();
+		this.dettagli = dettagli != null ? dettagli : new ArrayList<>();
 	}
 
 	public long getIdOrdine() {

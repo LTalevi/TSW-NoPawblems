@@ -13,17 +13,19 @@ import java.util.Map;
 import model.ConnectionPool;
 import model.InterfaceDAO;
 import model.dettaglioordine.DettaglioOrdine;
-import model.prodotto.Prodotto;
+import model.varianteprodotto.VarianteProdotto;
 
 public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 
 	@Override
 	public Ordine doRetrieveByKey(Long key) throws SQLException {
-		String query = "SELECT o.*, d.id_dettaglio_ordine, d.prodotto AS id_prodotto, d.quantita, d.prezzo_acquisto, d.iva_acquisto, "
-				+ "p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, p.taglia, p.colore "
+		String query = "SELECT o.*, d.id_dettaglio_ordine, d.variante, d.quantita, d.prezzo_acquisto, d.iva_acquisto, "
+				+ "v.prodotto_padre, v.taglia, v.colore, v.colore_hex, "
+				+ "p.nome as nome_prodotto, p.descrizione as descrizione_prodotto "
 				+ "FROM ordine o "
 				+ "LEFT JOIN dettaglio_ordine d ON o.id_ordine = d.ordine "
-				+ "LEFT JOIN prodotto p ON d.prodotto = p.id_prodotto "
+				+ "LEFT JOIN variante_prodotto v ON d.variante = v.id_variante "
+				+ "LEFT JOIN prodotto p ON v.prodotto_padre = p.id_prodotto "
 				+ "WHERE o.id_ordine = ?";
 		Ordine ordine = null;
 		
@@ -54,22 +56,22 @@ public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 					
 					long idDettaglio = result.getLong("id_dettaglio_ordine");
 					if (idDettaglio != 0 && !result.wasNull()) {
-						DettaglioOrdine det = new DettaglioOrdine();
-						det.setIdDettaglioOrdine(idDettaglio);
-						det.setOrdine(ordine.getIdOrdine());
-						det.setQuantita(result.getInt("quantita"));
-						det.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
-						det.setIvaAcquisto(result.getInt("iva_acquisto"));
+						DettaglioOrdine dettaglio = new DettaglioOrdine();
+						dettaglio.setIdDettaglioOrdine(idDettaglio);
+						dettaglio.setOrdine(ordine.getIdOrdine());
+						dettaglio.setQuantita(result.getInt("quantita"));
+						dettaglio.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
+						dettaglio.setIvaAcquisto(result.getInt("iva_acquisto"));
+	
+						VarianteProdotto varianteProdotto = new VarianteProdotto();
+						varianteProdotto.setIdVariante(result.getLong("variante"));
+						varianteProdotto.setProdottoPadre(result.getLong("prodotto_padre"));
+						varianteProdotto.setTaglia(result.getString("taglia"));
+						varianteProdotto.setColore(result.getString("colore"));
+						varianteProdotto.setColoreHex(result.getString("colore_hex"));
 						
-						Prodotto prod = new Prodotto();
-						prod.setIdProdotto(result.getLong("id_prodotto"));
-						prod.setNome(result.getString("nome_prodotto"));
-						prod.setDescrizione(result.getString("descrizione_prodotto"));
-						prod.setTaglia(result.getString("taglia"));
-						prod.setColore(result.getString("colore"));
-						
-						det.setProdotto(prod);
-						ordine.getDettagli().add(det); 
+						dettaglio.setVariante(varianteProdotto);
+						ordine.getDettagli().add(dettaglio); 
 					}
 				}
 			}
@@ -79,12 +81,14 @@ public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 
 	@Override
 	public List<Ordine> doRetrieveAll() throws SQLException {
-		String query = "SELECT o.*, d.id_dettaglio_ordine, d.prodotto AS id_prodotto, d.quantita, d.prezzo_acquisto, d.iva_acquisto, "
-				+ "p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, p.taglia, p.colore "
+		String query = "SELECT o.*, d.id_dettaglio_ordine, d.variante, d.quantita, d.prezzo_acquisto, d.iva_acquisto, "
+				+ "v.prodotto_padre, v.taglia, v.colore, v.colore_hex, "
+				+ "p.nome as nome_prodotto, p.descrizione as descrizione_prodotto "
 				+ "FROM ordine o "
 				+ "LEFT JOIN dettaglio_ordine d ON o.id_ordine = d.ordine "
-				+ "LEFT JOIN prodotto p ON d.prodotto = p.id_prodotto "
-				+ "ORDER BY o.id_ordine DESC";
+				+ "LEFT JOIN variante_prodotto v ON d.variante = v.id_variante "
+				+ "LEFT JOIN prodotto p ON v.prodotto_padre = p.id_prodotto "
+				+ "order by o.id_ordine desc";
 		Map<Long, Ordine> mappaOrdini = new LinkedHashMap<>();
 		Ordine ordine = null;
 		
@@ -118,22 +122,22 @@ public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 					
 					long idDettaglio = result.getLong("id_dettaglio_ordine");
 					if (idDettaglio != 0 && !result.wasNull()) {
-						DettaglioOrdine det = new DettaglioOrdine();
-						det.setIdDettaglioOrdine(idDettaglio);
-						det.setOrdine(idOrdine);
-						det.setQuantita(result.getInt("quantita"));
-						det.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
-						det.setIvaAcquisto(result.getInt("iva_acquisto"));
+						DettaglioOrdine dettaglio = new DettaglioOrdine();
+						dettaglio.setIdDettaglioOrdine(idDettaglio);
+						dettaglio.setOrdine(idOrdine);
+						dettaglio.setQuantita(result.getInt("quantita"));
+						dettaglio.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
+						dettaglio.setIvaAcquisto(result.getInt("iva_acquisto"));
 						
-						Prodotto prod = new Prodotto();
-						prod.setIdProdotto(result.getLong("id_prodotto"));
-						prod.setNome(result.getString("nome_prodotto"));
-						prod.setDescrizione(result.getString("descrizione_prodotto"));
-						prod.setTaglia(result.getString("taglia"));
-						prod.setColore(result.getString("colore"));
+						VarianteProdotto variante = new VarianteProdotto();
+						variante.setIdVariante(result.getLong("variante"));
+						variante.setProdottoPadre(result.getLong("prodotto_padre"));
+						variante.setTaglia(result.getString("taglia"));
+						variante.setColore(result.getString("colore"));
+						variante.setColoreHex(result.getString("colore_hex"));
 						
-						det.setProdotto(prod);
-						ordine.getDettagli().add(det);
+						dettaglio.setVariante(variante);
+						ordine.getDettagli().add(dettaglio);
 					}
 				}
 			}
@@ -216,11 +220,13 @@ public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 	}
 	
 	public List<Ordine> doRetrieveByUtente(Long utente) throws SQLException {
-		String query = "SELECT o.*, d.id_dettaglio_ordine, d.prodotto AS id_prodotto, d.quantita, d.prezzo_acquisto, d.iva_acquisto, "
-				+ "p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, p.taglia, p.colore "
+		String query = "SELECT o.*, d.id_dettaglio_ordine, d.variante, d.quantita, d.prezzo_acquisto, d.iva_acquisto, "
+				+ "v.prodotto_padre, v.taglia, v.colore, v.colore_hex, "
+				+ "p.nome as nome_prodotto, p.descrizione as descrizione_prodotto "
 				+ "FROM ordine o "
 				+ "LEFT JOIN dettaglio_ordine d ON o.id_ordine = d.ordine "
-				+ "LEFT JOIN prodotto p ON d.prodotto = p.id_prodotto "
+				+ "LEFT JOIN variante_prodotto v ON d.variante = v.id_variante "
+				+ "LEFT JOIN prodotto p ON v.prodotto_padre = p.id_prodotto "
 				+ "WHERE o.utente = ? "
 				+ "ORDER BY o.id_ordine DESC";
 		Map<Long, Ordine> mappaOrdini = new LinkedHashMap<>();
@@ -257,22 +263,22 @@ public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 					
 					long idDettaglio = result.getLong("id_dettaglio_ordine");
 					if (idDettaglio != 0 && !result.wasNull()) {
-						DettaglioOrdine det = new DettaglioOrdine();
-						det.setIdDettaglioOrdine(idDettaglio);
-						det.setOrdine(idOrdine);
-						det.setQuantita(result.getInt("quantita"));
-						det.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
-						det.setIvaAcquisto(result.getInt("iva_acquisto"));
+						DettaglioOrdine dettaglio = new DettaglioOrdine();
+						dettaglio.setIdDettaglioOrdine(idDettaglio);
+						dettaglio.setOrdine(idOrdine);
+						dettaglio.setQuantita(result.getInt("quantita"));
+						dettaglio.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
+						dettaglio.setIvaAcquisto(result.getInt("iva_acquisto"));
 						
-						Prodotto prod = new Prodotto();
-						prod.setIdProdotto(result.getLong("id_prodotto"));
-						prod.setNome(result.getString("nome_prodotto"));
-						prod.setDescrizione(result.getString("descrizione_prodotto"));
-						prod.setTaglia(result.getString("taglia"));
-						prod.setColore(result.getString("colore"));
+						VarianteProdotto variante = new VarianteProdotto();
+						variante.setIdVariante(result.getLong("variante"));
+						variante.setProdottoPadre(result.getLong("prodotto_padre"));
+						variante.setTaglia(result.getString("taglia"));
+						variante.setColore(result.getString("colore"));
+						variante.setColoreHex(result.getString("colore_hex"));
 						
-						det.setProdotto(prod);
-						ordine.getDettagli().add(det); 
+						dettaglio.setVariante(variante);
+						ordine.getDettagli().add(dettaglio); 
 					}
 				}
 			}

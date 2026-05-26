@@ -2,14 +2,14 @@ package model.dettaglioordine;
 
 import java.io.Serializable;
 
-import model.prodotto.Prodotto;
+import model.varianteprodotto.VarianteProdotto;
 
 public class DettaglioOrdine implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private long idDettaglioOrdine;
 	private long ordine;
-	private Prodotto prodotto;
+	private VarianteProdotto variante; 
 	private int quantita;
 	private float prezzoAcquisto;
 	private int ivaAcquisto;
@@ -18,12 +18,12 @@ public class DettaglioOrdine implements Serializable {
 		
 	}
 
-	public DettaglioOrdine(long idDettaglioOrdine, long ordine, Prodotto prodotto, int quantita, float prezzoAcquisto,
+	public DettaglioOrdine(long idDettaglioOrdine, long ordine, VarianteProdotto variante, int quantita, float prezzoAcquisto,
 			int ivaAcquisto) {
 		super();
 		this.idDettaglioOrdine = idDettaglioOrdine;
 		this.ordine = ordine;
-		this.prodotto = prodotto;
+		this.variante = variante;
 		this.quantita = quantita;
 		this.prezzoAcquisto = prezzoAcquisto;
 		this.ivaAcquisto = ivaAcquisto;
@@ -45,12 +45,12 @@ public class DettaglioOrdine implements Serializable {
 		this.ordine = ordine;
 	}
 
-	public Prodotto getProdotto() {
-		return prodotto;
+	public VarianteProdotto getVariante() {
+		return variante;
 	}
 
-	public void setProdotto(Prodotto prodotto) {
-		this.prodotto = prodotto;
+	public void setVariante(VarianteProdotto variante) {
+		this.variante = variante;
 	}
 
 	public int getQuantita() {
@@ -79,8 +79,8 @@ public class DettaglioOrdine implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DettaglioOrdine [idDettaglioOrdine=" + idDettaglioOrdine + ", ordine=" + ordine + ", prodotto="
-				+ prodotto + ", quantita=" + quantita + ", prezzoAcquisto=" + prezzoAcquisto + ", ivaAcquisto="
+		return "DettaglioOrdine [idDettaglioOrdine=" + idDettaglioOrdine + ", ordine=" + ordine + ", variante="
+				+ variante + ", quantita=" + quantita + ", prezzoAcquisto=" + prezzoAcquisto + ", ivaAcquisto="
 				+ ivaAcquisto + "]";
 	}
 }

@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ConnectionPool;
-import model.prodotto.Prodotto;
+import model.varianteprodotto.VarianteProdotto;
 
 public class ProdottoCarrelloDAO {
 
 	public List<ProdottoCarrello> doRetrieveByUtente(Long idUtente) throws SQLException {
-		String query = "SELECT c.*, p.nome, p.descrizione, p.prezzo, p.taglia, p.colore "
+		String query = "SELECT c.utente, c.variante, c.quantita, "
+				+ "v.prodotto_padre, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita "
 				+ "FROM prodotto_carrello c "
-				+ "JOIN prodotto p ON c.prodotto = p.id_prodotto "
+				+ "JOIN variante_prodotto v ON c.variante = v.id_variante "
 				+ "WHERE c.utente = ?";
 		List<ProdottoCarrello> lista = new ArrayList<>();
 		
@@ -30,15 +31,17 @@ public class ProdottoCarrelloDAO {
 					prodottoCarrello.setUtente(idUtente);
 					prodottoCarrello.setQuantita(result.getInt("quantita"));
 					
-					Prodotto prod = new Prodotto();
-					prod.setIdProdotto(result.getLong("prodotto"));
-					prod.setNome(result.getString("nome"));
-					prod.setDescrizione(result.getString("descrizione"));
-					prod.setPrezzo(result.getFloat("prezzo"));
-					prod.setTaglia(result.getString("taglia"));
-					prod.setColore(result.getString("colore"));
+					VarianteProdotto variante = new VarianteProdotto();
+					variante.setIdVariante(result.getLong("variante"));
+					variante.setProdottoPadre(result.getLong("prodotto_padre"));
+					variante.setTaglia(result.getString("taglia"));
+					variante.setColore(result.getString("colore"));
+					variante.setColoreHex(result.getString("colore_hex"));
+					variante.setPrezzo(result.getFloat("prezzo"));
+					variante.setIva(result.getInt("iva"));
+					variante.setDisponibilita(result.getInt("disponibilita"));
 					
-					prodottoCarrello.setProdotto(prod);
+					prodottoCarrello.setVariante(variante);
 					lista.add(prodottoCarrello);
 				}
 			}
@@ -47,42 +50,42 @@ public class ProdottoCarrelloDAO {
 	}
 
 	public void doSave(ProdottoCarrello item) throws SQLException {
-	    String query = "INSERT INTO prodotto_carrello (utente, prodotto, quantita) VALUES (?, ?, ?) "
-	                 + "ON DUPLICATE KEY UPDATE quantita = quantita + VALUES(quantita)";
+	    String query = "INSERT INTO prodotto_carrello (utente, variante, quantita) VALUES (?, ?, ?) "
+	                 + "ON DUPLICATE KEY quantita = quantita + VALUES(quantita)";
 	    
 	    try (Connection connection = ConnectionPool.getConnection()){
 	         PreparedStatement preparedStatement = connection.prepareStatement(query);
 	        
 	        preparedStatement.setLong(1, item.getUtente());
-	        preparedStatement.setLong(2, item.getProdotto().getIdProdotto());
+	        preparedStatement.setLong(2, item.getVariante().getIdVariante());
 	        preparedStatement.setInt(3, item.getQuantita()); 
 	        
 	        preparedStatement.executeUpdate();
 	    }
 	}
 
-	public void doUpdate(Long idUtente, Long idProdotto, int nuovaQuantita) throws SQLException {
-		String query = "UPDATE prodotto_carrello SET quantita = ? WHERE utente = ? AND prodotto = ?";
+	public void doUpdate(Long idUtente, Long idVariante, int nuovaQuantita) throws SQLException {
+		String query = "UPDATE prodotto_carrello SET quantita = ? WHERE utente = ? AND variante = ?";
 		
 		try (Connection connection = ConnectionPool.getConnection()){
 			 PreparedStatement preparedStatement = connection.prepareStatement(query);
 			
 			preparedStatement.setInt(1, nuovaQuantita);
 			preparedStatement.setLong(2, idUtente);
-			preparedStatement.setLong(3, idProdotto);
+			preparedStatement.setLong(3, idVariante);
 			
 			preparedStatement.executeUpdate();
 		}
 	}
 
-	public void doDelete(Long idUtente, Long idProdotto) throws SQLException {
-		String query = "DELETE FROM prodotto_carrello WHERE utente = ? AND prodotto = ?";
+	public void doDelete(Long idUtente, Long idVariante) throws SQLException {
+		String query = "DELETE FROM prodotto_carrello WHERE utente = ? AND variante = ?";
 		
 		try (Connection connection = ConnectionPool.getConnection()) {
 			 PreparedStatement preparedStatement = connection.prepareStatement(query);
 			
 			preparedStatement.setLong(1, idUtente);
-			preparedStatement.setLong(2, idProdotto);
+			preparedStatement.setLong(2, idVariante);
 			
 			preparedStatement.executeUpdate();
 		}

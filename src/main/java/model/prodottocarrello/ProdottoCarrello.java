@@ -2,23 +2,22 @@ package model.prodottocarrello;
 
 import java.io.Serializable;
 
-import model.prodotto.Prodotto;
+import model.varianteprodotto.VarianteProdotto;
 
 public class ProdottoCarrello implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long utente;
-	private Prodotto prodotto;
+	private VarianteProdotto variante;
 	private int quantita;
 	
 	public ProdottoCarrello() {
-		
 	}
 	
-	public ProdottoCarrello(Long utente, Prodotto prodotto, int quantita) {
+	public ProdottoCarrello(Long utente, VarianteProdotto variante, int quantita) {
 		super();
 		this.utente = utente;
-		this.prodotto = prodotto;
+		this.variante = variante;
 		this.quantita = quantita;
 	}
 
@@ -30,12 +29,12 @@ public class ProdottoCarrello implements Serializable {
 		this.utente = utente;
 	}
 
-	public Prodotto getProdotto() {
-		return prodotto;
+	public VarianteProdotto getVariante() {
+		return variante;
 	}
 
-	public void setProdotto(Prodotto prodotto) {
-		this.prodotto = prodotto;
+	public void setVariante(VarianteProdotto variante) {
+		this.variante = variante;
 	}
 
 	public int getQuantita() {
@@ -48,6 +47,6 @@ public class ProdottoCarrello implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProdottoCarrello [utente=" + utente + ", prodotto=" + prodotto + ", quantita=" + quantita + "]";
+		return "ProdottoCarrello [utente=" + utente + ", variante=" + variante + ", quantita=" + quantita + "]";
 	}
 }

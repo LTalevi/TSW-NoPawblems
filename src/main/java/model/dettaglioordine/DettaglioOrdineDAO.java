@@ -10,16 +10,16 @@ import java.util.List;
 
 import model.ConnectionPool;
 import model.InterfaceDAO;
-import model.prodotto.Prodotto;
+import model.varianteprodotto.VarianteProdotto;
 
 public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 
 	@Override
 	public DettaglioOrdine doRetrieveByKey(Long key) throws SQLException {
-		String query = "SELECT d.*, p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, p.taglia, p.colore "
+		String query = "SELECT d.*, v.prodotto_padre, v.taglia, v.colore, v.colore_hex "
 				+ "FROM dettaglio_ordine d "
-				+ "JOIN prodotto p "
-				+ "ON d.prodotto = p.id_prodotto "
+				+ "JOIN variante_prodotto v "
+				+ "ON d.variante = v.id_variante "
 				+ "WHERE d.id_dettaglio_ordine = ?";
 		DettaglioOrdine dettaglioOrdine = null;
 		
@@ -34,14 +34,14 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 					dettaglioOrdine.setIdDettaglioOrdine(result.getLong("id_dettaglio_ordine"));
 					dettaglioOrdine.setOrdine(result.getLong("ordine"));
 					
-					Prodotto prodotto = new Prodotto();
-					prodotto.setIdProdotto(result.getLong("prodotto"));
-					prodotto.setNome(result.getString("nome_prodotto"));
-					prodotto.setDescrizione(result.getString("descrizione_prodotto"));
-					prodotto.setTaglia(result.getString("taglia"));
-					prodotto.setColore(result.getString("colore"));
+					VarianteProdotto variante = new VarianteProdotto();
+					variante.setIdVariante(result.getLong("variante"));
+					variante.setProdottoPadre(result.getLong("prodotto_padre"));
+					variante.setTaglia(result.getString("taglia"));
+					variante.setColore(result.getString("colore"));
+					variante.setColoreHex(result.getString("colore_hex"));
 					
-					dettaglioOrdine.setProdotto(prodotto);
+					dettaglioOrdine.setVariante(variante);
 					dettaglioOrdine.setQuantita(result.getInt("quantita"));
 					dettaglioOrdine.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
 					dettaglioOrdine.setIvaAcquisto(result.getInt("iva_acquisto"));
@@ -53,9 +53,9 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 
 	@Override
 	public List<DettaglioOrdine> doRetrieveAll() throws SQLException {
-		String query = "SELECT d.*, p.nome AS nome_prodotto, p.descrizione AS descrizione_prodotto, p.taglia, p.colore "
+		String query = "SELECT d.*, v.prodotto_padre, v.taglia, v.colore, v.colore_hex "
 				+ "FROM dettaglio_ordine d "
-				+ "JOIN prodotto p ON d.prodotto = p.id_prodotto";
+				+ "JOIN variante_prodotto v on d.variante = v.id_variante";
 		List<DettaglioOrdine> list = new ArrayList<DettaglioOrdine>();
 		DettaglioOrdine dettaglioOrdine = null;
 		
@@ -68,14 +68,14 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 					dettaglioOrdine.setIdDettaglioOrdine(result.getLong("id_dettaglio_ordine"));
 					dettaglioOrdine.setOrdine(result.getLong("ordine"));
 					
-					Prodotto prodotto = new Prodotto();
-					prodotto.setIdProdotto(result.getLong("prodotto"));
-					prodotto.setNome(result.getString("nome_prodotto"));
-					prodotto.setDescrizione(result.getString("descrizione_prodotto"));
-					prodotto.setTaglia(result.getString("taglia"));
-					prodotto.setColore(result.getString("colore"));
+					VarianteProdotto variante = new VarianteProdotto();
+					variante.setIdVariante(result.getLong("variante"));
+					variante.setProdottoPadre(result.getLong("prodotto_padre"));
+					variante.setTaglia(result.getString("taglia"));
+					variante.setColore(result.getString("colore"));
+					variante.setColoreHex(result.getString("colore_hex"));
 					
-					dettaglioOrdine.setProdotto(prodotto);
+					dettaglioOrdine.setVariante(variante);
 					dettaglioOrdine.setQuantita(result.getInt("quantita"));
 					dettaglioOrdine.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
 					dettaglioOrdine.setIvaAcquisto(result.getInt("iva_acquisto"));
@@ -89,13 +89,13 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 
 	@Override
 	public void doSave(DettaglioOrdine item) throws SQLException {
-		String query = "INSERT INTO dettaglio_ordine (ordine, prodotto, quantita, prezzo_acquisto, iva_acquisto) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO dettaglio_ordine (ordine, variante, quantita, prezzo_acquisto, iva_acquisto) VALUES (?, ?, ?, ?, ?)";
 		
 		try(Connection connection = ConnectionPool.getConnection()){
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			
 			preparedStatement.setLong(1, item.getOrdine());
-			preparedStatement.setLong(2, item.getProdotto().getIdProdotto());
+			preparedStatement.setLong(2, item.getVariante().getIdVariante());
 			preparedStatement.setInt(3, item.getQuantita());
 			preparedStatement.setFloat(4, item.getPrezzoAcquisto());
 			preparedStatement.setInt(5, item.getIvaAcquisto());
@@ -106,13 +106,13 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 
 	@Override
 	public void doUpdate(DettaglioOrdine item) throws SQLException {
-		String query = "UPDATE dettaglio_ordine SET	ordine = ?, prodotto = ?, quantita = ?, prezzo_acquisto = ?, iva_acquisto = ? WHERE id_dettaglio_ordine = ?";
+		String query = "UPDATE dettaglio_ordine SET ordine = ?, variante = ?, quantita = ?, prezzo_acquisto = ?, iva_acquisto = ? WHERE id_dettaglio_ordine = ?";
 		
 		try(Connection connection = ConnectionPool.getConnection()){
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			
 			preparedStatement.setLong(1, item.getOrdine());
-			preparedStatement.setLong(2, item.getProdotto().getIdProdotto());
+			preparedStatement.setLong(2, item.getVariante().getIdVariante());
 			preparedStatement.setInt(3, item.getQuantita());
 			preparedStatement.setFloat(4, item.getPrezzoAcquisto());
 			preparedStatement.setInt(5, item.getIvaAcquisto());
@@ -133,5 +133,43 @@ public class DettaglioOrdineDAO implements InterfaceDAO<DettaglioOrdine, Long> {
 			
 			preparedStatement.executeUpdate();
 		}
+	}
+	
+	public List<DettaglioOrdine> doRetrieveByOrdine(Long idOrdine) throws SQLException {
+		String query = "SELECT d.*, v.prodotto_padre, v.taglia, v.colore, v.colore_hex "
+				+ "FROM dettaglio_ordine d "
+				+ "JOIN variante_prodotto v "
+				+ "ON d.variante = v.id_variante "
+				+ "WHERE d.ordine = ?";
+		List<DettaglioOrdine> list = new ArrayList<DettaglioOrdine>();
+		DettaglioOrdine dettaglioOrdine = null;
+
+		try(Connection connection = ConnectionPool.getConnection()){
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setLong(1, idOrdine);
+
+			try(ResultSet result = preparedStatement.executeQuery()){
+				while(result.next()) {
+					dettaglioOrdine = new DettaglioOrdine();
+					dettaglioOrdine.setIdDettaglioOrdine(result.getLong("id_dettaglio_ordine"));
+					dettaglioOrdine.setOrdine(result.getLong("ordine"));
+
+					VarianteProdotto variante = new VarianteProdotto();
+					variante.setIdVariante(result.getLong("variante"));
+					variante.setProdottoPadre(result.getLong("prodotto_padre"));
+					variante.setTaglia(result.getString("taglia"));
+					variante.setColore(result.getString("colore"));
+					variante.setColoreHex(result.getString("colore_hex"));
+					
+					dettaglioOrdine.setVariante(variante);
+					dettaglioOrdine.setQuantita(result.getInt("quantita"));
+					dettaglioOrdine.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
+					dettaglioOrdine.setIvaAcquisto(result.getInt("iva_acquisto"));
+
+					list.add(dettaglioOrdine);
+				}
+			}
+		}
+		return list;
 	}
 }

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import model.utente.Utente;
 
-@WebFilter("/AdminFilter")
+@WebFilter("/admin/*")
 public class AdminFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
        

@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.categoria.Categoria;
 import model.immagine.Immagine;
+import model.varianteprodotto.VarianteProdotto;
 
 public class Prodotto implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -14,40 +15,33 @@ public class Prodotto implements Serializable {
 	private Categoria categoria;
 	private String nome;
 	private String descrizione;
-	private String taglia;
-	private String colore;
-	private float prezzo;
-	private int iva;
-	private int disponibilita;
 	private boolean isActive;
 	private List<Immagine> immagini;
+	private List<VarianteProdotto> varianti; 
 	
 	public Prodotto() {
-		
+		immagini = new ArrayList<>();
+		varianti = new ArrayList<>();
 	}
 	
-	public Prodotto(long idProdotto, Categoria categoria, String nome, String descrizione, String taglia, String colore,
-			float prezzo, int iva, int disponibilita, boolean isActive, List<Immagine> immagini) {
+	public Prodotto(long idProdotto, Categoria categoria, String nome, String descrizione, boolean isActive, 
+			List<Immagine> immagini, List<VarianteProdotto> varianti) {
 		super();
 		this.idProdotto = idProdotto;
 		this.categoria = categoria;
 		this.nome = nome;
 		this.descrizione = descrizione;
-		this.taglia = taglia;
-		this.colore = colore;
-		this.prezzo = prezzo;
-		this.iva = iva;
-		this.disponibilita = disponibilita;
 		this.isActive = isActive;
 		this.immagini = immagini != null ? immagini : new ArrayList<>();
+		this.varianti = varianti != null ? varianti : new ArrayList<>();
 	}
 
 	public long getIdProdotto() {
 		return idProdotto;
 	}
 
-	public void setIdProdotto(long id_prodotto) {
-		this.idProdotto = id_prodotto;
+	public void setIdProdotto(long idProdotto) {
+		this.idProdotto = idProdotto;
 	}
 
 	public Categoria getCategoria() {
@@ -74,46 +68,6 @@ public class Prodotto implements Serializable {
 		this.descrizione = descrizione;
 	}
 
-	public String getTaglia() {
-		return taglia;
-	}
-
-	public void setTaglia(String taglia) {
-		this.taglia = taglia;
-	}
-
-	public String getColore() {
-		return colore;
-	}
-
-	public void setColore(String colore) {
-		this.colore = colore;
-	}
-
-	public float getPrezzo() {
-		return prezzo;
-	}
-
-	public void setPrezzo(float prezzo) {
-		this.prezzo = prezzo;
-	}
-
-	public int getIva() {
-		return iva;
-	}
-
-	public void setIva(int iva) {
-		this.iva = iva;
-	}
-
-	public int getDisponibilita() {
-		return disponibilita;
-	}
-
-	public void setDisponibilita(int disponibilita) {
-		this.disponibilita = disponibilita;
-	}
-
 	public boolean isActive() {
 		return isActive;
 	}
@@ -130,10 +84,17 @@ public class Prodotto implements Serializable {
 		this.immagini = immagini;
 	}
 
+	public List<VarianteProdotto> getVarianti() {
+		return varianti;
+	}
+
+	public void setVarianti(List<VarianteProdotto> varianti) {
+		this.varianti = varianti;
+	}
+
 	@Override
 	public String toString() {
 		return "Prodotto [idProdotto=" + idProdotto + ", categoria=" + categoria + ", nome=" + nome + ", descrizione="
-				+ descrizione + ", taglia=" + taglia + ", colore=" + colore + ", prezzo=" + prezzo + ", iva=" + iva
-				+ ", disponibilita=" + disponibilita + ", isActive=" + isActive + ", immagini=" + immagini + "]";
+				+ descrizione + ", isActive=" + isActive + ", immagini=" + immagini + ", varianti=" + varianti + "]";
 	}
 }
