@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,7 +14,6 @@ import java.util.Map;
 import model.ConnectionPool;
 import model.InterfaceDAO;
 import model.dettaglioordine.DettaglioOrdine;
-import model.indirizzo.Indirizzo;
 import model.prodottocarrello.ProdottoCarrello;
 import model.varianteprodotto.VarianteProdotto;
 
@@ -354,5 +354,74 @@ public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 	            connection.setAutoCommit(true);
 	        }
 	    }
+	}
+	
+	public List<Ordine> doRetrieveByDateInterval(LocalDateTime inizioDateTime, LocalDateTime fineDateTime) throws SQLException {
+		String query = "SELECT o.*, d.id_dettaglio_ordine, d.variante, d.quantita, d.prezzo_acquisto, d.iva_acquisto, "
+				+ "v.prodotto_padre, v.taglia, v.colore, v.colore_hex, "
+				+ "p.nome as nome_prodotto, p.descrizione as descrizione_prodotto "
+				+ "FROM ordine o "
+				+ "LEFT JOIN dettaglio_ordine d ON o.id_ordine = d.ordine "
+				+ "LEFT JOIN variante_prodotto v ON d.variante = v.id_variante "
+				+ "LEFT JOIN prodotto p ON v.prodotto_padre = p.id_prodotto "
+				+ "WHERE o.data_ordine BETWEEN ? AND ? "
+				+ "ORDER BY o.id_ordine DESC";
+				
+		Map<Long, Ordine> mappaOrdini = new LinkedHashMap<>();
+		
+		try (Connection connection = ConnectionPool.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setTimestamp(1, java.sql.Timestamp.valueOf(inizioDateTime));
+			preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(fineDateTime));
+			
+			try (ResultSet result = preparedStatement.executeQuery()) {
+				while (result.next()) {
+					long idOrdine = result.getLong("id_ordine");
+					Ordine ordine = mappaOrdini.get(idOrdine);
+
+					if (ordine == null) {
+						ordine = new Ordine();
+						ordine.setIdOrdine(idOrdine);
+						ordine.setUtente(result.getLong("utente"));
+						ordine.setViaSpedizione(result.getString("via_spedizione"));
+						ordine.setCittaSpedizione(result.getString("citta_spedizione"));
+						ordine.setCapSpedizione(result.getString("cap_spedizione"));
+						ordine.setProvinciaSpedizione(result.getString("provincia_spedizione"));
+						ordine.setNazioneSpedizione(result.getString("nazione_spedizione"));
+						java.sql.Timestamp timestamp = result.getTimestamp("data_ordine");
+						if (timestamp != null) {
+							ordine.setDataOrdine(timestamp.toLocalDateTime());
+						}
+						ordine.setStato(result.getString("stato"));
+						ordine.setTotale(result.getFloat("totale"));
+						ordine.setNumeroFattura(result.getString("numero_fattura"));
+						
+						mappaOrdini.put(idOrdine, ordine);
+					}
+					
+					long idDettaglio = result.getLong("id_dettaglio_ordine");
+					if (idDettaglio != 0 && !result.wasNull()) {
+						DettaglioOrdine dettaglio = new DettaglioOrdine();
+						dettaglio.setIdDettaglioOrdine(idDettaglio);
+						dettaglio.setOrdine(idOrdine);
+						dettaglio.setQuantita(result.getInt("quantita"));
+						dettaglio.setPrezzoAcquisto(result.getFloat("prezzo_acquisto"));
+						dettaglio.setIvaAcquisto(result.getInt("iva_acquisto"));
+						
+						VarianteProdotto variante = new VarianteProdotto();
+						variante.setIdVariante(result.getLong("variante"));
+						variante.setProdottoPadre(result.getLong("prodotto_padre"));
+						variante.setTaglia(result.getString("taglia"));
+						variante.setColore(result.getString("colore"));
+						variante.setColoreHex(result.getString("colore_hex"));
+						
+						dettaglio.setVariante(variante);
+						ordine.getDettagli().add(dettaglio);
+					}
+				}
+			}
+		}
+		return new ArrayList<>(mappaOrdini.values());
 	}
 }

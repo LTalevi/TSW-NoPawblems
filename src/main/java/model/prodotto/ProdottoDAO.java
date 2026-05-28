@@ -215,7 +215,7 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 
 	@Override
 	public void doDelete(Long key) throws SQLException {
-		String query = "DELETE FROM prodotto WHERE id_prodotto = ?";
+		String query = "UPDATE prodotto SET attivo = false WHERE id_prodotto = ?";
 		
 		try(Connection connection = ConnectionPool.getConnection()){
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
