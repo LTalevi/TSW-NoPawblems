@@ -12,14 +12,13 @@ public class Indirizzo implements Serializable{
 	private String cap;
 	private String provincia;
 	private String nazione;
-	private boolean isActive;
 	
 	public Indirizzo() {
 		
 	}
 	
 	public Indirizzo(long idIndirizzo, long utente, String via, String citta, String cap, String provincia,
-			String nazione, boolean isActive) {
+			String nazione) {
 		super();
 		this.idIndirizzo = idIndirizzo;
 		this.utente = utente;
@@ -28,7 +27,6 @@ public class Indirizzo implements Serializable{
 		this.cap = cap;
 		this.provincia = provincia;
 		this.nazione = nazione;
-		this.isActive = isActive;
 	}
 
 	public long getIdIndirizzo() {
@@ -87,17 +85,9 @@ public class Indirizzo implements Serializable{
 		this.nazione = nazione;
 	}
 
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
 	@Override
 	public String toString() {
 		return "Indirizzo [idIndirizzo=" + idIndirizzo + ", utente=" + utente + ", via=" + via + ", citta=" + citta
-				+ ", cap=" + cap + ", provincia=" + provincia + ", nazione=" + nazione + ", isActive=" + isActive + "]";
+				+ ", cap=" + cap + ", provincia=" + provincia + ", nazione=" + nazione + "]";
 	}
 }

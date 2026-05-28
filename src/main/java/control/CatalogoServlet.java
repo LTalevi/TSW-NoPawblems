@@ -23,12 +23,14 @@ public class CatalogoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idCategoriaParam = request.getParameter("idCategoria");
+		String idPadreParam = request.getParameter("idPadre");
 		String prezzoMinParam = request.getParameter("prezzoMin");
 		String prezzoMaxParam = request.getParameter("prezzoMax");
 		String ricerca = request.getParameter("ricerca");
 		String ordinamento = request.getParameter("ordinamento"); 
 
 		Long idCategoria = null;
+		Long idPadre = null;
 		Float prezzoMin = null;
 		Float prezzoMax = null;
 		
@@ -37,6 +39,14 @@ public class CatalogoServlet extends HttpServlet {
 				idCategoria = Long.parseLong(idCategoriaParam);
 			} catch (NumberFormatException e) {
 				idCategoria = null; 
+			}
+		}
+		
+		if (idPadreParam != null && !idPadreParam.trim().isEmpty()) {
+			try {
+				idPadre = Long.parseLong(idPadreParam);
+			} catch (NumberFormatException e) {
+				idPadre = null; 
 			}
 		}
 		
@@ -59,14 +69,15 @@ public class CatalogoServlet extends HttpServlet {
 		ProdottoDAO prodottoDAO = new ProdottoDAO();
 		
 		try {
-			List<Prodotto> catalogo = prodottoDAO.doRetrieveByFilter(idCategoria, prezzoMin, prezzoMax, ricerca, ordinamento);
+			List<Prodotto> catalogo = prodottoDAO.doRetrieveByFilter(idCategoria, idPadre, prezzoMin, prezzoMax, ricerca, ordinamento);
 			
 			request.setAttribute("prodotti", catalogo);
-			request.setAttribute("idCategoriaSelezionata", idCategoria);
-			request.setAttribute("prezzoMinInserito", prezzoMin);
-			request.setAttribute("prezzoMaxInserito", prezzoMax);
-			request.setAttribute("ricercaInserita", ricerca);
-			request.setAttribute("ordinamentoSelezionato", ordinamento);
+			request.setAttribute("idCategoria", idCategoria);
+			request.setAttribute("idPadre", idPadre);
+			request.setAttribute("prezzoMin", prezzoMin);
+			request.setAttribute("prezzoMax", prezzoMax);
+			request.setAttribute("ricerca", ricerca);
+			request.setAttribute("ordinamento", ordinamento);
 		} catch (SQLException s){
 			s.printStackTrace();
 			request.setAttribute("error", "Errore nella ricerca dei prodotti: " + s.getMessage());

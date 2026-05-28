@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/admin/*")
-public class AutenticazioneFilter extends HttpFilter implements Filter {
+@WebFilter("/user/*")
+public class LoginFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
        
-    public AutenticazioneFilter() {
+    public LoginFilter() {
         super();
     }
 
@@ -32,7 +32,8 @@ public class AutenticazioneFilter extends HttpFilter implements Filter {
 		HttpSession session = httpRequest.getSession(false);
 		
 		if (session == null || session.getAttribute("utente") == null) {
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/LoginServlet");
+
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/LoginServlet?errore=auth");
 			return;
 		} 
 		

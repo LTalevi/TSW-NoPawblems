@@ -13,6 +13,8 @@ import java.util.Map;
 import model.ConnectionPool;
 import model.InterfaceDAO;
 import model.dettaglioordine.DettaglioOrdine;
+import model.indirizzo.Indirizzo;
+import model.prodottocarrello.ProdottoCarrello;
 import model.varianteprodotto.VarianteProdotto;
 
 public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
@@ -284,5 +286,73 @@ public class OrdineDAO implements InterfaceDAO<Ordine, Long> {
 			}
 		}
 		return new ArrayList<>(mappaOrdini.values());
+	}
+	
+	public void doSaveOrdineCompleto(Ordine ordine, List<ProdottoCarrello> carrello) throws SQLException {
+	    String queryOrdine = "INSERT INTO ordine (utente, via_spedizione, citta_spedizione, cap_spedizione, provincia_spedizione, nazione_spedizione, data_ordine, stato, totale, numero_fattura) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	    String queryDettaglio = "INSERT INTO dettaglio_ordine (ordine, variante, quantita, prezzo_acquisto, iva_acquisto) VALUES (?,?,?,?,?)";
+	    String queryVariante = "UPDATE variante_prodotto SET disponibilita = disponibilita - ? WHERE id_variante = ? AND disponibilita >= ?";
+
+	    try (Connection connection = ConnectionPool.getConnection()) {
+	        connection.setAutoCommit(false);
+
+	        try {
+	            try (PreparedStatement preparedStatementOrdine = connection.prepareStatement(queryOrdine, Statement.RETURN_GENERATED_KEYS)) {
+	                preparedStatementOrdine.setLong(1, ordine.getUtente());
+	                preparedStatementOrdine.setString(2, ordine.getViaSpedizione());
+	                preparedStatementOrdine.setString(3, ordine.getCittaSpedizione());
+	                preparedStatementOrdine.setString(4, ordine.getCapSpedizione());
+	                preparedStatementOrdine.setString(5, ordine.getProvinciaSpedizione());
+	                preparedStatementOrdine.setString(6, ordine.getNazioneSpedizione());
+	                if (ordine.getDataOrdine() != null) {
+	    			    preparedStatementOrdine.setTimestamp(7, java.sql.Timestamp.valueOf(ordine.getDataOrdine()));
+	    			} else {
+	    			    preparedStatementOrdine.setNull(7, java.sql.Types.TIMESTAMP);
+	    			}
+	                preparedStatementOrdine.setString(8, ordine.getStato());
+	                preparedStatementOrdine.setFloat(9, ordine.getTotale());
+	                preparedStatementOrdine.setString(10, ordine.getNumeroFattura());
+	                
+	                preparedStatementOrdine.executeUpdate();
+
+	                try (ResultSet generatedKeys = preparedStatementOrdine.getGeneratedKeys()) {
+	                    if (generatedKeys.next()) {
+	                        ordine.setIdOrdine(generatedKeys.getLong(1));
+	                    } else {
+	                        throw new SQLException("Errore creazione ordine: ID non generato.");
+	                    }
+	                }
+	            }
+
+	            try (PreparedStatement preparedStatementDettaglio = connection.prepareStatement(queryDettaglio);
+	                 PreparedStatement preparedStatementVariante = connection.prepareStatement(queryVariante)) {
+	                
+	                for (ProdottoCarrello item : carrello) {
+	                    preparedStatementVariante.setInt(1, item.getQuantita());
+	                    preparedStatementVariante.setLong(2, item.getVariante().getIdVariante());
+	                    preparedStatementVariante.setInt(3, item.getQuantita());
+	                    
+	                    int righeAggiornate = preparedStatementVariante.executeUpdate();
+	                    if (righeAggiornate == 0) {
+	                        throw new SQLException("Prodotto esaurito o non disponibile a magazzino per la variante ID: " + item.getVariante().getIdVariante());
+	                    }
+
+	                    preparedStatementDettaglio.setLong(1, ordine.getIdOrdine());
+	                    preparedStatementDettaglio.setLong(2, item.getVariante().getIdVariante());
+	                    preparedStatementDettaglio.setInt(3, item.getQuantita());
+	                    preparedStatementDettaglio.setFloat(4, item.getVariante().getPrezzo());
+	                    preparedStatementDettaglio.setInt(5, item.getVariante().getIva());
+	                    preparedStatementDettaglio.executeUpdate();
+	                }
+	            }
+	            connection.commit();
+
+	        } catch (SQLException s) {
+	            connection.rollback();
+	            throw s; 
+	        } finally {
+	            connection.setAutoCommit(true);
+	        }
+	    }
 	}
 }

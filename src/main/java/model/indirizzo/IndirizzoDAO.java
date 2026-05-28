@@ -115,5 +115,31 @@ public class IndirizzoDAO implements InterfaceDAO<Indirizzo, Long> {
 			preparedStatement.executeUpdate();
 		}
 	}
-
+	
+	public List<Indirizzo> doRetrieveByUtente(Long idUtente) throws SQLException {
+		String query = "SELECT * FROM indirizzo WHERE utente = ?";
+		List<Indirizzo> list = new ArrayList<Indirizzo>();
+		
+		try (Connection connection = ConnectionPool.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setLong(1, idUtente);
+			
+			try (ResultSet result = preparedStatement.executeQuery()) {
+				while (result.next()) {
+					Indirizzo indirizzo = new Indirizzo();
+					indirizzo.setIdIndirizzo(result.getLong("id_indirizzo"));
+					indirizzo.setUtente(result.getLong("utente"));
+					indirizzo.setVia(result.getString("via"));
+					indirizzo.setCitta(result.getString("citta"));
+					indirizzo.setCap(result.getString("cap"));
+					indirizzo.setProvincia(result.getString("provincia"));
+					indirizzo.setNazione(result.getString("nazione"));
+					
+					list.add(indirizzo);
+				}
+			}
+		}
+		return list;
+	}
 }

@@ -106,7 +106,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			System.err.println("Errore durante l'accesso al database" + s.getMessage());
 			errorMap.put("serverError", "Errore interno del server");
             request.setAttribute("errorMap", errorMap);
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.getRequestDispatcher("registrazione.jsp").forward(request, response);
 		}
 	}
 }

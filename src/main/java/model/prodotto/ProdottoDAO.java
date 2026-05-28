@@ -226,7 +226,7 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 		}
 	}
 	
-	public List<Prodotto> doRetrieveByFilter(Long idCategoria, Float prezzoMin, Float prezzoMax, String ricerca, String ordinamento) throws SQLException {
+	public List<Prodotto> doRetrieveByFilter(Long idCategoria, Long idPadre, Float prezzoMin, Float prezzoMax, String ricerca, String ordinamento) throws SQLException {
 		String query = "SELECT DISTINCT p.*, "
 				+ "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
 				+ "v.id_variante, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita, "
@@ -242,6 +242,11 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 		if (idCategoria != null && idCategoria > 0) {
 			query += " AND p.categoria = ?";
 			parametri.add(idCategoria);
+		}
+		
+		if (idPadre != null && idPadre > 0) {
+			query += " AND c.id_padre = ?";
+			parametri.add(idPadre);
 		}
 		
 		if (prezzoMin != null && prezzoMin >= 0) {
@@ -269,6 +274,9 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 					break;
 				case "nomeAZ":
 					query += " ORDER BY p.nome ASC";
+					break;
+				case "nomeZA":
+					query += " ORDER BY p.nome DESC";
 					break;
 				default:
 					query += " ORDER BY p.id_prodotto ASC"; 
