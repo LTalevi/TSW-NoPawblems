@@ -129,19 +129,19 @@ nav {
 
 .logo_navbar {
 	display: flex;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
 	justify-content: center;
 	align-items: center;
 	width: 170px;
 	height: 60px;
 	overflow: hidden;
-	margin: 0;
+	margin: 0 auto;
 	cursor: pointer;
+	flex: 0 0 auto;
 
 	background-color: transparent;
 	text-decoration: none;
+	
+	transition: all 0.4s ease-in-out;
 }
 
 .logo_navbar img {
@@ -244,25 +244,40 @@ nav {
 }
 
 .toggle_menu {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+  	height: 65px;
+  	width: 40px;
+}
+
+.toggle_menu button {
 	width: 40px;
   	height: 40px;
   	padding: 0;
   	cursor: pointer;
+  	display: inline-flex;    
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	z-index: 2;
   	
 	color: var(--secondary-text-color);
 	background-color: var(--primary-color);
 	border: none;	
 }
 
-.toggle_menu:hover {
+.toggle_menu button:hover {
 	color: var(--primary-color);
 	background-color: var(--background-color);
-	
+
 	border-radius: 50%;
 }
 
 .sezioni_navbar {
 	display: flex;
+	justify-content: flex-end;
 	gap: 15px;
 	align-items: center;
 }
@@ -287,6 +302,60 @@ nav {
 	
 	border-radius: 50%;
 }
+
+.search_wrapper {
+	position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: 2px solid transparent;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.search_wrapper.active {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+    padding: 0; 
+}
+
+.input_search {
+	opacity: 0;
+	width: 0;
+	height: 100%;
+	border: none;
+	padding: 0;
+	outline: none;
+	font-family: var(--font-family);
+	font-size: 14px;
+	margin: 0;
+	
+	background: transparent;
+	color: var(--primary-text-color);
+	transition: width 0.4s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.search_wrapper.active .input_search {
+	width: 400px;
+	opacity: 1;
+	padding: 0 15px;
+}
+
+.input.search .cerca {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    z-index: 2;
+}
+
 
 .arrow_button {
 	position: absolute;
