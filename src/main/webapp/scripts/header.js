@@ -6,7 +6,7 @@ const loadingBar = document.getElementById("loading_bar");
 
 
 function trackUpdate(){
-	track.style.transform = `translateX(-${(numSlide*100)/6}%)`;
+	track.style.transform = `translateX(-${numSlide * 100}%)`;
 }
 
 function nextSlide(){

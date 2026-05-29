@@ -53,17 +53,24 @@ header {
 
 .slideshow {
 	display: flex;
+	flex-wrap: nowrap; 
 	height: 100%;
-	width: 600%;
-	
+	width: 100%;
 	transition: transform 0.5s ease-in-out;
 }
 
 .slide {
-	flex-shrink: 0;
-	width: calc(100% / 6);
+	flex: 0 0 100%;    
+	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	display: block;    
+}
+
+.slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; 
+	display: block;
 }
 
 .loading_bar_container {

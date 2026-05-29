@@ -1,5 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.prodotto.Prodotto" %>
+
+<%
+	List<Prodotto> prodottiOfferta = (List<Prodotto>) request.getAttribute("prodottiOfferta");
+	List<Prodotto> prodottiCane = (List<Prodotto>) request.getAttribute("prodottiCane");
+	List<Prodotto> prodottiGatto = (List<Prodotto>) request.getAttribute("prodottiGatto");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -14,13 +22,14 @@
 </head>
 
 <body>
+	<jsp:include page="Nav.jsp"/>
 	<jsp:include page="Header.jsp"/>
 	
 	<main class="main-content-wrapper">
 	
-		<section class="best-sellers">
+		<section class="prodotti-cane">
 			<div class="titolo-blocco">
-				<h2>Best-Sellers</h2>
+				<h2>Prodotti Cane</h2>
 			</div>
 			
 			<div class="blocco-immagine-testo">
@@ -28,7 +37,8 @@
 				<button class="arrow_button prev" aria-label="prodotto precedente">
 	    			<i class="material-icons">keyboard_arrow_left</i>
 	  			</button>
-	  
+	  	
+	  			
 				<div class="testo-laterale">
 					<div class="descrizione-prodotto-homepage">
 						<h3></h3>
@@ -49,9 +59,9 @@
 			</div>
 		</section>
 		
-		<section class="promo">
+		<section class="prodotti-gatto">
 			<div class="titolo-blocco">
-				<h2>Promozioni</h2>
+				<h2>Prodotti Gatto</h2>
 			</div>
 			
 			<div class="blocco-immagine-testo">

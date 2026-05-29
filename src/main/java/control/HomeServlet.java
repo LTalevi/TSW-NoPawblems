@@ -18,7 +18,7 @@ import model.prodottocarrello.ProdottoCarrello;
 import model.prodottocarrello.ProdottoCarrelloDAO;
 import model.utente.Utente;
 
-@WebServlet("/HomeServlet")
+@WebServlet(name = "HomeServlet", urlPatterns = {"", "/HomeServlet"})
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -64,7 +64,7 @@ public class HomeServlet extends HttpServlet {
 		List<Prodotto> prodottiGatto = null;
 		
 		try {
-			prodottiOfferta = prodottoDAO.doRetrieveByFilter(null, null, 50f, null, null, "prezzoCrescente");
+			prodottiOfferta = prodottoDAO.doRetrieveByFilter(null, null, null, 50f, null, "prezzoCrescente");
 			prodottiCane = prodottoDAO.doRetrieveByFilter(null, 1l, null, null, null, "nomeAZ");
 			prodottiGatto = prodottoDAO.doRetrieveByFilter(null, 2l, null, null, null, null);
 		} catch (SQLException s) {
@@ -80,7 +80,7 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("prodottiCane", prodottiCane);
 		request.setAttribute("prodottiGatto", prodottiGatto);
 		
-		request.getRequestDispatcher("home.jsp").forward(request, response);
+		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
