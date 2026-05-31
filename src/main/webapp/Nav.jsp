@@ -7,7 +7,7 @@
 		<jsp:include page="Menu.jsp"/>	
 	</div>
 
-	<a href="Home.jsp" class="logo_navbar" aria-label="Torna alla homepage">
+	<a href="<%= request.getContextPath() %>/HomeServlet" class="logo_navbar" aria-label="Torna alla homepage">
 		<img src="img/logo/logo_NoPawblems_esteso.jpeg" alt="Logo NoPawblems">
 	</a>
 	

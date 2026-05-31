@@ -18,159 +18,174 @@ import model.varianteprodotto.VarianteProdotto;
 
 public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 
-	@Override
-	public Prodotto doRetrieveByKey(Long key) throws SQLException {
-		String query = "SELECT p.*, "
-				+ "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
-				+ "v.id_variante, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita, "
-				+ "i.id_immagine, i.url, i.alt "
-				+ "FROM prodotto p "
-				+ "JOIN categoria c ON p.categoria = c.id_categoria "
-				+ "LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
-				+ "LEFT JOIN immagine i ON p.id_prodotto = i.prodotto "
-				+ "WHERE p.id_prodotto = ?";
-		
-		Prodotto prodotto = null;
-		Map<Long, VarianteProdotto> mappaVarianti = new LinkedHashMap<>();
-		Map<Long, Immagine> mappaImmagini = new LinkedHashMap<>();
-		
-		try(Connection connection = ConnectionPool.getConnection()){
-			PreparedStatement preparedStatement = connection.prepareStatement(query);
-			
-			preparedStatement.setLong(1, key);
-			
-			try(ResultSet result = preparedStatement.executeQuery()){
-				while(result.next()) {			
-					if (prodotto == null) {
-						prodotto = new Prodotto();
-						prodotto.setIdProdotto(result.getLong("id_prodotto"));
-						prodotto.setNome(result.getString("nome"));
-						prodotto.setDescrizione(result.getString("descrizione"));
-						prodotto.setActive(result.getBoolean("attivo"));
-					
-						Categoria categoria = new Categoria();
-						categoria.setIdCategoria(result.getLong("id_categoria"));
-						categoria.setIdPadre(result.getLong("id_padre"));
-						categoria.setNome(result.getString("nome_categoria"));
-						categoria.setDescrizione(result.getString("descrizione_categoria"));
-					
-						prodotto.setCategoria(categoria);
-					}
+	 @Override
+	    public Prodotto doRetrieveByKey(Long key) throws SQLException {
+		 	String queryProdotto = "SELECT p.*, c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria "
+			        + "FROM prodotto p "
+			        + "JOIN categoria c ON p.categoria = c.id_categoria "
+			        + "WHERE p.id_prodotto = ? AND p.attivo = true";
+	        String queryVarianti = "SELECT * FROM variante_prodotto WHERE prodotto_padre = ?";
+	        String queryImmagini = "SELECT * FROM immagine WHERE prodotto = ?";
+	        Prodotto prodotto = null;
+	        
 
-					long idVariante = result.getLong("id_variante");
-					if (idVariante != 0 && !result.wasNull() && !mappaVarianti.containsKey(idVariante)) {
-						VarianteProdotto variante = new VarianteProdotto();
-						variante.setIdVariante(idVariante);
-						variante.setProdottoPadre(prodotto.getIdProdotto());
-						variante.setTaglia(result.getString("taglia"));
-						variante.setColore(result.getString("colore"));
-						variante.setColoreHex(result.getString("colore_hex"));
-						variante.setPrezzo(result.getFloat("prezzo"));
-						variante.setIva(result.getInt("iva"));
-						variante.setDisponibilita(result.getInt("disponibilita"));
-						
-						mappaVarianti.put(idVariante, variante);
-						prodotto.getVarianti().add(variante);
-					}
+	        try (Connection connection = ConnectionPool.getConnection()){
+	            PreparedStatement preparedStatement = connection.prepareStatement(queryProdotto);
+	             
+	            preparedStatement.setLong(1, key);
+	            try (ResultSet result = preparedStatement.executeQuery()) {
+	                if (result.next()) {
+	                    prodotto = new Prodotto();
+	                    prodotto.setIdProdotto(result.getLong("id_prodotto"));
+	                    prodotto.setNome(result.getString("nome"));
+	                    prodotto.setDescrizione(result.getString("descrizione"));
+	                    prodotto.setActive(result.getBoolean("attivo"));
 
-					long idImmagine = result.getLong("id_immagine");
-					if (idImmagine != 0 && !result.wasNull() && !mappaImmagini.containsKey(idImmagine)) {
-						Immagine immagine = new Immagine();
-						immagine.setIdImmagine(idImmagine);
-						immagine.setUrl(result.getString("url"));
-						immagine.setAlt(result.getString("alt"));
-						
-						mappaImmagini.put(idImmagine, immagine);
-						prodotto.getImmagini().add(immagine);
-					}
-				}
-			}
-		}
-		return prodotto;
-	}
+	                    Categoria categoria = new Categoria();
+	                    categoria.setIdCategoria(result.getLong("id_categoria"));
+	                    categoria.setIdPadre(result.getLong("id_padre"));
+	                    categoria.setNome(result.getString("nome_categoria"));
+	                    categoria.setDescrizione(result.getString("descrizione_categoria"));
 
-	@Override
-	public List<Prodotto> doRetrieveAll() throws SQLException {
-		String query = "SELECT p.*, "
-				+ "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
-				+ "v.id_variante, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita, "
-				+ "i.id_immagine, i.url, i.alt "
-				+ "FROM prodotto p "
-				+ "JOIN categoria c ON p.categoria = c.id_categoria "
-				+ "LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
-				+ "LEFT JOIN immagine i ON p.id_prodotto = i.prodotto "
-				+ "ORDER BY p.id_prodotto";
-		
-		Map<Long, Prodotto> mappaProdotti = new LinkedHashMap<>();
-		Map<Long, Map<Long, VarianteProdotto>> variantiPerProdotto = new LinkedHashMap<>();
-		Map<Long, Map<Long, Immagine>> immaginiPerProdotto = new LinkedHashMap<>();
-		
-		try(Connection connection = ConnectionPool.getConnection()){
-			Statement statement = connection.createStatement();
-			
-			try(ResultSet result = statement.executeQuery(query)){
-				while(result.next()) {
-					long idProdotto = result.getLong("id_prodotto");
+	                    prodotto.setCategoria(categoria);
+	                }
+	            }
+	        }
 
-					Prodotto prodotto = mappaProdotti.get(idProdotto);
-					
-					if (prodotto == null) {
-						prodotto = new Prodotto();
-						prodotto.setIdProdotto(idProdotto);
-						prodotto.setNome(result.getString("nome"));
-						prodotto.setDescrizione(result.getString("descrizione"));
-						prodotto.setActive(result.getBoolean("attivo"));
-					
-						Categoria categoria = new Categoria();
-						categoria.setIdCategoria(result.getLong("id_categoria"));
-						categoria.setIdPadre(result.getLong("id_padre")); 
-						categoria.setNome(result.getString("nome_categoria"));
-						categoria.setDescrizione(result.getString("descrizione_categoria")); 
-					
-						prodotto.setCategoria(categoria);
-						mappaProdotti.put(idProdotto, prodotto);
-						
-						variantiPerProdotto.put(idProdotto, new LinkedHashMap<>());
-						immaginiPerProdotto.put(idProdotto, new LinkedHashMap<>());
-					}
+	        if (prodotto == null) {
+	            return null; 
+	        }
+	        
+	        try (Connection connection = ConnectionPool.getConnection()){
+	            PreparedStatement preparedStatement = connection.prepareStatement(queryVarianti);
+	             
+	            preparedStatement.setLong(1, key);
+	            try (ResultSet result = preparedStatement.executeQuery()) {
+	                while (result.next()) {
+	                    VarianteProdotto variante = new VarianteProdotto();
+	                    variante.setIdVariante(result.getLong("id_variante"));
+	                    variante.setProdottoPadre(key);
+	                    variante.setTaglia(result.getString("taglia"));
+	                    variante.setColore(result.getString("colore"));
+	                    variante.setColoreHex(result.getString("colore_hex"));
+	                    variante.setPrezzo(result.getFloat("prezzo"));
+	                    variante.setIva(result.getInt("iva"));
+	                    variante.setDisponibilita(result.getInt("disponibilita"));
+	                    
+	                    prodotto.getVarianti().add(variante);
+	                }
+	            }
+	        }
 
-					long idVariante = result.getLong("id_variante");
-					if (idVariante != 0 && !result.wasNull()) {
-						Map<Long, VarianteProdotto> mappaVar = variantiPerProdotto.get(idProdotto);
-						if(!mappaVar.containsKey(idVariante)) {
-							VarianteProdotto variante = new VarianteProdotto();
-							variante.setIdVariante(idVariante);
-							variante.setProdottoPadre(idProdotto);
-							variante.setTaglia(result.getString("taglia"));
-							variante.setColore(result.getString("colore"));
-							variante.setColoreHex(result.getString("colore_hex"));
-							variante.setPrezzo(result.getFloat("prezzo"));
-							variante.setIva(result.getInt("iva"));
-							variante.setDisponibilita(result.getInt("disponibilita"));
-							
-							mappaVar.put(idVariante, variante);
-							prodotto.getVarianti().add(variante);
-						}
-					}
+	        try (Connection connection = ConnectionPool.getConnection()){
+	            PreparedStatement preparedStatement = connection.prepareStatement(queryImmagini);
+	             
+	            preparedStatement.setLong(1, key);
+	            try (ResultSet result = preparedStatement.executeQuery()) {
+	                while (result.next()) {
+	                    Immagine immagine = new Immagine();
+	                    immagine.setIdImmagine(result.getLong("id_immagine"));
+	                    immagine.setUrl(result.getString("url"));
+	                    immagine.setAlt(result.getString("alt"));
+	                    
+	                    prodotto.getImmagini().add(immagine);
+	                }
+	            }
+	        }
 
-					long idImmagine = result.getLong("id_immagine");
-					if (idImmagine != 0 && !result.wasNull()) {
-						Map<Long, Immagine> mappaImg = immaginiPerProdotto.get(idProdotto);
-						if(!mappaImg.containsKey(idImmagine)) {
-							Immagine immagine = new Immagine();
-							immagine.setIdImmagine(idImmagine);
-							immagine.setUrl(result.getString("url"));
-							immagine.setAlt(result.getString("alt"));
-							
-							mappaImg.put(idImmagine, immagine);
-							prodotto.getImmagini().add(immagine);
-						}
-					}
-				}
-			}
-		}
-		return new ArrayList<>(mappaProdotti.values());
-	}
+	        return prodotto;
+	    }
+
+	 @Override
+	 public List<Prodotto> doRetrieveAll() throws SQLException {
+	     String queryProdotti = "SELECT p.*, "
+	             + "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
+	             + "v.id_variante, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita "
+	             + "FROM prodotto p "
+	             + "JOIN categoria c ON p.categoria = c.id_categoria "
+	             + "LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
+	             + "WHERE p.attivo = true " 
+	             + "ORDER BY p.id_prodotto";
+	     String queryImmagini = "SELECT img.* "
+	             + "FROM immagine img "
+	             + "INNER JOIN prodotto p ON img.prodotto = p.id_prodotto "
+	             + "WHERE p.attivo = true"; 
+	     Map<Long, Prodotto> mappaProdotti = new LinkedHashMap<>();
+	     Map<Long, Map<Long, VarianteProdotto>> variantiPerProdotto = new LinkedHashMap<>();
+	     
+	     try (Connection connection = ConnectionPool.getConnection();
+	          Statement statement = connection.createStatement();
+	          ResultSet result = statement.executeQuery(queryProdotti)) {
+	         
+	         while (result.next()) {
+	             long idProdotto = result.getLong("id_prodotto");
+	             Prodotto prodotto = mappaProdotti.get(idProdotto);
+	             
+	             if (prodotto == null) {
+	                 prodotto = new Prodotto();
+	                 prodotto.setIdProdotto(idProdotto);
+	                 prodotto.setNome(result.getString("nome"));
+	                 prodotto.setDescrizione(result.getString("descrizione"));
+	                 prodotto.setActive(result.getBoolean("attivo"));
+	             
+	                 Categoria categoria = new Categoria();
+	                 categoria.setIdCategoria(result.getLong("id_categoria"));
+	                 categoria.setIdPadre(result.getLong("id_padre")); 
+	                 categoria.setNome(result.getString("nome_categoria"));
+	                 categoria.setDescrizione(result.getString("descrizione_categoria")); 
+	             
+	                 prodotto.setCategoria(categoria);
+	                 mappaProdotti.put(idProdotto, prodotto);
+	                 
+	                 variantiPerProdotto.put(idProdotto, new LinkedHashMap<>());
+	             }
+
+	             long idVariante = result.getLong("id_variante");
+	             if (idVariante != 0 && !result.wasNull()) {
+	                 Map<Long, VarianteProdotto> mappaVar = variantiPerProdotto.get(idProdotto);
+	                 if (!mappaVar.containsKey(idVariante)) {
+	                     VarianteProdotto variante = new VarianteProdotto();
+	                     variante.setIdVariante(idVariante);
+	                     variante.setProdottoPadre(idProdotto);
+	                     variante.setTaglia(result.getString("taglia"));
+	                     variante.setColore(result.getString("colore"));
+	                     variante.setColoreHex(result.getString("colore_hex"));
+	                     variante.setPrezzo(result.getFloat("prezzo"));
+	                     variante.setIva(result.getInt("iva"));
+	                     variante.setDisponibilita(result.getInt("disponibilita"));
+	                     
+	                     mappaVar.put(idVariante, variante);
+	                     prodotto.getVarianti().add(variante);
+	                 }
+	             }
+	         }
+	     }
+
+	     if (mappaProdotti.isEmpty()) {
+	    	 return new ArrayList<>();
+	     }
+	     
+	     try (Connection connection = ConnectionPool.getConnection();
+	          Statement statement = connection.createStatement();
+	          ResultSet result = statement.executeQuery(queryImmagini)) {
+	          
+	         while (result.next()) {
+	             long idProdotto = result.getLong("prodotto");
+	             Prodotto p = mappaProdotti.get(idProdotto);
+
+	             if (p != null) {
+	                 Immagine immagine = new Immagine();
+	                 immagine.setIdImmagine(result.getLong("id_immagine"));
+	                 immagine.setUrl(result.getString("url"));
+	                 immagine.setAlt(result.getString("alt"));
+	                 
+	                 p.getImmagini().add(immagine);
+	             }
+	         }
+	     }
+
+	     return new ArrayList<>(mappaProdotti.values());
+	 }
 
 	@Override
 	public void doSave(Prodotto item) throws SQLException {
@@ -227,136 +242,143 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 	}
 	
 	public List<Prodotto> doRetrieveByFilter(Long idCategoria, Long idPadre, Float prezzoMin, Float prezzoMax, String ricerca, String ordinamento) throws SQLException {
-		String query = "SELECT DISTINCT p.*, "
-				+ "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
-				+ "v.id_variante, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita, "
-				+ "i.id_immagine, i.url, i.alt "
-				+ "FROM prodotto p "
-				+ "JOIN categoria c ON p.categoria = c.id_categoria "
-				+ "LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
-				+ "LEFT JOIN immagine i ON p.id_prodotto = i.prodotto "
-				+ "WHERE p.attivo = true";
-		
-		List<Object> parametri = new ArrayList<>();
-		
-		if (idCategoria != null && idCategoria > 0) {
-			query += " AND p.categoria = ?";
-			parametri.add(idCategoria);
-		}
-		
-		if (idPadre != null && idPadre > 0) {
-			query += " AND c.id_padre = ?";
-			parametri.add(idPadre);
-		}
-		
-		if (prezzoMin != null && prezzoMin >= 0) {
-			query += " AND v.prezzo >= ?";
-			parametri.add(prezzoMin);
-		}
-		
-		if (prezzoMax != null && prezzoMax >= 0) {
-			query += " AND v.prezzo <= ?";
-			parametri.add(prezzoMax);
-		}
-		
-		if (ricerca != null && !ricerca.trim().isEmpty()) {
-			query += " AND p.nome LIKE ?";
-			parametri.add("%" + ricerca.trim() + "%"); 
-		}
-		
-		if (ordinamento != null && !ordinamento.trim().isEmpty()) {
-			switch (ordinamento) {
-				case "prezzoCrescente":
-					query += " ORDER BY v.prezzo ASC, p.id_prodotto ASC";
-					break;
-				case "prezzoDecrescente":
-					query += " ORDER BY v.prezzo DESC, p.id_prodotto ASC";
-					break;
-				case "nomeAZ":
-					query += " ORDER BY p.nome ASC";
-					break;
-				case "nomeZA":
-					query += " ORDER BY p.nome DESC";
-					break;
-				default:
-					query += " ORDER BY p.id_prodotto ASC"; 
-					break;
-			}
-		} else {
-			query += " ORDER BY p.id_prodotto ASC";
-		}
-		
-		Map<Long, Prodotto> mappaProdotti = new LinkedHashMap<>();
-		Map<Long, Map<Long, VarianteProdotto>> variantiPerProdotto = new LinkedHashMap<>();
-		Map<Long, Map<Long, Immagine>> immaginiPerProdotto = new LinkedHashMap<>();
+	    String queryProdotti = "SELECT p.*, "
+	            + "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
+	            + "v.id_variante, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita "
+	            + "FROM prodotto p "
+	            + "JOIN categoria c ON p.categoria = c.id_categoria "
+	            + "LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
+	            + "WHERE p.attivo = true";
+	    String queryFiltri = "";
+	    List<Object> parametri = new ArrayList<>();
+	    
+	    if (idCategoria != null && idCategoria > 0) {
+	        queryFiltri += " AND p.categoria = ?";
+	        parametri.add(idCategoria);
+	    }
+	    if (idPadre != null && idPadre > 0) {
+	        queryFiltri += " AND c.id_padre = ?";
+	        parametri.add(idPadre);
+	    }
+	    if (prezzoMin != null && prezzoMin >= 0) {
+	        queryFiltri += " AND v.prezzo >= ?";
+	        parametri.add(prezzoMin);
+	    }
+	    if (prezzoMax != null && prezzoMax >= 0) {
+	        queryFiltri += " AND v.prezzo <= ?";
+	        parametri.add(prezzoMax);
+	    }
+	    if (ricerca != null && !ricerca.trim().isEmpty()) {
+	        queryFiltri += " AND p.nome LIKE ?";
+	        parametri.add("%" + ricerca.trim() + "%");
+	    }
+	    
+	    queryProdotti += queryFiltri;
+	    
+	    if (ordinamento != null && !ordinamento.trim().isEmpty()) {
+	        switch (ordinamento) {
+	            case "prezzoCrescente":   queryProdotti += " ORDER BY v.prezzo ASC, p.id_prodotto ASC"; break;
+	            case "prezzoDecrescente": queryProdotti += " ORDER BY v.prezzo DESC, p.id_prodotto ASC"; break;
+	            case "nomeAZ":            queryProdotti += " ORDER BY p.nome ASC"; break;
+	            case "nomeZA":            queryProdotti += " ORDER BY p.nome DESC"; break;
+	            default:                  queryProdotti += " ORDER BY p.id_prodotto ASC"; break;
+	        }
+	    } else {
+	        queryProdotti += " ORDER BY p.id_prodotto ASC";
+	    }
+	    
+	    Map<Long, Prodotto> mappaProdotti = new LinkedHashMap<>();
+	    Map<Long, Map<Long, VarianteProdotto>> variantiPerProdotto = new LinkedHashMap<>();
 
-		try (Connection connection = ConnectionPool.getConnection()) {
-			PreparedStatement preparedStatement = connection.prepareStatement(query);
+	    try (Connection connection = ConnectionPool.getConnection()){
+	        PreparedStatement psProdotti = connection.prepareStatement(queryProdotti);
 
-			for (int i = 0; i < parametri.size(); i++) {
-				preparedStatement.setObject(i + 1, parametri.get(i));
-			}
+	        for (int i = 0; i < parametri.size(); i++) {
+	            psProdotti.setObject(i + 1, parametri.get(i));
+	        }
 
-			try (ResultSet result = preparedStatement.executeQuery()) {
-				while (result.next()) {
-					long idProdotto = result.getLong("id_prodotto");
-					Prodotto prodotto = mappaProdotti.get(idProdotto);
+	        try (ResultSet result = psProdotti.executeQuery()) {
+	            while (result.next()) {
+	                long idProdotto = result.getLong("id_prodotto");
+	                Prodotto prodotto = mappaProdotti.get(idProdotto);
 
-					if (prodotto == null) {
-						prodotto = new Prodotto();
-						prodotto.setIdProdotto(idProdotto);
-						prodotto.setNome(result.getString("nome"));
-						prodotto.setDescrizione(result.getString("descrizione"));
-						prodotto.setActive(result.getBoolean("attivo"));
+	                if (prodotto == null) {
+	                    prodotto = new Prodotto();
+	                    prodotto.setIdProdotto(idProdotto);
+	                    prodotto.setNome(result.getString("nome"));
+	                    prodotto.setDescrizione(result.getString("descrizione"));
+	                    prodotto.setActive(result.getBoolean("attivo"));
 
-						Categoria categoria = new Categoria();
-						categoria.setIdCategoria(result.getLong("id_categoria"));
-						categoria.setIdPadre(result.getLong("id_padre")); 
-						categoria.setNome(result.getString("nome_categoria"));
-						categoria.setDescrizione(result.getString("descrizione_categoria")); 
+	                    Categoria categoria = new Categoria();
+	                    categoria.setIdCategoria(result.getLong("id_categoria"));
+	                    categoria.setIdPadre(result.getLong("id_padre"));
+	                    categoria.setNome(result.getString("nome_categoria"));
+	                    categoria.setDescrizione(result.getString("descrizione_categoria"));
 
-						prodotto.setCategoria(categoria);
-						mappaProdotti.put(idProdotto, prodotto);
-						
-						variantiPerProdotto.put(idProdotto, new LinkedHashMap<>());
-						immaginiPerProdotto.put(idProdotto, new LinkedHashMap<>());
-					}
+	                    prodotto.setCategoria(categoria);
+	                    mappaProdotti.put(idProdotto, prodotto);
+	                    
+	                    variantiPerProdotto.put(idProdotto, new LinkedHashMap<>());
+	                }
 
-					long idVariante = result.getLong("id_variante");
-					if (idVariante != 0 && !result.wasNull()) {
-						Map<Long, VarianteProdotto> mappaVar = variantiPerProdotto.get(idProdotto);
-						if(!mappaVar.containsKey(idVariante)) {
-							VarianteProdotto variante = new VarianteProdotto();
-							variante.setIdVariante(idVariante);
-							variante.setProdottoPadre(idProdotto);
-							variante.setTaglia(result.getString("taglia"));
-							variante.setColore(result.getString("colore"));
-							variante.setColoreHex(result.getString("colore_hex"));
-							variante.setPrezzo(result.getFloat("prezzo"));
-							variante.setIva(result.getInt("iva"));
-							variante.setDisponibilita(result.getInt("disponibilita"));
-							
-							mappaVar.put(idVariante, variante);
-							prodotto.getVarianti().add(variante);
-						}
-					}
+	                long idVariante = result.getLong("id_variante");
+	                if (idVariante != 0 && !result.wasNull()) {
+	                    Map<Long, VarianteProdotto> mappaVar = variantiPerProdotto.get(idProdotto);
+	                    if (!mappaVar.containsKey(idVariante)) {
+	                        VarianteProdotto variante = new VarianteProdotto();
+	                        variante.setIdVariante(idVariante);
+	                        variante.setProdottoPadre(idProdotto);
+	                        variante.setTaglia(result.getString("taglia"));
+	                        variante.setColore(result.getString("colore"));
+	                        variante.setColoreHex(result.getString("colore_hex"));
+	                        variante.setPrezzo(result.getFloat("prezzo"));
+	                        variante.setIva(result.getInt("iva"));
+	                        variante.setDisponibilita(result.getInt("disponibilita"));
+	                        
+	                        mappaVar.put(idVariante, variante);
+	                        prodotto.getVarianti().add(variante);
+	                    }
+	                }
+	            }
+	        }
+	    }
 
-					long idImmagine = result.getLong("id_immagine");
-					if (idImmagine != 0 && !result.wasNull()) {
-						Map<Long, Immagine> mappaImg = immaginiPerProdotto.get(idProdotto);
-						if(!mappaImg.containsKey(idImmagine)) {
-							Immagine immagine = new Immagine();
-							immagine.setIdImmagine(idImmagine);
-							immagine.setUrl(result.getString("url"));
-							immagine.setAlt(result.getString("alt"));
-							
-							mappaImg.put(idImmagine, immagine);
-							prodotto.getImmagini().add(immagine);
-						}
-					}
-				}
-			}
-		}
-		return new ArrayList<>(mappaProdotti.values());
+	    if (mappaProdotti.isEmpty()) return new ArrayList<>();
+
+	    String queryImmagini = "SELECT img.* "
+	            + "FROM immagine img "
+	            + "INNER JOIN ("
+	            + "    SELECT DISTINCT p.id_prodotto "
+	            + "    FROM prodotto p "
+	            + "    JOIN categoria c ON p.categoria = c.id_categoria "
+	            + "    LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
+	            + "    WHERE p.attivo = true" + queryFiltri
+	            + ") AS p_filtrati ON img.prodotto = p_filtrati.id_prodotto";
+
+	    try (Connection connection = ConnectionPool.getConnection()){
+	         PreparedStatement psImmagini = connection.prepareStatement(queryImmagini);
+
+	        for (int i = 0; i < parametri.size(); i++) {
+	            psImmagini.setObject(i + 1, parametri.get(i));
+	        }
+
+	        try (ResultSet result = psImmagini.executeQuery()) {
+	            while (result.next()) {
+	                long idProdotto = result.getLong("prodotto");
+	                Prodotto p = mappaProdotti.get(idProdotto);
+	                
+	                if (p != null) {
+	                    Immagine immagine = new Immagine();
+	                    immagine.setIdImmagine(result.getLong("id_immagine"));
+	                    immagine.setUrl(result.getString("url"));
+	                    immagine.setAlt(result.getString("alt"));
+	                    
+	                    p.getImmagini().add(immagine);
+	                }
+	            }
+	        }
+	    }
+
+	    return new ArrayList<>(mappaProdotti.values());
 	}
 }
