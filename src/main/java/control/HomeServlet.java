@@ -65,8 +65,8 @@ public class HomeServlet extends HttpServlet {
 		
 		try {
 			prodottiOfferta = prodottoDAO.doRetrieveByFilter(null, null, null, 50f, null, "prezzoCrescente");
-			prodottiCane = prodottoDAO.doRetrieveByFilter(null, 1l, null, null, null, "nomeAZ");
-			prodottiGatto = prodottoDAO.doRetrieveByFilter(null, 2l, null, null, null, null);
+			prodottiCane = prodottoDAO.doRetrieveByFilter(1l, null, null, null, null, "nomeAZ");
+			prodottiGatto = prodottoDAO.doRetrieveByFilter(2l, null, null, null, null, null);
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al db: " + s.getMessage());

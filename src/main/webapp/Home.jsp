@@ -4,7 +4,6 @@
 <%@ page import="model.prodotto.Prodotto" %>
 
 <%
-	List<Prodotto> prodottiOfferta = (List<Prodotto>) request.getAttribute("prodottiOfferta");
 	List<Prodotto> prodottiCane = (List<Prodotto>) request.getAttribute("prodottiCane");
 	List<Prodotto> prodottiGatto = (List<Prodotto>) request.getAttribute("prodottiGatto");
 %>
@@ -16,6 +15,7 @@
 	<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
 	<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
 	<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
+	<link rel="stylesheet" href="stylesheets/StileHome.css" type="text/css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	
 	<title>NoPawblems</title>
@@ -33,31 +33,51 @@
 			</div>
 			
 			<div class="blocco-immagine-testo">
-			
 				<button class="arrow_button prev" aria-label="prodotto precedente">
 	    			<i class="material-icons">keyboard_arrow_left</i>
 	  			</button>
-	  	
 	  			
-				<div class="testo-laterale">
-					<div class="descrizione-prodotto-homepage">
-						<h3></h3>
-						<p></p>
+	  			<div class="slider-prodotti-track">
+					<% if (prodottiCane == null || prodottiCane.isEmpty()) { %>
+		  				<p style="text-align:center; width:100%; margin:auto;">Nessun prodotto disponibile al momento.</p>
+					<% } else { 
+	           		 	for (Prodotto p : prodottiCane) { 
+	            			String urlImmagine = "img/Header_img/Header_img_1.png"; 
+	       					String altImmagine = p.getNome();
+	                
+	                		if (p.getImmagini() != null && !p.getImmagini().isEmpty()) {
+	                    		urlImmagine = p.getImmagini().get(0).getUrl();
+	                    		altImmagine = p.getImmagini().get(0).getAlt();
+	                		}
+					%>	  	
+		  			
+		  			<div class="slide-prodotto">
+						<div class="testo-laterale">
+							<div class="descrizione-prodotto-homepage">
+								<h3><%= p.getNome() %></h3>
+								<p><%= p.getDescrizione() %></p>
+							</div>
+							
+							<a class="bottone-homepage" href="<%= request.getContextPath() %>/DettaglioProdottoServlet?idProdotto=<%= p.getIdProdotto() %>">
+           						Acquista ora
+        					</a>
+						</div>
+						
+						<div class="immagine-laterale">
+							<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
+						</div>
 					</div>
 					
-					<button class="bottone-homepage">Acquista</button>
-				</div>
-				
-				<div class="immagine-laterale">
-					<img src="img/Header_img/Header_img_1.png" alt="Immagine prodotto in evidenza">
-				</div>
-				
-				<button class="arrow_button next" aria-label="prodotto successivo">
+					<% 
+	    					} 
+	   					} 
+	    			%>
+    			</div> <button class="arrow_button next" aria-label="prodotto successivo">
 				    <i class="material-icons">keyboard_arrow_right</i>
-				</button>
-							
+				</button>		
 			</div>
 		</section>
+		
 		
 		<section class="prodotti-gatto">
 			<div class="titolo-blocco">
@@ -65,32 +85,55 @@
 			</div>
 			
 			<div class="blocco-immagine-testo">
-			
 				<button class="arrow_button prev" aria-label="prodotto precedente">
 	    			<i class="material-icons">keyboard_arrow_left</i>
 	  			</button>
 	  			
-				<div class="immagine-laterale">
-					<img src="img/Header_img/Header_img_2.png" alt="Immagine prodotto in promozione">
-				</div>
-				
-				<div class="testo-laterale">
-					<div class="descrizione-prodotto-homepage">
-						<h3></h3>
-						<p></p>
+	  			<div class="slider-prodotti-track">
+					<% if (prodottiGatto == null || prodottiGatto.isEmpty()) { %>
+		  				<p style="text-align:center; width:100%; margin:auto;">Nessun prodotto disponibile al momento.</p>
+					<% } else { 
+	           		 	for (Prodotto p : prodottiGatto) { 
+	            			String urlImmagine = "img/Header_img/Header_img_2.png"; // Placeholder Gatto
+	       					String altImmagine = p.getNome();
+	                
+	                		if (p.getImmagini() != null && !p.getImmagini().isEmpty()) {
+	                    		urlImmagine = p.getImmagini().get(0).getUrl();
+	                    		altImmagine = p.getImmagini().get(0).getAlt();
+	                		}
+					%>	
+					
+					<div class="slide-prodotto">
+						<div class="immagine-laterale">
+							<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
+						</div>
+						
+						<div class="testo-laterale">
+							<div class="descrizione-prodotto-homepage">
+								<h3><%= p.getNome() %></h3>
+								<p><%= p.getDescrizione() %></p>
+							</div>
+							
+							<a class="bottone-homepage" href="<%= request.getContextPath() %>/DettaglioProdottoServlet?idProdotto=<%= p.getIdProdotto() %>">
+           						Acquista ora
+        					</a>
+						</div>
 					</div>
 					
-					<button class="bottone-homepage">Acquista</button>
-				</div>
-				
-				<button class="arrow_button next" aria-label="prodotto successivo">
+					<% 
+	    					} 
+	   					} 
+	    			%>
+				</div> <button class="arrow_button next" aria-label="prodotto successivo">
 				    <i class="material-icons">keyboard_arrow_right</i>
 				</button>
-				
 			</div>
 		</section>
+		
 	</main>
 		
 	<jsp:include page="Footer.jsp"/>
+	
+	<script src="scripts/carosello.js"></script>
 </body>
 </html>
