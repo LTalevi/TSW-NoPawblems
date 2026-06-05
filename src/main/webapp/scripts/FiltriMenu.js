@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const menu = document.querySelector(".toggle_menu");
-    const content = document.getElementById("sidebar_menu");
+    const menu = document.querySelector(".toggle_filter_button");
+    const content = document.getElementById("toggle_filtri");
 	
 	if (!menu || !content) {
         console.warn("Attenzione: Contenitore o Sidebar non trovati nella pagina.");
@@ -21,5 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     menu.addEventListener("mouseenter", showMenu);
     menu.addEventListener("mouseleave", hideMenu);
+    content.addEventListener("mouseenter", showMenu);
+    content.addEventListener("mouseleave", hideMenu);
 
 });
