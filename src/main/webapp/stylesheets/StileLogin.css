@@ -1,0 +1,222 @@
+@charset "UTF-8";
+
+:root {
+    --background-color: #FFF8F9;
+    --primary-color: #3F778D;
+    --secondary-color: #D34F73;
+    --tertiary-color: #B6025C;
+    --border-color: #3F778D;
+    
+    --primary-text-color: #13112B;
+    --secondary-text-color: #FFF8F9;
+    
+    --font-family: "Verdana", sans-serif;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: var(--font-family);
+	background-color: var(--primary-color);
+	color: var(--primary-text-color);
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    gap: 20px;
+}
+
+header {
+	width: 100%;
+	display: flex;
+    justify-content: center;
+    align-items: center;	
+}
+
+.logo {
+	width: 255px;
+    height: 90px;
+    overflow: hidden;
+    text-decoration: none;
+    background-color: transparent;	
+    transition: all 0.3s ease-in-out;
+}
+
+.logo img {
+	display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo:hover {
+	scale: 1.2;
+}
+
+.campi-dati {
+	padding: 30px 15px;;
+	border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    background-color: var(--background-color);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-errore-container {
+	display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;	
+}
+
+.input input {
+	flex: 1;
+	padding: 10px 15px;
+	border-radius: 4px;
+	outline: none;
+	font-family: var(--font-family);
+	border: 2px solid var(--border-color);
+	background-color: var(--background-color);
+	color: var(--primary-text-color);
+}
+
+.input input:focus {
+	border-color: var(--tertiary-color);
+}
+
+.input label, .input-telefono label {
+	width: 150px;
+	text-align: left;
+	font-weight: bold;
+}
+
+.input-telefono {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 100%;
+	gap: 15px;
+}
+
+.input-telefono .telefono {
+	display: flex;
+	flex: 1;
+}
+
+.input-telefono .prefisso {
+	flex: 0 0 90px;
+}
+
+.input-telefono select, .input-telefono .telefono input {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 15px;
+	outline: none;
+	border-radius: 4px;
+	border: 2px solid var(--border-color);
+	background-color: var(--background-color);
+	color: var(--primary-text-color);
+}
+
+.errore {
+	display: none;
+	font-weight: bold;
+	font-size: 12px;
+	width: 100%;
+	padding: 20px;
+	margin-top: 5px;
+	border-radius: 4px;
+	border: 2px solid var(--tertiary-color);
+	background-color: #f7d2d2;
+	color: var(--tertiary-color);
+}
+
+.input.non_valido input {
+	border-color: var(--secondary-color) !important;
+	background-color: #FFF0F2;	
+}
+
+.input.valido  input {
+	border-color: var(--primary-color) !important;
+	background-color: #E8F5E9;
+}
+
+.input-telefono.non_valido select, .input-telefono.non_valido input {
+	border-color: var(--secondary-color) !important;
+	background-color: #FFF0F2;
+}
+
+.input-telefono.valido select, .input-telefono.valido input {
+	border-color: #2e6379 !important;
+	background-color: #E8F5E9;
+}
+
+button[type="submit"]:disabled {
+	background-color: #CCCCCC;
+	color: #666666;
+	border: 2px solid #666666;
+	cursor: not-allowed;
+}
+
+button[type="submit"] {
+	padding: 10px 15px;
+	border-radius: 4px;
+	width: 100%;
+	background-color: var(--primary-color);
+	color: var(--background-color);
+	border: 2px solid var(--background-color);
+	cursor: pointer;
+}
+
+button[type="submit"]:hover:not([disabled]) {
+	background-color: var(--background-color);
+	color: var(--primary-color);
+	border-color: var(--primary-color);
+}
+
+.invito-ad-accedere, .invito-a-registrarsi {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.invito-ad-accedere p, .invito-a-registrarsi p {
+	font-size: 16px;
+	color: var(--primary-text-color);
+}
+
+.invito-ad-accedere a, .invito-a-registrarsi a {
+	font-size: 16px;
+	font-weight: italic;
+	text-decoration: none;
+	color: var(--secondary-color);
+}
+
+.invito-ad-accedere a:hover, .invito-a-registrarsi a:hover {
+	color: var(--tertiary-color);
+}
