@@ -85,7 +85,7 @@ public class CatalogoServlet extends HttpServlet {
             return;
 		}
 		
-		request.getRequestDispatcher("catalogo.jsp").forward(request, response);
+		request.getRequestDispatcher("Catalogo.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

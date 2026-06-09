@@ -256,18 +256,23 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 	        queryFiltri += " AND p.categoria = ?";
 	        parametri.add(idCategoria);
 	    }
+	    
 	    if (idPadre != null && idPadre > 0) {
-	        queryFiltri += " AND c.id_padre = ?";
+	        queryFiltri += " AND (c.id_categoria = ? OR c.id_padre = ?)";
+	        parametri.add(idPadre);
 	        parametri.add(idPadre);
 	    }
+	    
 	    if (prezzoMin != null && prezzoMin >= 0) {
 	        queryFiltri += " AND v.prezzo >= ?";
 	        parametri.add(prezzoMin);
 	    }
+	    
 	    if (prezzoMax != null && prezzoMax >= 0) {
 	        queryFiltri += " AND v.prezzo <= ?";
 	        parametri.add(prezzoMax);
 	    }
+	    
 	    if (ricerca != null && !ricerca.trim().isEmpty()) {
 	        queryFiltri += " AND p.nome LIKE ?";
 	        parametri.add("%" + ricerca.trim() + "%");

@@ -29,7 +29,7 @@
 				</p>
 			</div>
 			
-			<a href="Home.jsp">
+			<a href="<%= request.getContextPath() %>/HomeServlet">
 				<button class="bottone_home">Torna alla HomePage</button>
 			</a>
 		</div>
