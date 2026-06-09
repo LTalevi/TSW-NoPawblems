@@ -51,7 +51,7 @@ public class ProdottoCarrelloDAO {
 
 	public void doSave(ProdottoCarrello item) throws SQLException {
 	    String query = "INSERT INTO prodotto_carrello (utente, variante, quantita) VALUES (?, ?, ?) "
-	                 + "ON DUPLICATE KEY quantita = quantita + VALUES(quantita)";
+	                 + "ON DUPLICATE KEY UPDATE quantita = quantita + VALUES(quantita)";
 	    
 	    try (Connection connection = ConnectionPool.getConnection()){
 	         PreparedStatement preparedStatement = connection.prepareStatement(query);

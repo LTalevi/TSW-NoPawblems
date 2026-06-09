@@ -39,7 +39,7 @@
 	                		}
 					%>	  
 			<div class="prodotto">
-				<a href="DettaglioProdottoServlet?id=<%=p.getIdProdotto()%>">
+				<a href="<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%=p.getIdProdotto()%>">
 					<div class="immagine_prodotto">
 						<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
 					</div>
@@ -51,7 +51,7 @@
 					</div>
 				</a>
 				
-				<a class="bottone-acquista" href="<%= request.getContextPath() %>/DettaglioProdottoServlet?idProdotto=<%= p.getIdProdotto() %>">
+				<a class="bottone-acquista" href="<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%= p.getIdProdotto() %>">
  					Acquista ora
 				</a>
 			</div>

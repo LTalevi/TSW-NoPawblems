@@ -52,7 +52,6 @@ body {
     width: 100%;
     aspect-ratio: 16/9;
     max-width: 800px;
-    aspect-ratio: 16/9;
     background-color: var(--background-color);
     border: 2px solid var(--border-color);
     overflow: hidden;
@@ -106,6 +105,7 @@ body {
     min-height: 150px;
     border: 2px solid var(--border-color);
     color: var(--primary-text-color);
+    padding: 20px; /* Aggiunto un minimo di padding interno per non attaccare i testi ai bordi */
 }
 
 .dettagli h3 {
@@ -136,7 +136,6 @@ body {
     text-decoration: none; 
     border-width: 2px;
     border-style: outset;
-    border-color: #d1d1d1;
     border-color: var(--border-color);
     background-color: var(--secondary-color);
     color: var(--background-color);
@@ -147,4 +146,128 @@ body {
 .bottone-aggiunta-carrello:hover {
     background-color: var(--background-color);
     color: var(--secondary-color);
+}
+
+
+/* 
+DA MODIFICARE
+==========================================================================
+   NUOVI STILI AGGIUNTI
+   ========================================================================== */
+
+/* Contenitore principale dei selettori */
+.selettore-varianti {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Titoli delle sezioni (Taglia:, Colore:) */
+.selettore-gruppo h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: var(--primary-color);
+    text-align: left;
+    width: 100%;
+}
+
+/* Box contenitore dei bottoni opzione */
+.opzioni {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* Allinea i bottoni al centro coerentemente con .dettagli */
+}
+
+/* --- STILE BOTTONI TAGLIA --- */
+.btn-taglia {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    border: 2px solid var(--border-color);
+    padding: 6px 14px;
+    font-family: var(--font-family);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-taglia:hover {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+/* Stato selezionato (classe aggiunta da JS) */
+.btn-taglia.attivo {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+    border-color: var(--primary-color);
+}
+
+/* --- STILE BOTTONI COLORE (CERCHIEGGI) --- */
+.btn-colore {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.btn-colore:hover {
+    transform: scale(1.1);
+}
+
+/* Stato selezionato con effetto focus ad anello esterno */
+.btn-colore.attivo {
+    border-color: var(--primary-text-color);
+    box-shadow: 0 0 0 2px var(--background-color), 0 0 0 4px var(--secondary-color);
+    transform: scale(1.1);
+}
+
+/* --- MESSAGGIO DISPONIBILITÀ DI VARIANTE --- */
+.msg-disponibilita {
+    font-size: 13px;
+    font-weight: bold;
+    min-height: 18px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* --- SELETTORE QUANTITÀ --- */
+.form-aggiunta-carrello {
+    width: 100%;
+}
+
+.selettore-quantita {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.selettore-quantita input {
+    width: 65px;
+    padding: 6px;
+    border: 2px solid var(--border-color);
+    background-color: var(--background-color);
+    font-family: var(--font-family);
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- STATO DISABILITATO INLINE DEL BOTTONE CARRELLO --- */
+/* Sovrascrive temporaneamente l'hover nativo quando la variante non è selezionata o esaurita */
+.bottone-aggiunta-carrello:disabled {
+    background-color: #888888 !important;
+    color: #ffffff !important;
+    border-color: #888888 !important;
+    cursor: not-allowed;
+    opacity: 0.65;
 }

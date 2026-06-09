@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.prodotto.Prodotto;
+import model.prodotto.ProdottoDAO;
 import model.prodottocarrello.ProdottoCarrello;
 import model.prodottocarrello.ProdottoCarrelloDAO;
 import model.utente.Utente;
 import model.varianteprodotto.VarianteProdotto;
+import model.varianteprodotto.VarianteProdottoDAO;
 
 @WebServlet("/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
@@ -52,14 +55,33 @@ public class CarrelloServlet extends HttpServlet {
 		}
 		
 		int numeroPezziCarrello = 0;
+		
+		List<Prodotto> prodottiDettaglio = new ArrayList<>();
+		ProdottoDAO prodottoDAO = new ProdottoDAO();
+		
+		if (carrello != null) {
+	        for (ProdottoCarrello item : carrello) {
+	            numeroPezziCarrello += item.getQuantita();
+	            
+	            try {
+	                long idPadre = item.getVariante().getProdottoPadre();
+	                Prodotto p = prodottoDAO.doRetrieveByKey(idPadre);
+	                prodottiDettaglio.add(p);
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                prodottiDettaglio.add(null);
+	            }
+	        }
+	    }
 	    for (ProdottoCarrello item : carrello) {
 	        numeroPezziCarrello += item.getQuantita();
 	    }
 		
 	    request.setAttribute("carrello", carrello);
+	    request.setAttribute("prodottiDettaglio", prodottiDettaglio);
 		session.setAttribute("numeroPezziCarrello", numeroPezziCarrello);
 		
-		request.getRequestDispatcher("/carrello.jsp").forward(request, response);
+		request.getRequestDispatcher("/Carrello.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -73,14 +95,18 @@ public class CarrelloServlet extends HttpServlet {
 	    }
 		
 		ProdottoCarrelloDAO prodottoCarrelloDAO = new ProdottoCarrelloDAO();
+		VarianteProdottoDAO varianteDAO = new VarianteProdottoDAO();
 		Long idVariante = Long.parseLong(request.getParameter("idVariante"));
 		try {
 	        switch (action) {
 	            case "aggiungi":
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
                 	
-                    VarianteProdotto var = new VarianteProdotto();
-                    var.setIdVariante(idVariante);
+                    VarianteProdotto var = varianteDAO.doRetrieveByKey(idVariante);
+                    if (var == null) {
+                        var = new VarianteProdotto();
+                        var.setIdVariante(idVariante);
+                    }
                     
                     ProdottoCarrello prodottoCarrello = new ProdottoCarrello();
                     prodottoCarrello.setVariante(var);
@@ -117,21 +143,18 @@ public class CarrelloServlet extends HttpServlet {
 	            		prodottoCarrelloDAO.doDelete(utente.getIdUtente(), idVariante);
 	                } else {
 	                	List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) session.getAttribute("carrello");
-	                	if (carrello == null) {
-	                        carrello = new ArrayList<>();
-	                    }
 	                	
-	                	
-	                	ProdottoCarrello daRimuovere = null;
-	                	for (ProdottoCarrello item : carrello) {
-	                		if(item.getVariante().getIdVariante() == idVariante) {
-	                			daRimuovere = item;
-	                			break;
-	                		}
+	                	if (carrello != null) {
+		                	ProdottoCarrello daRimuovere = null;
+		                	for (ProdottoCarrello item : carrello) {
+		                		if(item.getVariante().getIdVariante() == idVariante) {
+		                			daRimuovere = item;
+		                			break;
+		                		}
+		                	}
+		                	if (daRimuovere != null) carrello.remove(daRimuovere);
+		                	session.setAttribute("carrello", carrello);
 	                	}
-	                	carrello.remove(daRimuovere);
-	                	
-	                	session.setAttribute("carrello", carrello);
 	                }
 	                break;
 	                
@@ -141,18 +164,16 @@ public class CarrelloServlet extends HttpServlet {
 	                	prodottoCarrelloDAO.doUpdate(utente.getIdUtente(), idVariante, nuovaQuantita);
 	                } else {
 	                	List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) session.getAttribute("carrello");
-	                	if (carrello == null) {
-	                        carrello = new ArrayList<>();
-	                    }
-
-	                	for (ProdottoCarrello item : carrello) {
-	                		if(item.getVariante().getIdVariante() == idVariante) {
-	                			item.setQuantita(nuovaQuantita);
-	                			break;
-	                		}
-	                	}
 	                	
-	                	session.setAttribute("carrello", carrello);
+	                	if (carrello != null) {
+		                	for (ProdottoCarrello item : carrello) {
+		                		if(item.getVariante().getIdVariante() == idVariante) {
+		                			item.setQuantita(nuovaQuantita);
+		                			break;
+		                		}
+		                	}
+		                	session.setAttribute("carrello", carrello);
+	                	}
 	                }
 	                break;
 	                

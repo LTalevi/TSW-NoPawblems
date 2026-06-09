@@ -51,7 +51,7 @@ public class DettaglioProdottoServlet extends HttpServlet {
 		request.setAttribute("prodotto", prodotto);
 		request.setAttribute("idProdotto", idProdotto);
 		
-		request.getRequestDispatcher("dettaglioProdotto.jsp").forward(request, response);
+		request.getRequestDispatcher("DettaglioProdotto.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.prodotto.Prodotto" %>
 <%@ page import="model.immagine.Immagine" %>
+<%@ page import="model.varianteprodotto.VarianteProdotto" %>
 
 <%
 	Prodotto p = (Prodotto) request.getAttribute("prodotto");
@@ -36,8 +37,24 @@
 	                    		urlImmagine = p.getImmagini().get(0).getUrl();
 	                    		altImmagine = p.getImmagini().get(0).getAlt();
 	                		}
+	                		
+	                		List<String> taglieDisponibili = new ArrayList<>();
+	                		List<String> coloriDisponibili = new ArrayList<>();
+	                		List<String> hexColoriDisponibili = new ArrayList<>();
+	                		
+	                		if(p.getVarianti() != null) {
+	                			for(VarianteProdotto v : p.getVarianti()) {
+	                				if(!taglieDisponibili.contains(v.getTaglia())) {
+	                					taglieDisponibili.add(v.getTaglia());
+	                				}
+	                				if(!coloriDisponibili.contains(v.getColore())) {
+	                					coloriDisponibili.add(v.getColore());
+	                					coloriDisponibili.add(v.getColoreHex()); // Coppia nome-hex sequenziale
+	                				}
+	                			}
+	                		}
 					%>
-			<div class="prodotto">
+			<div class="prodotto" id="prodotto-container" data-id-prodotto="<%= p.getIdProdotto() %>" data-context-path="<%= request.getContextPath() %>">
 				<div class="immagini">
 					<div class="immagine-principale-prodotto">
 						<img src="<%=urlImmagine %>" alt="<%=altImmagine %>"/>
@@ -64,15 +81,60 @@
 				<div class="dettagli">
 					<h3 class="nome-prodotto"><%=p.getNome() %></h3>
 					<p class="descrizione-prodotto"><%=p.getDescrizione() %></p>
-					<span class="prezzo-prodotto">
-						<%= (p.getVarianti() != null && !p.getVarianti().isEmpty()) ? p.getVarianti().get(0).getPrezzo() + "€" : "Prezzo non disponibile." %>
+					<span class="prezzo-prodotto" id="prezzo-display">
+   						<%= (p.getVarianti() != null && !p.getVarianti().isEmpty()) ? String.format("%.2f", p.getVarianti().get(0).getPrezzo()) + "€" : "Prezzo non disponibile." %>
 					</span>
 					
-					<a class="bottone-aggiunta-carrello" href="<%=request.getContextPath()%>/CarrelloServlet?id=<%=p.getIdProdotto()%>">
-						Aggiungi al carrello.
-					</a>
-				</div>
+			<div class="selettore-varianti" style="margin: 20px 0;">
+        	<% if(!taglieDisponibili.isEmpty() && taglieDisponibili.get(0) != null) { %>
+        		<div class="selettore-gruppo">
+            		<h4>Taglia:</h4>
+            		<div class="opzioni">
+                		<% for(String taglia : taglieDisponibili) { 
+                    		if(taglia != null && !taglia.isEmpty()) { %>
+                  		  	<button type="button" class="btn-taglia" onclick="selezionaTaglia('<%= taglia %>', this)">
+                    	    	<%= taglia %>
+                    		</button>
+                		<%  } 
+                		} %>
+            		</div>
+       			</div>
+  	     	<% } %>
+
+			<% if(!coloriDisponibili.isEmpty() && coloriDisponibili.get(0) != null) { %>
+       		<div class="selettore-gruppo">
+            	<h4>Colore:</h4>
+            	<div class="opzioni">
+               	 	<% for(int i = 0; i < coloriDisponibili.size(); i += 2) { 
+                    	String nomeColore = coloriDisponibili.get(i);
+                    	String hexColore = coloriDisponibili.get(i+1);
+                    	if(nomeColore != null && !nomeColore.isEmpty()) { %>
+                    	<button type="button" class="btn-colore" style="background-color: <%= hexColore %>;" title="<%= nomeColore %>" onclick="selezionaColore('<%= nomeColore %>', this)">
+                    	</button>
+                	<%  } 
+                	} %>
+            	</div>
+        	</div>
+        	<% } %>
+        
+        	<div id="disponibilita-info" class="msg-disponibilita"></div>
+    	</div>
+    
+    	<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" class="form-aggiunta-carrello" onsubmit="return validaAggiunta()">
+        	<input type="hidden" name="azione" value="aggiungi">
+        	<input type="hidden" id="idVarianteInput" name="idVariante" value="">
+
+        	<div class="selettore-quantita">
+            	<label for="quantita">Quantità:</label>
+            	<input type="number" id="quantita" name="quantita" value="1" min="1" required>
+        	</div>
+
+        	<button type="submit" id="btnAggiungiCarrello" class="bottone-aggiunta-carrello" disabled>
+            	Aggiungi al carrello
+        	</button>
+    	</form>
 			</div>
+		</div>
 			
 			<%
 		      	}
@@ -80,5 +142,6 @@
 		</div>
 	
 		<jsp:include page="Footer.jsp"/>
+		<script src="<%= request.getContextPath() %>/scripts/dettaglioProdotto.js"></script>
 	</body>
 </html>

@@ -27,7 +27,7 @@
 			<i class="material-icons">account_circle</i>	
 		</button>
 	
-		<button class="Carrello" aria-label="Apri carrello" onclick="window.location.href='carrelloServlet'">
+		<button class="Carrello" aria-label="Apri carrello" onclick="window.location.href='CarrelloServlet'">
 			<i class="material-icons">shopping_cart</i>	
 		</button>
 	</div>

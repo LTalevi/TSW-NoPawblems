@@ -2,9 +2,12 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.prodotto.Prodotto" %>
+<%@ page import="model.prodottocarrello.ProdottoCarrello" %>
+<%@ page import="model.varianteprodotto.VarianteProdotto" %>
 
 <% 
-	List<Prodotto> prodotti = (List<Prodotto>) request.getAttribute("prodotti"); 
+	List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) request.getAttribute("carrello"); 
+	List<Prodotto> prodottiDettaglio = (List<Prodotto>) request.getAttribute("prodottiDettaglio"); 
 %>
 
 <!DOCTYPE html>
@@ -25,29 +28,46 @@
 	
 		<div class="main-wrapper">
 			<div class="prodotti-carrello">
-				<% if (prodotti == null || prodotti.isEmpty()) { %>
+				<% if (carrello == null || carrello.isEmpty()) { %>
 		  				<p style="text-align:center; width:100%; margin:auto;">Il carrello è vuoto.</p>
 				<% } else { 
-	           		 	for (Prodotto p : prodotti) { 
+	           		 	for (int i = 0; i < carrello.size(); i++) { 
+	           		 		ProdottoCarrello item = carrello.get(i);
+	           		 		VarianteProdotto variante = item.getVariante();
+
+	           		 		Prodotto p = (prodottiDettaglio != null && i < prodottiDettaglio.size()) ? prodottiDettaglio.get(i) : null;
+	           		 		
 	            			String urlImmagine = "img/Header_img/Header_img_1.png"; 
-	       					String altImmagine = p.getNome();
+	       					String altImmagine = (p != null) ? p.getNome() : "Prodotto";
 	                
-	                		if (p.getImmagini() != null && !p.getImmagini().isEmpty()) {
+	                		if (p != null && p.getImmagini() != null && !p.getImmagini().isEmpty()) {
 	                    		urlImmagine = p.getImmagini().get(0).getUrl();
 	                    		altImmagine = p.getImmagini().get(0).getAlt();
 	                		}
 					%>	  
 			<div class="prodotto-carrello">
-				<a href="DettaglioProdottoServlet?id=<%=p.getIdProdotto()%>">
+				<a href="DettaglioProdotto?idProdotto=<%=p.getIdProdotto()%>">
 					<div class="immagine_prodotto">
 						<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
 					</div>
 					
 					<div class="info_prodotto">
-						<h3 class="nome_prodotto"><%= p.getNome() %></h3>
-						<p class="descrizione_prodotto"><%= p.getDescrizione() %></p>
-						<span class="prezzo_prodotto"><%=p.getVarianti().get(0).getPrezzo()+"€"%></span>
+						<h3 class="nome_prodotto"><%= (p != null) ? p.getNome() : "Prodotto" %></h3>
+						<p class="descrizione_prodotto"><%= (p != null) ? p.getDescrizione() : "" %></p>
+						<p class="varianti_scelte">
+							Taglia: <%= variante.getTaglia() %>, Colore: <%= variante.getColore() %>
+						</p>
+						<span class="prezzo_prodotto"><%= String.format("%.2f", variante.getPrezzo()) %>€</span>
+						<span class="quantita_prodotto">Q.tà: <%= item.getQuantita() %></span>
 					</div>
+					
+					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" style="margin-top: 10px;">
+						<input type="hidden" name="azione" value="rimuovi">
+						<input type="hidden" name="idVariante" value="<%= variante.getIdVariante() %>">
+						<button type="submit" style="color: #d9534f; background: none; border: none; cursor: pointer; text-decoration: underline; font-weight: bold;">
+							Rimuovi
+						</button>
+					</form>
 				</a>
 				
 			</div>
@@ -59,11 +79,9 @@
 		
 		<%
 			double prezzoTotale = 0.0;
-			if(prodotti != null){
-				for(Prodotto pt : prodotti){
-					if(pt.getVarianti() != null && !pt.getVarianti().isEmpty()){
-						prezzoTotale += pt.getVarianti().get(0).getPrezzo();
-					}
+			for(ProdottoCarrello item : carrello){
+				if(item.getVariante() != null){
+					prezzoTotale += (item.getVariante().getPrezzo() * item.getQuantita());
 				}
 			}
 		%>
