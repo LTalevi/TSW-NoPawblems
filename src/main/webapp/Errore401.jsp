@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
 	<link rel="stylesheet" href="stylesheets/Error.css" type="text/css">
 	<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
 	<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">

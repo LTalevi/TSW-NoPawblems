@@ -1,23 +1,12 @@
 @charset "UTF-8";
 
-:root {
-    --background-color: #FFF8F9;
-    --primary-color: #3F778D;
-    --secondary-color: #D34F73;
-    --tertiary-color: #B6025C;
-    --border-color: #3F778D;
-    
-    --primary-text-color: #13112B;
-    --secondary-text-color: #FFF8F9;
-    
-    --font-family: "Verdana", sans-serif;
-}
-
 *, *::before, *::after {
     box-sizing: border-box;
 }
 
 body {
+	display:flex;
+    flex-direction:column;
 	width: 100%;
 	min-height: 100vh;
 	flex-grow: 1;
@@ -50,33 +39,58 @@ body {
 	background-color: var(--background-color);
 }
 
+.prodotto, .prodotto * {
+	cursor: pointer !important;	
+}
+
+.prodotto a, .prodotto a:visited, .prodotto a:hover {
+  	display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
 .prodotto:hover {
 	transform: translateY(-5px);
 	box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
+.info_prodotto, .info_prodotto p, .prezzo_prodotto {
+	font-family: inherit;
+	color: inherit;
+}
+
 .info_prodotto {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	text-align: center;
 	align-items: center;
 	justify-content: center;
 }
 
 .info_prodotto h3 {
-	font-weight: strong;
-	margin: 10px 0;
-	border: 2px solid var(--border-color);
+	display: block;
+	width: 100%;
+	font-weight: bold;
+	padding: 10px;
+	border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
 }
 
 .info_prodotto p {
 	margin-top: 10px;
 	font-weight: 300;
+	margin: 0;
 }
 
 .prezzo_prodotto {
-	font-weight: strong;
+	font-weight: bold;
 	display: block;
+	margin: 0;
 }
 
 .bottone-acquista {
@@ -212,10 +226,15 @@ footer {
 	justify-self: end;
 }
 
-/*Da rivedere perchè non funge
+.radio {
+	position: relative;
+}
 
 .radio_container .radio input[type="radio"] {
-	display: none;
+	position: absolute;
+	width: 0;
+	height: 0;
+	opacity: 0;
 }
 
 .radio_container .radio_contenuto {
@@ -232,10 +251,12 @@ footer {
 	color: var(--primary-color);
 }
 
-.radio_container .radio input[type="radio"]:checked + .radio_contenuto {
+.radio_container .radio input[type="radio"]:hover ~ .radio_contenuto {
 	background-color: var(--primary-color);
 	color: var(--background-color);
 }
 
-*/
-
+.radio_container .radio input[type="radio"]:checked ~ .radio_contenuto {
+	background-color: var(--primary-color);
+	color: var(--background-color);
+}

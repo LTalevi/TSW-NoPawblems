@@ -1,23 +1,11 @@
 @charset "UTF-8";
 
-:root {
-    --background-color: #FFF8F9;
-    --primary-color: #3F778D;
-    --secondary-color: #D34F73;
-    --tertiary-color: #B6025C;
-    --border-color: #3F778D;
-    
-    --primary-text-color: #13112B;
-    --secondary-text-color: #FFF8F9;
-    
-    --font-family: "Verdana", sans-serif;
-}
-
 *, *::before, *::after {
     box-sizing: border-box;
 }
 
 body {
+	display: flex;
 	width: 100%;
 	min-height: 100vh;
 	flex-grow: 1;
@@ -29,8 +17,12 @@ body {
 .main-wrapper {
     flex: 1; 
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 90px 30px 30px 30px;
+    gap: 45px;
 }
 
 .prodotto {
@@ -91,25 +83,31 @@ body {
 }
 
 .miniature-immagini:hover {
-    transform: scale(1.05);
+    scale: 1.1;
     border: 4px solid var(--secondary-color);
 }
 
 .dettagli {
 	display: flex;
     flex-direction: column;   
-    justify-content: space-between;  
+    justify-content: flex-start;  
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     width: 50%;
     min-height: 150px;
     border: 2px solid var(--border-color);
     color: var(--primary-text-color);
-    padding: 20px; /* Aggiunto un minimo di padding interno per non attaccare i testi ai bordi */
+    padding: 20px; 
 }
 
 .dettagli h3 {
-	display: inline-block;
+	display: block;
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	background-color: var(--primary-color);
+	color: var(--secondary-text-color);
+	font-weight: bold;
 }
 
 .dettagli p {
@@ -120,6 +118,7 @@ body {
 	display: inline-block;
 	color: var(--tertiary-color);
 	border: 1px solid var(--secondary-color);
+	padding: 5px;
 	transition: all 0.3s ease;
 }
 
@@ -163,21 +162,30 @@ DA MODIFICARE
     gap: 15px;
 }
 
-/* Titoli delle sezioni (Taglia:, Colore:) */
+.selettore-gruppo {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 10px;
+}
+
 .selettore-gruppo h4 {
-    margin: 0 0 5px 0;
+	display: block;
+    margin: 0;
     font-size: 14px;
     color: var(--primary-color);
-    text-align: left;
+    text-align: center;
+    justify-content: center;
     width: 100%;
 }
 
-/* Box contenitore dei bottoni opzione */
 .opzioni {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center; /* Allinea i bottoni al centro coerentemente con .dettagli */
+    justify-content: center; 
 }
 
 /* --- STILE BOTTONI TAGLIA --- */
@@ -185,6 +193,7 @@ DA MODIFICARE
     background-color: var(--background-color);
     color: var(--primary-text-color);
     border: 2px solid var(--border-color);
+    border-radius: 4px;
     padding: 6px 14px;
     font-family: var(--font-family);
     font-size: 13px;
@@ -198,14 +207,12 @@ DA MODIFICARE
     color: var(--secondary-color);
 }
 
-/* Stato selezionato (classe aggiunta da JS) */
 .btn-taglia.attivo {
     background-color: var(--primary-color);
     color: var(--secondary-text-color);
     border-color: var(--primary-color);
 }
 
-/* --- STILE BOTTONI COLORE (CERCHIEGGI) --- */
 .btn-colore {
     width: 32px;
     height: 32px;
@@ -221,14 +228,12 @@ DA MODIFICARE
     transform: scale(1.1);
 }
 
-/* Stato selezionato con effetto focus ad anello esterno */
 .btn-colore.attivo {
     border-color: var(--primary-text-color);
     box-shadow: 0 0 0 2px var(--background-color), 0 0 0 4px var(--secondary-color);
     transform: scale(1.1);
 }
 
-/* --- MESSAGGIO DISPONIBILITÀ DI VARIANTE --- */
 .msg-disponibilita {
     font-size: 13px;
     font-weight: bold;
@@ -237,7 +242,6 @@ DA MODIFICARE
     margin-top: 5px;
 }
 
-/* --- SELETTORE QUANTITÀ --- */
 .form-aggiunta-carrello {
     width: 100%;
 }
@@ -262,8 +266,6 @@ DA MODIFICARE
     text-align: center;
 }
 
-/* --- STATO DISABILITATO INLINE DEL BOTTONE CARRELLO --- */
-/* Sovrascrive temporaneamente l'hover nativo quando la variante non è selezionata o esaurita */
 .bottone-aggiunta-carrello:disabled {
     background-color: #888888 !important;
     color: #ffffff !important;

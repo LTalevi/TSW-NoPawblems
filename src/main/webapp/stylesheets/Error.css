@@ -1,18 +1,5 @@
 @charset "UTF-8";
 
-:root {
-	--background-color: #FFF8F9;
-	--primary-color: #3F778D;
-	--secondary-color: #D34F73;
-	--terziary-color: #B6025C;
-    --border-color: black;
-	
-    --primary-text-color: #13112B;
-    --secondary-text-color: #FFF8F9;
-    
-    --font-family: "Verdana", sans-serif;
-}
-
 body {
 	font-family: var(--font-family);
 	background-color: var(--background-color);

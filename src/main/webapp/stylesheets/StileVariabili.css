@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+:root {
+    --background-color: #FFF8F9;
+    --primary-color: #3F778D;
+    --secondary-color: #D34F73;
+    --tertiary-color: #B6025C;
+    --border-color: #3F778D;
+    --primary-text-color: #13112B;
+    --secondary-text-color: #FFF8F9;
+    --font-family: "Verdana", sans-serif;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}

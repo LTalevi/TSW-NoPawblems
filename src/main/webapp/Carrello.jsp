@@ -13,6 +13,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
@@ -26,27 +27,27 @@
 	<body>
 		<jsp:include page="Nav.jsp"/>
 	
-		<div class="main-wrapper">
+		<main class="main-wrapper">
 			<div class="prodotti-carrello">
-				<% if (carrello == null || carrello.isEmpty()) { %>
-		  				<p style="text-align:center; width:100%; margin:auto;">Il carrello è vuoto.</p>
-				<% } else { 
-	           		 	for (int i = 0; i < carrello.size(); i++) { 
-	           		 		ProdottoCarrello item = carrello.get(i);
-	           		 		VarianteProdotto variante = item.getVariante();
-
-	           		 		Prodotto p = (prodottiDettaglio != null && i < prodottiDettaglio.size()) ? prodottiDettaglio.get(i) : null;
-	           		 		
-	            			String urlImmagine = "img/Header_img/Header_img_1.png"; 
-	       					String altImmagine = (p != null) ? p.getNome() : "Prodotto";
-	                
-	                		if (p != null && p.getImmagini() != null && !p.getImmagini().isEmpty()) {
-	                    		urlImmagine = p.getImmagini().get(0).getUrl();
-	                    		altImmagine = p.getImmagini().get(0).getAlt();
-	                		}
-					%>	  
-			<div class="prodotto-carrello">
-				<a href="DettaglioProdotto?idProdotto=<%=p.getIdProdotto()%>">
+					<% if (carrello == null || carrello.isEmpty()) { %>
+			  				<p style="text-align:center; width:100%; margin:auto;">Il carrello è vuoto.</p>
+					<% } else { 
+		           		 	for (int i = 0; i < carrello.size(); i++) { 
+		           		 		ProdottoCarrello item = carrello.get(i);
+		           		 		VarianteProdotto variante = item.getVariante();
+	
+		           		 		Prodotto p = (prodottiDettaglio != null && i < prodottiDettaglio.size()) ? prodottiDettaglio.get(i) : null;
+		           		 		
+		            			String urlImmagine = "img/Header_img/Header_img_1.png"; 
+		       					String altImmagine = (p != null) ? p.getNome() : "Prodotto";
+		                
+		                		if (p != null && p.getImmagini() != null && !p.getImmagini().isEmpty()) {
+		                    		urlImmagine = p.getImmagini().get(0).getUrl();
+		                    		altImmagine = p.getImmagini().get(0).getAlt();
+		                		}
+						%>	  
+						
+				<div class="prodotto-carrello" onclick="location.href='DettaglioProdotto?idProdotto=<%=p.getIdProdotto()%>'">
 					<div class="immagine_prodotto">
 						<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
 					</div>
@@ -55,25 +56,23 @@
 						<h3 class="nome_prodotto"><%= (p != null) ? p.getNome() : "Prodotto" %></h3>
 						<p class="descrizione_prodotto"><%= (p != null) ? p.getDescrizione() : "" %></p>
 						<p class="varianti_scelte">
-							Taglia: <%= variante.getTaglia() %>, Colore: <%= variante.getColore() %>
+							Taglia: <%= variante.getTaglia() %> - Colore: <%= variante.getColore() %>
 						</p>
 						<span class="prezzo_prodotto"><%= String.format("%.2f", variante.getPrezzo()) %>€</span>
 						<span class="quantita_prodotto">Q.tà: <%= item.getQuantita() %></span>
 					</div>
 					
-					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" style="margin-top: 10px;">
+					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" onclick="event.stopPropagation();" style="margin-top: 10px;">
 						<input type="hidden" name="azione" value="rimuovi">
 						<input type="hidden" name="idVariante" value="<%= variante.getIdVariante() %>">
-						<button type="submit" style="color: #d9534f; background: none; border: none; cursor: pointer; text-decoration: underline; font-weight: bold;">
+						<button type="submit">
 							Rimuovi
 						</button>
 					</form>
-				</a>
-				
-			</div>
-		<%
-			} 
-		%>
+				</div>
+			<%
+				} 
+			%>
 		
 		</div>
 		
@@ -97,8 +96,7 @@
 		<%
 			}
        	%>
-		
-		 </div>
+		</main>
 		
 		<jsp:include page="Footer.jsp"/>
 	</body>

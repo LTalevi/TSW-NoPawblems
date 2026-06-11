@@ -107,22 +107,77 @@ CREATE TABLE PRODOTTO_CARRELLO(
 );
 
 -- POPOLAMENTO DATABASE
--- POPOLAMENTO DI ESEMPIO PER CAPIRNE LA LOGICA
 INSERT INTO CATEGORIA (ID_PADRE, NOME, DESCRIZIONE) VALUES (NULL, 'Cani', 'Tutto per il tuo cane');
+INSERT INTO CATEGORIA (ID_PADRE, NOME, DESCRIZIONE) VALUES (NULL, 'Gatti', 'Tutto per il tuo gatto');
 
--- Inseriamo un Prodotto Padre (Master)
-INSERT INTO PRODOTTO (CATEGORIA, NOME, DESCRIZIONE) 
-VALUES (1, 'Collare Comfort Nylon', 'Un fantastico collare ultra resistente per cani di ogni taglia.');
+-- Prodotti per Cani (CATEGORIA = 1)
+INSERT INTO PRODOTTO (CATEGORIA, NOME, DESCRIZIONE, ATTIVO) VALUES 
+(1, 'Cappello di Lana', 'Cappello in soffice lana, adatto ai climi più freddi.', TRUE),  -- ID Prodotto: 1
+(1, 'Giacca di Jeans', 'Il materiale fresco e resistente permette una bellezza che dura tutto l\'anno.', TRUE),         -- ID Prodotto: 2
+(1, 'Occhiali da Sole Oversize', 'Per un\'estate BIG.', TRUE),     -- ID Prodotto: 3
+(1, 'Scarpe Convert', 'Scarpe dal design semplice ma accattivante, comode per qualsiasi tipo di zampa.', TRUE),    -- ID Prodotto: 4
+(1, 'Scarpe Adeedas', 'Scarpe da tennis comodissime per attività ricreativa in esterna.', TRUE),   -- ID Prodotto: 5
+(1, 'Tiara Diamantata', 'Con questa il tuo cagnolone diventerà una bellissima principessina (LGBTQ+ friendly).', TRUE);    -- ID Prodotto: 6
 
--- Inseriamo le sue varianti (Detail) legate al Padre con ID 1
--- Variante 1: Taglia S, Colore Rosso (con relativo codice HEX)
-INSERT INTO VARIANTE_PRODOTTO (PRODOTTO_PADRE, TAGLIA, COLORE, COLORE_HEX, PREZZO, DISPONIBILITA) 
-VALUES (1, 'S', 'Rosso', '#FF0000', 12.50, 15);
+-- Prodotti per Gatti (CATEGORIA = 2)
+INSERT INTO PRODOTTO (CATEGORIA, NOME, DESCRIZIONE, ATTIVO) VALUES 
+(2, 'Sciarpa di Velluto per Gatti', 'Sciarpa in morbido tessuto setoso, resistente e di classe.', TRUE),        -- ID Prodotto: 7
+(2, 'Pettorina Catarifrangente', 'Possa il tuo gatto non essere più investito.', TRUE),       -- ID Prodotto: 8
+(2, 'Gilet Elegante con motivo a quadri', 'Un gilet da vero gentlecat per il tuo amico peloso.', TRUE), -- ID Prodotto: 9
+(2, 'Scarpe Convert', 'Scarpe dal design semplice ma accattivante, comode per qualsiasi tipo di zampa.', TRUE), -- ID Prodotto 10
+(2, 'Cappello Viva L\'Italia', 'Nessuno sbaglierà più la nazionalità del tuo gatto.', TRUE),     -- ID Prodotto: 11
+(2, 'Kit da Compleanno Siesta', 'Anima la festa con i fantastici accessori Siesta.', TRUE),    -- ID Prodotto: 12
+(2, 'Cappuccio con Mantello', 'Scarpe da tennis comodissime per attività ricreativa in esterna.', TRUE);    -- ID Prodotto: 13
 
--- Variante 2: Taglia M, Colore Rosso
-INSERT INTO VARIANTE_PRODOTTO (PRODOTTO_PADRE, TAGLIA, COLORE, COLORE_HEX, PREZZO, DISPONIBILITA) 
-VALUES (1, 'M', 'Rosso', '#FF0000', 15.00, 10);
+INSERT INTO VARIANTE_PRODOTTO (PRODOTTO_PADRE, TAGLIA, COLORE, COLORE_HEX, PREZZO, IVA, DISPONIBILITA) VALUES
+-- Varianti prodotti Cane
+(1, 'XS', 'Rosso', '#FF0000', 25.99, 22, 49),  -- In offerta (< 50)
+(1, 'S', 'Rosso', '#FF0000', 25.99, 22, 20),  -- In offerta (< 50)
+(1, 'M', 'Rosso', '#FF0000', 25.99, 22, 27),  -- In offerta (< 50)
+(2, 'Unica', 'Blu', '#1560BD', 39.99, 22, 15),    -- In offerta (< 50)
+(3, 'Unica', 'Nero', '#000000', 12.99, 22, 30),     -- In offerta (< 50)
+(4, 'M', 'Nero', '#000000', 79.90, 22, 55),     -- FUORI OFFERTA (> 50)
+(4, 'M', 'Rosso', '#FF0000', 79.90, 22, 10),     -- FUORI OFFERTA (> 50)
+(4, 'L', 'Nero', '#000000', 79.90, 22, 11),     -- FUORI OFFERTA (> 50)
+(4, 'L', 'Rosso', '#FF0000', 79.90, 22, 10),     -- FUORI OFFERTA (> 50)
+(4, 'XL', 'Nero', '#000000', 79.90, 22, 12),     -- FUORI OFFERTA (> 50)
+(4, 'XL', 'Rosso', '#FF0000', 79.90, 22, 22),     -- FUORI OFFERTA (> 50)
+(5, 'M', 'Bianco', '#FFFFFF', 99.90, 22, 10),     -- FUORI OFFERTA (> 50)
+(5, 'L', 'Bianco', '#FFFFFF', 99.90, 22, 10),     -- FUORI OFFERTA (> 50)
+(5, 'XL', 'Bianco', '#FFFFFF', 99.90, 22, 10),     -- FUORI OFFERTA (> 50)
+(6, 'Unica', 'Argento', '#C0C0C0', 399.99, 22, 17),     -- FUORI OFFERTA (> 50)
+(6, 'Unica', 'Oro', '#EFBF04', 399.99, 22, 12),     -- FUORI OFFERTA (> 50)
 
--- Variante 3: Taglia M, Colore Blu
-INSERT INTO VARIANTE_PRODOTTO (PRODOTTO_PADRE, TAGLIA, COLORE, COLORE_HEX, PREZZO, DISPONIBILITA) 
-VALUES (1, 'M', 'Blu', '#0000FF', 15.00, 8);
+-- Varianti prodotti Gatto
+(7, 'Unica', 'Verde', '#287B6F', 49.90, 22, 8),  -- In offerta (< 50)
+(8, 'M', 'Rosa', '#FFC0CB', 28.90, 22, 100),  -- In offerta (< 50)
+(8, 'L', 'Rosa', '#FFC0CB', 28.90, 22, 80),  -- In offerta (< 50)
+(8, 'XL', 'Rosa', '#FFC0CB', 28.90, 22, 22),  -- In offerta (< 50)
+(9, 'S', 'Unico', '#DED1B6', 192.99, 22, 40),  -- FUORI OFFERTA (> 50)
+(9, 'M', 'Unico', '#DED1B6', 192.99, 22, 40),  -- FUORI OFFERTA (> 50)
+(9, 'L', 'Unico', '#DED1B6', 192.99, 22, 40),  -- FUORI OFFERTA (> 50)
+(9, 'XL', 'Unico', '#DED1B6', 192.99, 22, 40),  -- FUORI OFFERTA (> 50)
+(10, 'M', 'Nero', '#000000', 69.90, 22, 40),     -- FUORI OFFERTA (> 50)
+(10, 'M', 'Rosso', '#FF0000', 69.90, 22, 10),     -- FUORI OFFERTA (> 50)
+(10, 'L', 'Nero', '#000000', 69.90, 22, 13),     -- FUORI OFFERTA (> 50)
+(10, 'L', 'Rosso', '#FF0000', 69.90, 22, 20),     -- FUORI OFFERTA (> 50)
+(10, 'XL', 'Nero', '#000000', 69.90, 22, 1),     -- FUORI OFFERTA (> 50)
+(10, 'XL', 'Rosso', '#FF0000', 69.90, 22, 32),     -- FUORI OFFERTA (> 50)
+(11, 'Unica', 'Unico', '#000000', 29.90, 22, 2),    -- In offerta (< 50)
+(12, 'Unica', 'Rosso', '#FF0000', 12.90, 22, 22),    -- In offerta (< 50)
+(12, 'Unica', 'Blu', '#305CDE', 12.90, 22, 22),    -- In offerta (< 50)
+(12, 'Unica', 'Giallo', '#FFE817', 12.90, 22, 22),    -- In offerta (< 50)
+(13, 'Unica', 'Unico', '#FF0000', 42.90, 22, 22);    -- In offerta (< 50)
+
+INSERT INTO IMMAGINE (PRODOTTO, URL, ALT) VALUES
+-- immagini slider header
+(4, 'img/Header_img/Header_img_1.png', 'Giacca di Jeans per Cani'),
+(2, 'img/Header_img/Header_img_2.png', 'Cappuccio con mantello per Gatti'),
+(3, 'img/Header_img/Header_img_3.png', 'Convert per Cani'),
+(5, 'img/Header_img/Header_img_4.png', 'Cappello Italia viva per Gatti'),
+(6, 'img/Header_img/Header_img_5.png', 'Kit da compleanno per Gatti'),
+(7, 'img/Header_img/Header_img_6.png', 'Tiara diamantata per Cani'),
+
+-- Immagini di test per i prodotti fuori offerta (mostrati nelle sezioni in basso)
+(1, 'img/prodotti/bulldog-cappello-rosso-generale.png', 'Cappello di Lana per Cani'),
+(8, 'img/prodotti/sciarpa-gatto-generale.png', 'Sciarpa di Velluto per Gatti');

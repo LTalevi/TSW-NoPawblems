@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-:root {
-	--background-color: #FFF8F9;
-	--color: #FFF8F9;
-	--primary-color: #3F778D;
-}
-
 .sidebar {
 	display: flex;
 	flex-direction: row;

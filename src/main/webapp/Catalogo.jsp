@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
@@ -38,21 +39,19 @@
 	                    		altImmagine = p.getImmagini().get(0).getAlt();
 	                		}
 					%>	  
-			<div class="prodotto">
-				<a href="<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%=p.getIdProdotto()%>">
-					<div class="immagine_prodotto">
-						<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
-					</div>
-					
-					<div class="info_prodotto">
-						<h3 class="nome_prodotto"><%= p.getNome() %></h3>
-						<p class="descrizione_prodotto"><%= p.getDescrizione() %></p>
-						<span class="prezzo_prodotto"><%=p.getVarianti().get(0).getPrezzo()+"€"%></span>
-					</div>
-				</a>
+			<div class="prodotto" onclick="location.href='<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%=p.getIdProdotto()%>'">
+				<div class="immagine_prodotto">
+					<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
+				</div>
+				
+				<div class="info_prodotto">
+					<h3 class="nome_prodotto"><%= p.getNome() %></h3>
+					<p class="descrizione_prodotto"><%= p.getDescrizione() %></p>
+					<span class="prezzo_prodotto"><%=p.getVarianti().get(0).getPrezzo()+"€"%></span>
+				</div>
 				
 				<a class="bottone-acquista" href="<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%= p.getIdProdotto() %>">
- 					Acquista ora
+						Acquista ora
 				</a>
 			</div>
 			<%

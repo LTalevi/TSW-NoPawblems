@@ -12,6 +12,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
@@ -24,7 +25,7 @@
 	<body>
 		<jsp:include page="Nav.jsp"/>
 	
-		<div class="main-wrapper">
+		<main class="main-wrapper">
 			<% if (p == null) { %>
 		  				<p style="text-align:center; width:100%; margin:auto;">C'è stato un errore con il caricamento del prodotto.</p>
 				<% } else { 
@@ -63,7 +64,7 @@
 					<div class="immagini-secondarie-prodotto">
 						<%
 							if(immagini != null){
-								for(int i = 1; i < immagini.size(); i++){
+								for(int i = 0; i < immagini.size(); i++){
 									Immagine immagine_secondaria = immagini.get(i);								
 						%>
 							
@@ -85,61 +86,61 @@
    						<%= (p.getVarianti() != null && !p.getVarianti().isEmpty()) ? String.format("%.2f", p.getVarianti().get(0).getPrezzo()) + "€" : "Prezzo non disponibile." %>
 					</span>
 					
-			<div class="selettore-varianti" style="margin: 20px 0;">
-        	<% if(!taglieDisponibili.isEmpty() && taglieDisponibili.get(0) != null) { %>
-        		<div class="selettore-gruppo">
-            		<h4>Taglia:</h4>
-            		<div class="opzioni">
-                		<% for(String taglia : taglieDisponibili) { 
-                    		if(taglia != null && !taglia.isEmpty()) { %>
-                  		  	<button type="button" class="btn-taglia" onclick="selezionaTaglia('<%= taglia %>', this)">
-                    	    	<%= taglia %>
-                    		</button>
-                		<%  } 
-                		} %>
-            		</div>
-       			</div>
-  	     	<% } %>
-
-			<% if(!coloriDisponibili.isEmpty() && coloriDisponibili.get(0) != null) { %>
-       		<div class="selettore-gruppo">
-            	<h4>Colore:</h4>
-            	<div class="opzioni">
-               	 	<% for(int i = 0; i < coloriDisponibili.size(); i += 2) { 
-                    	String nomeColore = coloriDisponibili.get(i);
-                    	String hexColore = coloriDisponibili.get(i+1);
-                    	if(nomeColore != null && !nomeColore.isEmpty()) { %>
-                    	<button type="button" class="btn-colore" style="background-color: <%= hexColore %>;" title="<%= nomeColore %>" onclick="selezionaColore('<%= nomeColore %>', this)">
-                    	</button>
-                	<%  } 
-                	} %>
-            	</div>
-        	</div>
-        	<% } %>
-        
-        	<div id="disponibilita-info" class="msg-disponibilita"></div>
-    	</div>
-    
-    	<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" class="form-aggiunta-carrello" onsubmit="return validaAggiunta()">
-        	<input type="hidden" name="azione" value="aggiungi">
-        	<input type="hidden" id="idVarianteInput" name="idVariante" value="">
-
-        	<div class="selettore-quantita">
-            	<label for="quantita">Quantità:</label>
-            	<input type="number" id="quantita" name="quantita" value="1" min="1" required>
-        	</div>
-
-        	<button type="submit" id="btnAggiungiCarrello" class="bottone-aggiunta-carrello" disabled>
-            	Aggiungi al carrello
-        	</button>
-    	</form>
+					<div class="selettore-varianti" style="margin: 20px 0;">
+		        	<% if(!taglieDisponibili.isEmpty() && taglieDisponibili.get(0) != null) { %>
+		        		<div class="selettore-gruppo">
+		            		<h4>Taglia:</h4>
+		            		<div class="opzioni">
+		                		<% for(String taglia : taglieDisponibili) { 
+		                    		if(taglia != null && !taglia.isEmpty()) { %>
+		                  		  	<button type="button" class="btn-taglia" onclick="selezionaTaglia('<%= taglia %>', this)">
+		                    	    	<%= taglia %>
+		                    		</button>
+		                		<%  } 
+		                		} %>
+		            		</div>
+		       			</div>
+		  	     	<% } %>
+		
+					<% if(!coloriDisponibili.isEmpty() && coloriDisponibili.get(0) != null) { %>
+		       		<div class="selettore-gruppo">
+		            	<h4>Colore:</h4>
+		            	<div class="opzioni">
+		               	 	<% for(int i = 0; i < coloriDisponibili.size(); i += 2) { 
+		                    	String nomeColore = coloriDisponibili.get(i);
+		                    	String hexColore = coloriDisponibili.get(i+1);
+		                    	if(nomeColore != null && !nomeColore.isEmpty()) { %>
+		                    	<button type="button" class="btn-colore" style="background-color: <%= hexColore %>;" title="<%= nomeColore %>" onclick="selezionaColore('<%= nomeColore %>', this)">
+		                    	</button>
+		                	<%  } 
+		                	} %>
+		            	</div>
+		        	</div>
+		        	<% } %>
+		        
+		        	<div id="disponibilita-info" class="msg-disponibilita"></div>
+		    	</div>
+		    
+		    	<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" class="form-aggiunta-carrello" onsubmit="return validaAggiunta()">
+		        	<input type="hidden" name="azione" value="aggiungi">
+		        	<input type="hidden" id="idVarianteInput" name="idVariante" value="">
+		
+		        	<div class="selettore-quantita">
+		            	<label for="quantita">Quantità:</label>
+		            	<input type="number" id="quantita" name="quantita" value="1" min="1" required>
+		        	</div>
+		
+		        	<button type="submit" id="btnAggiungiCarrello" class="bottone-aggiunta-carrello" disabled>
+		            	Aggiungi al carrello
+		        	</button>
+		    	</form>
 			</div>
 		</div>
 			
 			<%
 		      	}
 			%>
-		</div>
+		</main>
 	
 		<jsp:include page="Footer.jsp"/>
 		<script src="<%= request.getContextPath() %>/scripts/dettaglioProdotto.js"></script>

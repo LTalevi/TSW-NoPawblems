@@ -35,17 +35,17 @@
 			<fieldset>
 				<legend>Seleziona Categoria</legend>
 					<div class="radio_container">
-						<label>
+						<label class="radio">
                             <input type="radio" class="radio" name="idPadre" value="" <%= (idPadreForm == null) ? "checked" : "" %>>
                             <span class="radio_contenuto">Tutti</span>
                         </label>
                         
-                        <label>
+                        <label class="radio">
                             <input type="radio" class="radio" name="idPadre" value="1" <%= (idPadreForm != null && idPadreForm == 1) ? "checked" : "" %>>
                             <span class="radio_contenuto">Cane</span>
                         </label>
                         
-                        <label>
+                        <label class="radio">
                             <input type="radio" class="radio" name="idPadre" value="2" <%= (idPadreForm != null && idPadreForm == 2) ? "checked" : "" %>>
                             <span class="radio_contenuto">Gatto</span>
                         </label>
