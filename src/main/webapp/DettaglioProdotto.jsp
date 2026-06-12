@@ -12,18 +12,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
+		<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileDettaglioProdotto.css" type="text/css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<meta charset="UTF-8">
 		<title>Dettaglio Prodotto</title>
 	</head>
 	
 	<body>
-		<jsp:include page="Nav.jsp"/>
+		<jsp:include page="/fragments/Nav.jsp"/>
+		<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 	
 		<main class="main-wrapper">
 			<% if (p == null) { %>
@@ -50,7 +47,7 @@
 	                				}
 	                				if(!coloriDisponibili.contains(v.getColore())) {
 	                					coloriDisponibili.add(v.getColore());
-	                					coloriDisponibili.add(v.getColoreHex()); // Coppia nome-hex sequenziale
+	                					coloriDisponibili.add(v.getColoreHex()); 
 	                				}
 	                			}
 	                		}
@@ -142,7 +139,7 @@
 			%>
 		</main>
 	
-		<jsp:include page="Footer.jsp"/>
+		<jsp:include page="/fragments/Footer.jsp"/>
 		<script src="<%= request.getContextPath() %>/scripts/dettaglioProdotto.js"></script>
 	</body>
 </html>

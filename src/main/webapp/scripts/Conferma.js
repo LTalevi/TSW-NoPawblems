@@ -1,6 +1,6 @@
 let form = null;
 
-function apriFinestra(btn){
+function apriConferma(btn){
 	form = btn.closest(".formRimozione");
 	
 	const finestra = document.getElementById("overlay-finestra");
@@ -9,7 +9,7 @@ function apriFinestra(btn){
 	}
 }
 
-function chiudiFinestra(){
+function chiudiConferma(){
 	const finestra = document.getElementById("overlay-finestra");
 	
 	if(finestra){

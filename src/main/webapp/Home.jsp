@@ -12,19 +12,15 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/StileHome.css" type="text/css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
 	
 	<title>NoPawblems</title>
 </head>
 
 <body>
-	<jsp:include page="Nav.jsp"/>
-	<jsp:include page="Header.jsp"/>
+	<jsp:include page="/fragments/Nav.jsp"/>
+	<jsp:include page="/fragments/Header.jsp"/>
+	<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 	
 	<main class="main-content-wrapper">
 	
@@ -73,7 +69,9 @@
 	    					} 
 	   					} 
 	    			%>
-    			</div> <button class="arrow_button next" aria-label="prodotto successivo">
+    			</div> 
+    			
+    			<button class="arrow_button next" aria-label="prodotto successivo">
 				    <i class="material-icons">keyboard_arrow_right</i>
 				</button>		
 			</div>
@@ -133,7 +131,7 @@
 		
 	</main>
 		
-	<jsp:include page="Footer.jsp"/>
+	<jsp:include page="/fragments/Footer.jsp"/>
 	
 	<script src="scripts/carosello.js"></script>
 </body>

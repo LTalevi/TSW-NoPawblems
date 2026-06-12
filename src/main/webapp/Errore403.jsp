@@ -4,18 +4,15 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
+	<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
 	<link rel="stylesheet" href="stylesheets/Error.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	
 	<title>Pagina non trovata</title>
 </head>
 
 <body>
-	<jsp:include page="Nav.jsp"/>
+	<jsp:include page="/fragments/Nav.jsp"/>
+	<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 
 	<div class="main_content_wrapper">
 		<div class="immagine_errore">

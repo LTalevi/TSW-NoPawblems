@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	flex-grow: 1;
+	padding: 90px 30px 30px 30px;
+	border: 2px solid var(--border-color);
+	border-radius: 8px;
+}
+
+.Titolo {
+	display: block;
+	text-align: center;
+	justify-content: center;
+	width: 100%;
+	border: none;
+	border-bottom: 2px solid var(--border-color);
+}
+
+.Titolo h2 {
+	font-size: 24px;
+	font-weight: bold;
+	color: var(--primary-color);
+}
+
+.Titolo h3 {
+	font-size: 14px;
+	font-style: italic;
+	color: var(--secondary-color);	
+}
+
+.Testo {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	width: 100%;
+	gap: 10px;
+}
+
+.Testo p {
+	color: var(--primary-text-color);
+}
+
+.Testo q {
+	font-style: italic;
+	color: var(--primary-color);
+}
+
+.Testo blockquote {
+	color: var(--primary-color);
+}

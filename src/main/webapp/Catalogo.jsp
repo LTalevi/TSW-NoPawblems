@@ -10,20 +10,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
+		<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileCatalogo.css" type="text/css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<meta charset="UTF-8">
 
 		<title>Catalogo</title>
 	</head>
 
 	<body>
-		<jsp:include page="Nav.jsp"/>
-		<jsp:include page="HeaderCatalogo.jsp"/>
+		<jsp:include page="/fragments/Nav.jsp"/>
+		<jsp:include page="/fragments/HeaderCatalogo.jsp"/>
+		<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 
 		<div class="main-wrapper">
 			<div class="product-grid">
@@ -64,6 +61,6 @@
 
 
 
-		<jsp:include page="Footer.jsp"/>
+		<jsp:include page="/fragments/Footer.jsp"/>
 	</body>
 </html>

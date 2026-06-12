@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileLogin.css" type="text/css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
+
 		<meta charset="UTF-8">
 		<title>Login</title>
 	</head>
@@ -13,9 +13,9 @@
 	<body>
 		<div class="main-wrapper">
 			<header>
-				<div class="logo">
-					<a href="<%=request.getContextPath()%>/HomeServlet"><img src="img/logo/logo_NoPawblems_esteso.jpeg"/></a>
-				</div>
+				<a href="<%=request.getContextPath()%>/HomeServlet" class="logo">
+					<img src="img/logo/logo_NoPawblems_esteso.jpeg"/>
+				</a>
 			</header>
 			
 			<div class="campi-dati">

@@ -6,7 +6,7 @@
 		
 		<div class="Selezione">
 			<button type="button" class="Si" id="Si">Si</button>
-			<button type="button" class="No" id="No" onclick="chiudiFinestra()">No</button>
+			<button type="button" class="No" id="No" onclick="chiudiConferma()">No</button>
 		</div>
 	</div>
 </div>

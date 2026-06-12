@@ -13,20 +13,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileHeader.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
+		<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileCarrello.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/Conferma.css" type="text/css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<meta charset="UTF-8">
 
 		<title>Carrello</title>
 	</head>
 	
 	<body>
-		<jsp:include page="Nav.jsp"/>
+		<jsp:include page="/fragments/Nav.jsp"/>
+		<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 	
 		<main class="main-wrapper">
 			<div class="prodotti-carrello">
@@ -66,7 +62,7 @@
 					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" onclick="event.stopPropagation();" class="formRimozione" style="margin-top: 10px;">
 						<input type="hidden" name="azione" value="rimuovi">
 						<input type="hidden" name="idVariante" value="<%= variante.getIdVariante() %>">
-						<button type="button" onclick="apriFinestra(this)">
+						<button type="button" onclick="apriConferma(this)">
 							Rimuovi
 						</button>
 					</form>
@@ -99,8 +95,8 @@
        	%>
 		</main>
 		
-		<jsp:include page="ConfermaAzione.jsp"/>		
-		<jsp:include page="Footer.jsp"/>
+		<jsp:include page="/fragments/ConfermaAzione.jsp"/>		
+		<jsp:include page="/fragments/Footer.jsp"/>
 		
 		<script src="<%= request.getContextPath() %>/scripts/Conferma.js"></script>
 	</body>
