@@ -18,6 +18,7 @@
 		<link rel="stylesheet" href="stylesheets/StileFooter.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileMenu.css" type="text/css">
 		<link rel="stylesheet" href="stylesheets/StileCarrello.css" type="text/css">
+		<link rel="stylesheet" href="stylesheets/Conferma.css" type="text/css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<meta charset="UTF-8">
 
@@ -62,10 +63,10 @@
 						<span class="quantita_prodotto">Q.tà: <%= item.getQuantita() %></span>
 					</div>
 					
-					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" onclick="event.stopPropagation();" style="margin-top: 10px;">
+					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" onclick="event.stopPropagation();" class="formRimozione" style="margin-top: 10px;">
 						<input type="hidden" name="azione" value="rimuovi">
 						<input type="hidden" name="idVariante" value="<%= variante.getIdVariante() %>">
-						<button type="submit">
+						<button type="button" onclick="apriFinestra(this)">
 							Rimuovi
 						</button>
 					</form>
@@ -98,6 +99,9 @@
        	%>
 		</main>
 		
+		<jsp:include page="ConfermaAzione.jsp"/>		
 		<jsp:include page="Footer.jsp"/>
+		
+		<script src="<%= request.getContextPath() %>/scripts/Conferma.js"></script>
 	</body>
 </html>

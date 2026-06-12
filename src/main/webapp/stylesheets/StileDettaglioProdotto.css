@@ -147,14 +147,6 @@ body {
     color: var(--secondary-color);
 }
 
-
-/* 
-DA MODIFICARE
-==========================================================================
-   NUOVI STILI AGGIUNTI
-   ========================================================================== */
-
-/* Contenitore principale dei selettori */
 .selettore-varianti {
     width: 100%;
     display: flex;
@@ -188,7 +180,6 @@ DA MODIFICARE
     justify-content: center; 
 }
 
-/* --- STILE BOTTONI TAGLIA --- */
 .btn-taglia {
     background-color: var(--background-color);
     color: var(--primary-text-color);

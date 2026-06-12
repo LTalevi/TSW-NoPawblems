@@ -78,26 +78,26 @@ body {
     justify-content: space-between;  
     align-items: flex-start;
     gap: 10px;
-    height: 300px;
+    min-height: 300px;
     width: 55%;
-    min-height: 0;
     gap: 10px;
     padding: 0 10px 10px;
     border: none;
     border-left: 2px solid var(--border-color);
-    /*background-color: #DFF7E8;*/
     order: 2;
 }
 
 .info_prodotto h3 {
 	display: inline-block;
 	width: 100%;
+	padding: 10px;
 	color: var(--secondary-text-color);
 	background-color: var(--primary-color);
 }
 
 .info_prodotto p {
 	display: inline-block;
+	width: 100%;
 	color: var(--primary-text-color);
 }
 
@@ -165,7 +165,7 @@ form[action*="CarrelloServlet"] {
     height: auto;      
 }
 
-button[type="submit"] {
+.formRimozione button {
 	display: block;
     width: 120px;               
     padding: 10px;             
@@ -182,7 +182,7 @@ button[type="submit"] {
     color: var(--background-color);
 }
 
-button[type="submit"]:hover {
+.formRimozione button:hover {
 	color: var(--secondary-color);
     border-color: var(--secondary-color);
     background-color: var(--background-color);
