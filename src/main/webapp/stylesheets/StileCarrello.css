@@ -134,7 +134,14 @@ body {
     color: var(--secondary-color);
 }
 
-.riepilogo .bottone-checkout {
+.bottoni-carrello {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+
+.riepilogo .bottone-checkout, .riepilogo .bottone-svuota-carrello {
     display: block;
     width: 250px;
     padding: 12px;
@@ -150,7 +157,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.riepilogo .bottone-checkout:hover {
+.riepilogo .bottone-checkout:hover, .riepilogo .bottone-svuota-carrello:hover {
     background-color: var(--background-color);
     color: var(--secondary-color);
 }

@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+body {
+	display:flex;
+    flex-direction:column;
+	width: 100%;
+	min-height: 100vh;
+	flex-grow: 1;
+	background-color: #cccccc;
+}
+
+
+.wrapper {
+	padding: 90px 30px 30px 30px;
+	background-color: var(--background-color);
+	color: var(--primary-text-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+
+.saluto {
+	display: block;
+	text-align: center;
+	align-items: center;
+	font-size: 24px;
+}
+
+.gradiente {
+	background-image: linear-gradient(35deg, var(--tertiary-color), var(--secondary-color), var(--primary-color));
+	-webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: bold; 
+    display: inline-block;
+}
+
+.contenitore {
+	display: grid;	
+	grid-template-columns: 1fr 1fr 1fr;
+	border: 2px solid var(--primary-color);
+	border-radius: 8px;
+	gap: 20px;
+	padding: 30px;
+	margin: 0;
+}
+
+.dati {
+	grid-column: 1;
+	border: 2px solid var(--primary-color);
+	border-radius: 4px;
+	padding: 20px;
+	margin: 0;
+	background-color: var(--background-color);
+}
+
+.campo_titolo {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+
+.bottone_modifica {
+	width: 40px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;    
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 2;
+    color: var(--secondary-color);
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);  
+    transition: all 0.3s ease-in-out;
+}
+
+.bottone_modifica:hover {
+    color: var(--background-color);
+    background-color: var(--secondary-color);
+    border: 1px solid var(--background-color);  
+}
+
+.campo_testo {
+	display: flex;
+	flex-direction: column;
+}
+
+.testo {
+	display: flex;
+	align-items: center;
+}
+
+.testo label {
+	min-width: 110px;
+	font-weight: bold;
+}
+
+.testo p {
+	padding: 5px;
+	width: 250px;
+	border: 2px solid var(--border-color);
+	border-radius: 4px;
+}
+
+.indirizzi {
+	grid-column: 2;
+	border: 2px solid var(--primary-color);
+	border-radius: 4px;
+	padding: 20px;
+	margin: 0;
+}
+
+.ordini {
+	grid-column: 3;
+	border: 2px solid var(--primary-color);
+	border-radius: 4px;
+	padding: 20px;
+	margin: 0;
+}
+
+.campo_titolo .titolo {
+	font-size: 18px;
+}
+

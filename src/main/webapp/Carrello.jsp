@@ -85,9 +85,15 @@
 		<div class="riepilogo">
 			<p class="costo-totale">Totale: <%=String.format("%.2f", prezzoTotale)+"€" %> </p>
 			
-			<a class="bottone-checkout" href="<%= request.getContextPath() %>/CheckoutServlet">
-				Procedi al Checkout
-			</a>
+			<div class="bottoni-carrello">
+				<a class="bottone-svuota-carrello" href="#" onclick="apriConfermaSvuota(event)">
+					Svuota Carrello
+				</a>
+			
+				<a class="bottone-checkout" href="<%= request.getContextPath() %>/CheckoutServlet">
+					Procedi al Checkout
+				</a>
+			</div>
 		</div>
 		
 		<%

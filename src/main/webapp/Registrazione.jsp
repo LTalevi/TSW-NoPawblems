@@ -19,7 +19,7 @@
 			</header>
 		
 			<div class="campi-dati">
-				<form action="RegistrazioneServlet" method="POST">
+				<form action="<%=request.getContextPath() %>/RegistrazioneServlet" method="POST">
 					<div class="input-errore-container">
 						<div class="input" id="input_nome">
 							<label for="nome">Nome:</label>
@@ -76,7 +76,7 @@
 					<div class="input-errore-container">
 						<div class="input" id="input_conferma">
 							<label for="conferma_password">Conferma Password:</label>
-							<input type="password" name="conferma_password" id="conferma_password" placeholder="password" oninput="valida_conferma()" required/>
+							<input type="password" name="confermaPassword" id="conferma_password" placeholder="password" oninput="valida_conferma()" required/>
 						</div>
 							<span id="errore_conferma_password" class="errore"></span>
 					</div>
