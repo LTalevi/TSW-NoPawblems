@@ -175,9 +175,9 @@ INSERT INTO IMMAGINE (PRODOTTO, URL, ALT) VALUES
 (2, 'img/Header_img/Header_img_2.png', 'Cappuccio con mantello per Gatti'),
 (3, 'img/Header_img/Header_img_3.png', 'Convert per Cani'),
 (5, 'img/Header_img/Header_img_4.png', 'Cappello Italia viva per Gatti'),
-(6, 'img/Header_img/Header_img_5.png', 'Kit da compleanno per Gatti'),
-(7, 'img/Header_img/Header_img_6.png', 'Tiara diamantata per Cani'),
+(12, 'img/Header_img/Header_img_5.png', 'Kit da compleanno per Gatti'),
+(6, 'img/Header_img/Header_img_6.png', 'Tiara diamantata per Cani'),    
 
--- Immagini di test per i prodotti fuori offerta (mostrati nelle sezioni in basso)
+-- Immagini di test per i prodotti (mostrati nelle sezioni in basso)
 (1, 'img/prodotti/bulldog-cappello-rosso-generale.png', 'Cappello di Lana per Cani'),
-(8, 'img/prodotti/sciarpa-gatto-generale.png', 'Sciarpa di Velluto per Gatti');
+(7, 'img/prodotti/sciarpa-gatto-generale.png', 'Sciarpa di Velluto per Gatti');
