@@ -3,6 +3,7 @@ let azioneCorrente = "";
 
 function apriConferma(btn){
 	form = btn.closest(".formRimozione");
+	azioneCorrente = "rimuovi";
 	
 	const finestra = document.getElementById("overlay-finestra");
 	if(finestra){
@@ -18,6 +19,7 @@ function chiudiConferma(){
 	}
 	
 	form = null;
+	azioneCorrente = "";
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -39,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
                 .then(response => {
                     if (response.ok) {
-                        window.location.reload(); // Ricarica la pagina aggiornata
+                        window.location.reload();
                     } else {
                         alert("Errore durante lo svuotamento del carrello.");
                     }

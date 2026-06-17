@@ -96,10 +96,22 @@ public class CarrelloServlet extends HttpServlet {
 		
 		ProdottoCarrelloDAO prodottoCarrelloDAO = new ProdottoCarrelloDAO();
 		VarianteProdottoDAO varianteDAO = new VarianteProdottoDAO();
-		Long idVariante = Long.parseLong(request.getParameter("idVariante"));
+		
 		try {
 	        switch (action) {
-	            case "aggiungi":
+	        	case "svuota":
+	        		if (session != null) {
+						session.removeAttribute("carrello");
+						session.setAttribute("numeroPezziCarrello", 0);
+					}
+					if (utente != null) {
+						prodottoCarrelloDAO.doClearCarrello(utente.getIdUtente()); 
+					}
+					response.setStatus(HttpServletResponse.SC_OK); 
+					return;
+	        		
+	            case "aggiungi": {
+	            	Long idVariante = Long.parseLong(request.getParameter("idVariante"));
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
                 	
                     VarianteProdotto var = varianteDAO.doRetrieveByKey(idVariante);
@@ -137,8 +149,10 @@ public class CarrelloServlet extends HttpServlet {
 	                    session.setAttribute("carrello", carrello);
 	                }
 	                break;
+	        }
 	                
-	            case "rimuovi":
+	            case "rimuovi": {
+	            	Long idVariante = Long.parseLong(request.getParameter("idVariante"));
 	            	if (utente != null) {
 	            		prodottoCarrelloDAO.doDelete(utente.getIdUtente(), idVariante);
 	                } else {
@@ -156,9 +170,12 @@ public class CarrelloServlet extends HttpServlet {
 		                	session.setAttribute("carrello", carrello);
 	                	}
 	                }
+	            
 	                break;
+	            }
 	                
-	            case "modifica":
+	            case "modifica": {
+	            	Long idVariante = Long.parseLong(request.getParameter("idVariante"));
 	            	int nuovaQuantita = Integer.parseInt(request.getParameter("nuovaQuantita"));
 	            	if (utente != null) {
 	                	prodottoCarrelloDAO.doUpdate(utente.getIdUtente(), idVariante, nuovaQuantita);
@@ -176,6 +193,7 @@ public class CarrelloServlet extends HttpServlet {
 	                	}
 	                }
 	                break;
+	            }
 	                
 	            default:
 	                break;

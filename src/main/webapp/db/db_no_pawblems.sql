@@ -171,13 +171,22 @@ INSERT INTO VARIANTE_PRODOTTO (PRODOTTO_PADRE, TAGLIA, COLORE, COLORE_HEX, PREZZ
 
 INSERT INTO IMMAGINE (PRODOTTO, URL, ALT) VALUES
 -- immagini slider header
-(4, 'img/Header_img/Header_img_1.png', 'Giacca di Jeans per Cani'),
-(2, 'img/Header_img/Header_img_2.png', 'Cappuccio con mantello per Gatti'),
-(3, 'img/Header_img/Header_img_3.png', 'Convert per Cani'),
-(5, 'img/Header_img/Header_img_4.png', 'Cappello Italia viva per Gatti'),
+(2, 'img/Header_img/Header_img_1.png', 'Giacca di Jeans per Cani'),
+(13, 'img/Header_img/Header_img_2.png', 'Cappuccio con mantello per Gatti'),
+(4, 'img/Header_img/Header_img_3.png', 'Convert per Cani'),
+(11, 'img/Header_img/Header_img_4.png', 'Cappello Italia viva per Gatti'),
 (12, 'img/Header_img/Header_img_5.png', 'Kit da compleanno per Gatti'),
 (6, 'img/Header_img/Header_img_6.png', 'Tiara diamantata per Cani'),    
 
 -- Immagini di test per i prodotti (mostrati nelle sezioni in basso)
 (1, 'img/prodotti/bulldog-cappello-rosso-generale.png', 'Cappello di Lana per Cani'),
-(7, 'img/prodotti/sciarpa-gatto-generale.png', 'Sciarpa di Velluto per Gatti');
+(1, 'img/prodotti/bulldog-cappello-rosso-dietro.png', 'Cappello di Lana per Cani'),
+(1, 'img/prodotti/bulldog-cappello-rosso-frontale.png', 'Cappello di Lana per Cani'),
+(1, 'img/prodotti/bulldog-cappello-rosso-laterale.png', 'Cappello di Lana per Cani'),
+(8, 'img/prodotti/Pettorina-gatto.png', 'Pettorina Catarifrangente'),
+(3, 'img/prodotti/Occhiali.png', 'Occhiali da Sole Oversize'),
+(7, 'img/prodotti/sciarpa-gatto-generale.png', 'Sciarpa di Velluto per Gatti'),
+(9, 'img/prodotti/Gilet-gatto.png', 'Sciarpa di Velluto per Gatti'),
+(10, 'img/prodotti/Convert.png', 'Scarpe Convert'),
+(4, 'img/prodotti/Convert.png', 'Scarpe Convert'),
+(5, 'img/prodotti/Adeedas.png', 'Scarpe Adeedas');
