@@ -87,6 +87,27 @@ body {
     border: 1px solid var(--background-color);  
 }
 
+.logout .bottone_logout {
+	display: block;
+    width: 250px;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none; 
+    border-width: 2px;
+    border-style: outset;
+    border-color: #d1d1d1;
+    border-color: var(--border-color);
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout .bottone_logout:hover {
+	background-color: var(--background-color);
+    color: var(--secondary-color);
+}
+
 .campo_testo {
 	display: flex;
 	flex-direction: column;
@@ -129,3 +150,6 @@ body {
 	font-size: 18px;
 }
 
+.grassetto {
+	font-weight: bold;
+}

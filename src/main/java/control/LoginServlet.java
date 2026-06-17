@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 	        request.setAttribute("success", success);
 	    }
 
-	    request.getRequestDispatcher("login.jsp").forward(request, response);
+	    request.getRequestDispatcher("Login.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
 			request.setAttribute("error", "Inserire email e password");
-	        request.getRequestDispatcher("login.jsp").forward(request, response);
+	        request.getRequestDispatcher("Login.jsp").forward(request, response);
 	        return;
 		}
 		
@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 		} catch (SQLException s){
 			s.printStackTrace();
 			request.setAttribute("error", "Errore durante l'accesso al database");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getRequestDispatcher("Login.jsp").forward(request, response);
 			return; 
 		}
 		
@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("utente", utente);
 		} else {
 			request.setAttribute("error", "Email o password errate");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getRequestDispatcher("Login.jsp").forward(request, response);
 			return;
 		}
 		
@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 				} catch (SQLException s){
 					s.printStackTrace();
 					request.setAttribute("error", "Errore nell'aggiornamento dal carrello: " + s.getMessage());
-		            request.getRequestDispatcher("/500.jsp").forward(request, response);
+		            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
 		            return;
 				}
 	        }
@@ -92,6 +92,6 @@ public class LoginServlet extends HttpServlet {
 		session.removeAttribute("carrello");
 		session.removeAttribute("numeroPezziCarrello");
 		
-		response.sendRedirect(request.getContextPath() + "/HomepageServlet");
+		response.sendRedirect(request.getContextPath() + "/HomeServlet");
 	}
 }

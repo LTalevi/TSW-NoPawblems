@@ -69,7 +69,7 @@ public class UtenteDAO implements InterfaceDAO<Utente, Long> {
 
 	@Override
 	public void doSave(Utente item) throws SQLException {
-		String query = "INSERT INTO utente (nome, cognome, email, telefono, password, isAdmin) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO utente (nome, cognome, email, telefono, password, Admin) VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try(Connection connection = ConnectionPool.getConnection()){
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -87,7 +87,7 @@ public class UtenteDAO implements InterfaceDAO<Utente, Long> {
 
 	@Override
 	public void doUpdate(Utente item) throws SQLException {
-		String query = "UPDATE utente SET nome = ?, cognome = ?, email = ?, telefono = ?, password = ?, isAdmin = ? WHERE id_utente = ?";
+		String query = "UPDATE utente SET nome = ?, cognome = ?, email = ?, telefono = ?, password = ?, Admin = ? WHERE id_utente = ?";
 		
 		try(Connection connection = ConnectionPool.getConnection()){
 			PreparedStatement preparedStatement = connection.prepareStatement(query);

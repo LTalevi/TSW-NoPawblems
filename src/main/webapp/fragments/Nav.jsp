@@ -21,7 +21,7 @@
 	</div>
 
 	<a href="<%= request.getContextPath() %>/HomeServlet" class="logo_navbar" aria-label="Torna alla homepage">
-		<img src="img/logo/logo_NoPawblems_esteso.jpeg" alt="Logo NoPawblems">
+		<img src="<%= request.getContextPath() %>/img/logo/logo_NoPawblems_esteso.jpeg" alt="Logo NoPawblems">
 	</a>
 	
 	<div class="sezioni_navbar">
@@ -40,12 +40,12 @@
 			<i class="material-icons">account_circle</i>	
 		</button>
 	
-		<button class="Carrello" aria-label="Apri carrello" onclick="window.location.href='CarrelloServlet'">
+		<button class="Carrello" aria-label="Apri carrello" onclick="window.location.href='<%=request.getContextPath() %>/CarrelloServlet'">
 			<i class="material-icons">shopping_cart</i>	
 		</button>
 	</div>
 	
 </nav>
 
-<script src="scripts/ToggleMenu.js"></script>
-<script src="scripts/search.js"></script>
+<script src="<%=request.getContextPath() %>/scripts/ToggleMenu.js"></script>
+<script src="<%=request.getContextPath() %>/scripts/search.js"></script>

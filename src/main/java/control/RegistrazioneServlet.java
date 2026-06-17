@@ -25,7 +25,7 @@ public class RegistrazioneServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("register.jsp").forward(request, response);
+		request.getRequestDispatcher("Registrazione.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -86,7 +86,7 @@ public class RegistrazioneServlet extends HttpServlet {
 		
 		if (!errorMap.isEmpty()) {
 			request.setAttribute("errorMap", errorMap);
-			request.getRequestDispatcher("registrazione.jsp").forward(request, response);
+			request.getRequestDispatcher("Registrazione.jsp").forward(request, response);
 			return;
 		}
 		
@@ -106,7 +106,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			System.err.println("Errore durante l'accesso al database" + s.getMessage());
 			errorMap.put("serverError", "Errore interno del server");
             request.setAttribute("errorMap", errorMap);
-            request.getRequestDispatcher("registrazione.jsp").forward(request, response);
+            request.getRequestDispatcher("Registrazione.jsp").forward(request, response);
 		}
 	}
 }

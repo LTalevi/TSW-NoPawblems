@@ -5,55 +5,37 @@
 <%@ page import="model.indirizzo.Indirizzo" %>
 <%@ page import="model.ordine.Ordine" %>
 
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
 <%
-	// --- BLOCCO DI TEST TEMPORANEO ---
-	// Creiamo la sessione di test
-	HttpSession sessione = request.getSession(true); 
+	HttpSession sessione = request.getSession(false);
+	Utente utente = null;
 
-	// Creiamo un utente finto e lo spingiamo in SESSIONE (così lo legge anche la Nav)
-	Utente utente = new Utente();
-	utente.setNome("Eustachio");
-	utente.setCognome("Rossi");
-	utente.setEmail("mario.rossi@gmail.com");
-	utente.setTelefono("1234567890");
-	sessione.setAttribute("utente", utente);
+	if(sessione != null){	
+		utente = (Utente) sessione.getAttribute("utente");
+	}
+		
+	if(utente == null){
+		response.sendRedirect(request.getContextPath() + "/RegistrazioneServlet");
+		return;
+	}
 	
-	// Creiamo degli indirizzi finti per testare la sezione Indirizzi
-	List<Indirizzo> indirizzi = new ArrayList<>();
-	Indirizzo ind1 = new Indirizzo();
-	ind1.setVia("Via Roma 10");
-	ind1.setCitta("Milano");
-	ind1.setProvincia("MI");
-	ind1.setCap("20100");
-	ind1.setNazione("Italia");
-	indirizzi.add(ind1);
-	request.setAttribute("indirizzi", indirizzi);
-
-	// Creiamo una lista vuota di ordini per evitare il crash del toString()
-	List<Ordine> ordini = new ArrayList<>();
-	request.setAttribute("ordini", ordini);
-	// ---------------------------------
+	List<Indirizzo> indirizzi = (List<Indirizzo>) request.getAttribute("indirizzi");
+	List<Ordine> ordini = (List<Ordine>) request.getAttribute("ordini");
 %>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileAreaUtente.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileAreaUtente.css" type="text/css">
 		
 		<meta charset="UTF-8">
 		<title>Profilo Utente</title>
 	</head>
 	
 	<body>
-		<%
-			if(utente == null || sessione == null){
-				response.sendRedirect(request.getContextPath() + "/RegistrazioneServlet");
-				return;
-			}
-			else{
-		%>
-		
 		<jsp:include page="fragments/Nav.jsp"/>
 			
 			<main class="wrapper">
@@ -109,7 +91,7 @@
 							</button>
 						</div>
 					
-					<%	List<Indirizzo> indirizzib = (List<Indirizzo>) request.getAttribute("indirizzi");
+					<%	
 					
 						if(indirizzi == null || indirizzi.isEmpty()){
 							%>
@@ -148,7 +130,7 @@
 							</div>
 						</div>
 						
-						<%	List<Ordine> ordinic = (List<Ordine>) request.getAttribute("ordini");
+						<%	
 					
 						if(ordini == null || ordini.isEmpty()){
 							%>
@@ -157,20 +139,29 @@
 							}
 						else{
 							int n = 0;
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 							
 							for(Ordine o : ordini){
-								/*String via = o.getViaSpedizione();
-								String provincia = i.getProvincia();
-								String citta = i.getCitta();
-								String cap = i.getCap();
-								String nazione = i.getNazione();*/
-								n++;
+							    String viaSpedizione = o.getViaSpedizione();
+							    String cittaSpedizione = o.getCittaSpedizione();
+							    String capSpedizione = o.getCapSpedizione();
+							    String provinciaSpedizione = o.getProvinciaSpedizione();
+							    String nazioneSpedizione = o.getNazioneSpedizione();
+							    
+							    String data = (o.getDataOrdine() != null) ? o.getDataOrdine().format(formatter) : "N/D";
+							    
+							    String stato = o.getStato();
+							    float totale = o.getTotale();
+							    String numeroFattura = o.getNumeroFattura();
+							    n++;
 							%>
 							
 							<div class="campo_testo">
 								<div class="testo">
 									<label for="ordine">Ordine <%=n %>:</label>
-									<p>pene</p>
+									<p><span class="grassetto">Ordine spedito in data:</span><br/> <%=data %><br/><br/>
+									<span class="grassetto">Indirizzo di Spedizione:</span><br/> <%=nazioneSpedizione%>,
+									 <%=cittaSpedizione%> (<%=provinciaSpedizione %>), <%=capSpedizione %>, <%=viaSpedizione %></p>
 								</div>
 							</div>
 							
@@ -180,11 +171,13 @@
 							%>	
 					</div>
 				</div>
+				
+				<div class="logout">
+					<button class="bottone_logout" onclick="window.location.href='<%=request.getContextPath() %>/LogoutServlet'">
+						Logout
+					</button>
+				</div>
 			</main>
-		
-			<%
-			}
-			%>
 		<jsp:include page="fragments/Footer.jsp"/>
 	</body>
 </html>

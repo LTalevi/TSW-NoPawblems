@@ -40,14 +40,14 @@ public class AreaUtente extends HttpServlet {
     	} catch (SQLException s) {
     		s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al database: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
     	}
     	
     	request.setAttribute("ordini", ordini);
     	request.setAttribute("indirizzi", indirizzi);
     	
-    	request.getRequestDispatcher("/areaUtente.jsp").forward(request, response);
+    	request.getRequestDispatcher("/AreaUtente.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
