@@ -35,7 +35,7 @@
 	
 		           		 		Prodotto p = (prodottiDettaglio != null && i < prodottiDettaglio.size()) ? prodottiDettaglio.get(i) : null;
 		           		 		
-		            			String urlImmagine = "img/Header_img/Header_img_1.png"; 
+		            			String urlImmagine = "img/errori/ImmagineMancante.png"; 
 		       					String altImmagine = (p != null) ? p.getNome() : "Prodotto";
 		                
 		                		if (p != null && p.getImmagini() != null && !p.getImmagini().isEmpty()) {

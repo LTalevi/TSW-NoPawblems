@@ -28,7 +28,7 @@
 		  				<p style="text-align:center; width:100%; margin:auto;">Nessun prodotto disponibile al momento.</p>
 				<% } else { 
 	           		 	for (Prodotto p : prodotti) { 
-	            			String urlImmagine = "img/Header_img/Header_img_1.png"; 
+	            			String urlImmagine = "img/errori/ImmagineMancante.png"; 
 	       					String altImmagine = p.getNome();
 	                
 	                		if (p.getImmagini() != null && !p.getImmagini().isEmpty()) {
