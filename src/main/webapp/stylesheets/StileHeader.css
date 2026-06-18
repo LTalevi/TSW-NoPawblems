@@ -141,13 +141,25 @@ nav {
 
 header {
     position: relative;
-    height: 600px;
+    height: 700px;
     background-size: cover;
     background-repeat: no-repeat;
     overflow: hidden;
     width: 100%;
     margin: 65px 0 0 0; 
-    background-color: #13112B;
+    background-color: #0b0a18;
+}
+
+header::after {
+	content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 100px color-mix(in srgb, var(--primary-color) 85%, transparent); 
+    pointer-events: none; 
+    z-index: 5;
 }
 
 .slideshow {
@@ -156,6 +168,7 @@ header {
     height: 100%;
     width: 100%;
     transition: transform 0.5s ease-in-out;
+    filter: brightness(0.6);
 }
 
 .slide {
@@ -211,6 +224,7 @@ header {
 .arrow_button_header:hover {
     color: var(--background-color);
     background-color: var(--primary-color);
+    
 }
 
 .arrow_button_header.prev { left: 15px; }
@@ -224,4 +238,38 @@ header {
     display: flex;
     gap: 10px;
     z-index: 999;
+}
+
+.bottone_catalogo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	z-index: 999;
+	bottom: 10%;; 
+    left: 50%;                
+    transform: translateX(-50%);
+    width: auto;
+}
+
+.bottone_catalogo button {
+	display: block;
+    width: 100%;
+    padding: 16px 32px;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none; 
+    border-width: 2px solid var(--border-color);
+    border-radius: 50px;
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    white-space: nowrap;
+}
+
+.bottone_catalogo button:hover {
+	background-color: var(--primary-color);
+    color: var(--background-color);
+    transform: scale(1.05);
 }

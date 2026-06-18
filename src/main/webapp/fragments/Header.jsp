@@ -20,7 +20,7 @@
 	  
 	<% } else { 
             for (Prodotto p : prodottiOfferta) { 
-            	String urlImmagine = "img/Header_img/Header_img_1.png"; 
+            	String urlImmagine = "img/errori/ImmagineMancante.png"; 
        			String altImmagine = p.getNome();
                 
                 if (p.getImmagini() != null && !p.getImmagini().isEmpty()) {
@@ -28,9 +28,9 @@
                     altImmagine = p.getImmagini().get(0).getAlt();
                 }
 	%>	
-		<a class="slide" href="<%= request.getContextPath() %>/DettaglioProdottoServlet?idProdotto=<%= p.getIdProdotto() %>">
+		<div class="slide">
                 <img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
-        </a>	  		
+        </div>	  		
 	<% 
     		} 
    		} 
@@ -40,6 +40,12 @@
 	<button class="arrow_button_header next" aria-label="prodotto successivo" onclick="slideChange(1)">
 	    <i class="material-icons">keyboard_arrow_right</i>
 	</button>
+		
+	<div class="bottone_catalogo">
+		<button class="" onclick="window.location.href='<%=request.getContextPath() %>/CatalogoServlet'">
+			Scopri il nostro <span class="gradiente">Cat</span>alogo
+		</button>
+	</div>
 		
 	<div class="slide_dots">
 		
