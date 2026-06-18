@@ -85,7 +85,7 @@
 					
 					<div class="invito-ad-accedere">
 						<p>Hai già un account?</p>
-						<a href="Login.jsp">Accedi!</a>
+						<a href="<%=request.getContextPath()%>/LoginServlet">Accedi!</a>
 					</div>
 				</form>
 			</div>

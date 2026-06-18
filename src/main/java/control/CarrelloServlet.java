@@ -107,7 +107,6 @@ public class CarrelloServlet extends HttpServlet {
 					if (utente != null) {
 						prodottoCarrelloDAO.doClearCarrello(utente.getIdUtente()); 
 					}
-					response.setStatus(HttpServletResponse.SC_OK); 
 					return;
 	        		
 	            case "aggiungi": {

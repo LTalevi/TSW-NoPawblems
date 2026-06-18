@@ -2,13 +2,6 @@
 <%
     HttpSession sessione = request.getSession(false);
     Utente utente = (sessione != null) ? (Utente) sessione.getAttribute("utente") : null;
-    
-    String profilo;
-    if (utente == null) {
-        profilo = request.getContextPath() + "/Login.jsp";
-    } else {
-        profilo = request.getContextPath() + "/user/AreaUtente";
-    }
 %>
 
 <nav>
@@ -36,7 +29,7 @@
 			<div class="suggestions"></div>
 	</div>
 			
-		<button class="Profilo" aria-label="Apri profilo" onclick="window.location.href='<%=profilo%>'">
+		<button class="Profilo" aria-label="Apri profilo" onclick="window.location.href='<%=request.getContextPath() %>/user/AreaUtente'">
 			<i class="material-icons">account_circle</i>	
 		</button>
 	

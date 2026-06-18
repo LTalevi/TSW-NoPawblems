@@ -40,7 +40,7 @@
 					
 					<div class="invito-a-registrarsi">
 						<p>Non hai un account?</p>
-						<a href="Registrazione.jsp">Registrati!</a>
+						<a href="<%=request.getContextPath()%>/RegistrazioneServlet">Registrati!</a>
 					</div>
 				</form>
 			</div>
