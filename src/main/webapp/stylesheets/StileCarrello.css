@@ -21,8 +21,8 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     padding: 90px 30px 30px 30px;
     gap: 20px;
 }
@@ -194,3 +194,41 @@ form[action*="CarrelloServlet"] {
     border-color: var(--secondary-color);
     background-color: var(--background-color);
 }
+
+.carrello_vuoto {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	padding: 50px 30px 30px 30px;
+	margin: 0 auto;
+	width: 100%;
+	flex-grow: 1;
+}
+
+.carrello_vuoto .immagine {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	max-width: 400px;
+	height: 400px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: var(--background-color);
+}
+
+.carrello_vuoto img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.carrello_vuoto .testo p {
+	width: 100%;
+	font-size: 24px;
+	font-weight: bold;
+	color: var(--primary-text-color);
+}
+

@@ -25,9 +25,17 @@
 		<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 	
 		<main class="main-wrapper">
-			<div class="prodotti-carrello">
 					<% if (carrello == null || carrello.isEmpty()) { %>
-			  				<p style="text-align:center; width:100%; margin:auto;">Il carrello è vuoto.</p>
+							<div class="carrello_vuoto">
+								<div class="immagine">
+									<img src="<%=request.getContextPath() %>/img/errori/CarrelloVuoto.png"/>
+								</div>
+								
+								<div class="testo">
+					  				<p>Il carrello è vuoto.</p>
+								</div>
+							</div>
+			<div class="prodotti-carrello">
 					<% } else { 
 		           		 	for (int i = 0; i < carrello.size(); i++) { 
 		           		 		ProdottoCarrello item = carrello.get(i);

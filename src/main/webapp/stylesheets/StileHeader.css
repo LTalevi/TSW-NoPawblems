@@ -252,10 +252,15 @@ header::after {
     width: auto;
 }
 
+.bottone_catalogo p {
+    font-weight: bold;
+    font-size: 18px;	
+}
+
 .bottone_catalogo button {
 	display: block;
     width: 100%;
-    padding: 16px 32px;
+    padding: 10px 28px;
     font-size: 18px;
     text-align: center;
     text-decoration: none; 
@@ -272,4 +277,19 @@ header::after {
 	background-color: var(--primary-color);
     color: var(--background-color);
     transform: scale(1.05);
+}
+
+.gradiente {
+	background-image: linear-gradient(45deg, var(--secondary-color), var(--tertiary-color));
+	-webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: bold; 
+    display: inline-block;
+    transition: background 0.3s ease-in-out;
+}
+
+.bottone_catalogo button:hover .gradiente {
+	background-image: linear-gradient(45deg, var(--secondary-color), var(--background-color));
 }

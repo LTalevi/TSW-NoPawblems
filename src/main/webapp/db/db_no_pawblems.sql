@@ -131,9 +131,9 @@ INSERT INTO PRODOTTO (CATEGORIA, NOME, DESCRIZIONE, ATTIVO) VALUES
 
 INSERT INTO VARIANTE_PRODOTTO (PRODOTTO_PADRE, TAGLIA, COLORE, COLORE_HEX, PREZZO, IVA, DISPONIBILITA) VALUES
 -- Varianti prodotti Cane
-(1, 'XS', 'Rosso', '#FF0000', 25.99, 22, 49),  -- In offerta (< 50)
-(1, 'S', 'Rosso', '#FF0000', 25.99, 22, 20),  -- In offerta (< 50)
-(1, 'M', 'Rosso', '#FF0000', 25.99, 22, 27),  -- In offerta (< 50)
+(1, 'XS', 'Rosso', '#FF0000', 55.99, 22, 49),  -- FUORI OFFERTA (> 50)
+(1, 'S', 'Rosso', '#FF0000', 55.99, 22, 20),  -- FUORI OFFERTA (> 50)
+(1, 'M', 'Rosso', '#FF0000', 55.99, 22, 27),  -- FUORI OFFERTA (> 50)
 (2, 'Unica', 'Blu', '#1560BD', 39.99, 22, 15),    -- In offerta (< 50)
 (3, 'Unica', 'Nero', '#000000', 12.99, 22, 30),     -- In offerta (< 50)
 (4, 'M', 'Nero', '#000000', 79.90, 22, 55),     -- FUORI OFFERTA (> 50)
@@ -157,9 +157,9 @@ INSERT INTO VARIANTE_PRODOTTO (PRODOTTO_PADRE, TAGLIA, COLORE, COLORE_HEX, PREZZ
 (9, 'M', 'Unico', '#DED1B6', 192.99, 22, 40),  -- FUORI OFFERTA (> 50)
 (9, 'L', 'Unico', '#DED1B6', 192.99, 22, 40),  -- FUORI OFFERTA (> 50)
 (9, 'XL', 'Unico', '#DED1B6', 192.99, 22, 40),  -- FUORI OFFERTA (> 50)
-(10, 'M', 'Nero', '#000000', 69.90, 22, 40),     -- FUORI OFFERTA (> 50)
-(10, 'M', 'Rosso', '#FF0000', 69.90, 22, 10),     -- FUORI OFFERTA (> 50)
-(10, 'L', 'Nero', '#000000', 69.90, 22, 13),     -- FUORI OFFERTA (> 50)
+(10, 'M', 'Nero', '#000000', 49.90, 22, 40),     -- In offerta (< 50)
+(10, 'M', 'Rosso', '#FF0000', 49.90, 22, 10),     -- In offerta (< 50)
+(10, 'L', 'Nero', '#000000', 49.90, 22, 13),     -- In offerta (< 50)
 (10, 'L', 'Rosso', '#FF0000', 69.90, 22, 20),     -- FUORI OFFERTA (> 50)
 (10, 'XL', 'Nero', '#000000', 69.90, 22, 1),     -- FUORI OFFERTA (> 50)
 (10, 'XL', 'Rosso', '#FF0000', 69.90, 22, 32),     -- FUORI OFFERTA (> 50)
