@@ -5,7 +5,7 @@
 			<a href="<%= request.getContextPath() %>/CatalogoServlet" class="bottone-sidebar">Catalogo</a>
 			<a href="<%= request.getContextPath() %>/CatalogoServlet?idPadre=1" class="bottone-sidebar">Vestiti per Cani</a>
 			<a href="<%= request.getContextPath() %>/CatalogoServlet?idPadre=2" class="bottone-sidebar">Vestiti per Gatti</a>
-			<a href="<%= request.getContextPath() %>/ChiSiamo.jsp" class="bottone-sidebar">Chi Siamo</a>
+			<a href="<%= request.getContextPath() %>/ChiSiamo" class="bottone-sidebar">Chi Siamo</a>
 	</div>
 </div>
 

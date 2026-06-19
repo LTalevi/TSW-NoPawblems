@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			return;
 		}
 
-		const url = `${contextPath}/SuggerimentiRicerca?query=${encodeURIComponent(query)}`;
+		const url = `SuggerimentiRicerca?query=${encodeURIComponent(query)}`;
 
 		fetch(url)
 			.then(response => response.json())
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					const itemLink = document.createElement("a");
 					itemLink.classList.add("suggestion_item");
 
-					itemLink.href = `${contextPath}/DettaglioProdotto?idProdotto=${prod.id}`; 
+					itemLink.href = `DettaglioProdotto?idProdotto=${prod.id}`; 
 
 					const img = document.createElement("img");
 					img.classList.add("suggestion_img");
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const contextPath = input.dataset.context;
 
 		if (query.length > 0) {
-			window.location.href = `${contextPath}/CatalogoServlet?ricerca=${encodeURIComponent(query)}`;
+			window.location.href = `CatalogoServlet?ricerca=${encodeURIComponent(query)}`;
 		}
 	}
 	

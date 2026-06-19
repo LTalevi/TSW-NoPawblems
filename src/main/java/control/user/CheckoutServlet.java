@@ -3,6 +3,7 @@ package control.user;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,8 @@ import model.indirizzo.Indirizzo;
 import model.indirizzo.IndirizzoDAO;
 import model.ordine.Ordine;
 import model.ordine.OrdineDAO;
+import model.prodotto.Prodotto;
+import model.prodotto.ProdottoDAO;
 import model.prodottocarrello.ProdottoCarrello;
 import model.prodottocarrello.ProdottoCarrelloDAO;
 import model.utente.Utente;
@@ -58,8 +61,22 @@ public class CheckoutServlet extends HttpServlet {
 		}
 		
 		float totale = 0.0f;
-		for (ProdottoCarrello prodotto : carrello) {
-			totale += (prodotto.getVariante().getPrezzo() * prodotto.getQuantita());
+		int numeroPezziCarrello = 0;
+		List<Prodotto> prodottiDettaglio = new ArrayList<>();
+		ProdottoDAO prodottoDAO = new ProdottoDAO();
+		
+		for (ProdottoCarrello item : carrello) {
+			totale += (item.getVariante().getPrezzo() * item.getQuantita());
+			numeroPezziCarrello += item.getQuantita();
+			
+			try {
+				long idPadre = item.getVariante().getProdottoPadre();
+				Prodotto p = prodottoDAO.doRetrieveByKey(idPadre);
+				prodottiDettaglio.add(p);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				prodottiDettaglio.add(null);
+			}
 		}
 		
 		try {
@@ -74,6 +91,8 @@ public class CheckoutServlet extends HttpServlet {
 		request.setAttribute("indirizzi", indirizzi);
 		request.setAttribute("carrello", carrello);
 		request.setAttribute("totale", totale);
+		request.setAttribute("prodottiDettaglio", prodottiDettaglio);
+		request.setAttribute("numeroPezziCarrello", numeroPezziCarrello);
 		
 		request.getRequestDispatcher("/Checkout.jsp").forward(request, response);
 	}
@@ -85,7 +104,7 @@ public class CheckoutServlet extends HttpServlet {
 		String provincia = request.getParameter("provincia");
 		String nazione = request.getParameter("nazione");
 		String salvaIndirizzoParam = request.getParameter("salvaIndirizzo");
-		Boolean salvaIndirizzo = Boolean.parseBoolean(salvaIndirizzoParam);
+		Boolean salvaIndirizzo = (salvaIndirizzoParam != null);
 		
 		if (via == null || via.trim().isEmpty() || citta == null || citta.trim().isEmpty() || cap == null || cap.trim().isEmpty() || 
 				provincia == null || provincia.trim().isEmpty() || nazione == null || nazione.trim().isEmpty()) {
