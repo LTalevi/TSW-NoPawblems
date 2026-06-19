@@ -49,8 +49,32 @@ function valida_email(){
 	const errore = document.getElementById("errore_email");
 	const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 	
-	form.email = regex.test(email.value);
-	gestisci_stato(container, errore, form.email, "La mail inserita non è valida.");
+	const emailValue = email.value.trim();
+
+	if (!regex.test(emailValue)) {
+		form.email = false;
+		gestisci_stato(container, errore, false, "L' email inserita non è valida.");
+		return;
+	}
+
+	const url = `EmailCheck?email=${encodeURIComponent(emailValue)}`;
+	
+	fetch(url)
+		.then(response => response.json())
+		.then(data => {
+			if (data.esiste) {
+				form.email = false;
+				gestisci_stato(container, errore, false, "L' email inserita è già in uso.");
+			} else {
+				form.email = true;
+				gestisci_stato(container, errore, true, "");
+			}
+		})
+		.catch(err => {
+			console.error("Errore nel server durante il controllo email:", err);
+			form.email = false;
+			gestisci_stato(container, errore, false, "Servizio di verifica momentaneamente non disponibile.");
+		});
 }
 
 function valida_password(){
@@ -79,7 +103,6 @@ function valida_telefono(){
 	const container = document.getElementById("input_telefono");
 	const errore = document.getElementById("errore_telefono");
 	const regex = /^[0-9]{10}$/;
-	//const regex = /^[0-9]{8,11}$/;
 	
 	form.telefono = regex.test(telefono.value);
 	gestisci_stato(container, errore, form.telefono, "Numero di telefono inserito non valido.")

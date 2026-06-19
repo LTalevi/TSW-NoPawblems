@@ -32,8 +32,8 @@ public class SelezionaVarianteServlet extends HttpServlet {
 
         try {
             long idProdotto = Long.parseLong(idProdottoParam);
-            VarianteProdottoDAO dao = new VarianteProdottoDAO();
-            List<VarianteProdotto> varianti = dao.doRetrieveByProdotto(idProdotto);
+            VarianteProdottoDAO varianteProdottoDAO = new VarianteProdottoDAO();
+            List<VarianteProdotto> varianti = varianteProdottoDAO.doRetrieveByProdotto(idProdotto);
 
             if (varianti == null || varianti.isEmpty()) {
                 response.getWriter().print("{}");
@@ -66,8 +66,7 @@ public class SelezionaVarianteServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace(); 
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            com.google.gson.JsonObject jsonErrore = new com.google.gson.JsonObject();
+            JsonObject jsonErrore = new JsonObject();
             jsonErrore.addProperty("error", "Errore nel recupero della variante: " + e.getMessage());
 
             response.getWriter().print(jsonErrore.toString());

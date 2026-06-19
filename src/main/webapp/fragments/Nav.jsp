@@ -20,13 +20,14 @@
 	<div class="sezioni_navbar">
 	
 		<div class="search_wrapper">
-			<input type="text" class="search_text input_search" placeholder="Cerca prodotti...">
+			<input type="text" class="search_text input_search" placeholder="Cerca prodotti..." data-context="<%= request.getContextPath() %>">
 			
 			<button class="Cerca" aria-label="Cerca">
 				<i class="material-icons">search</i>
 			</button>
 			
-			<div class="suggestions"></div>
+		<div class="suggestions">
+		</div>
 	</div>
 			
 		<button class="Profilo" aria-label="Apri profilo" onclick="window.location.href='<%=request.getContextPath() %>/user/AreaUtente'">
