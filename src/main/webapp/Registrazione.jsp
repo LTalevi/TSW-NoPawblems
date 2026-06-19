@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/StileLogin.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileVariabili.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileLogin.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileVariabili.css" type="text/css">
 
 		<meta charset="UTF-8">
 		<title>Registrazione</title>

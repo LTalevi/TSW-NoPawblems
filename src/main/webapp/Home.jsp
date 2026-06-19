@@ -12,7 +12,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
 	
 	<title>NoPawblems</title>
 </head>

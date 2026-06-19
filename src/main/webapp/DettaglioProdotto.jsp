@@ -12,8 +12,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileDettaglioProdotto.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileDettaglioProdotto.css" type="text/css">
 		<meta charset="UTF-8">
 		<title>Dettaglio Prodotto</title>
 	</head>

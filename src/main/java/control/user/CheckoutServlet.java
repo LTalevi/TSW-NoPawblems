@@ -31,6 +31,11 @@ public class CheckoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Utente utente = (Utente) session.getAttribute("utente");
+		if (utente == null) {
+		    request.setAttribute("error", "Sessione scaduta o utente non loggato.");
+		    request.getRequestDispatcher("/Login.jsp").forward(request, response); 
+		    return;
+		}
 		
 		ProdottoCarrelloDAO prodottoCarrelloDAO = new ProdottoCarrelloDAO();
 		IndirizzoDAO indirizzoDAO = new IndirizzoDAO();
@@ -42,13 +47,13 @@ public class CheckoutServlet extends HttpServlet {
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al db: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 		
 		if (carrello == null || carrello.isEmpty()) {
 			request.setAttribute("error", "Carrello vuoto");
-			request.getRequestDispatcher("carrello.jsp").forward(request, response);
+			request.getRequestDispatcher("/Carrello.jsp").forward(request, response);
 			return;
 		}
 		
@@ -62,7 +67,7 @@ public class CheckoutServlet extends HttpServlet {
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al db: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 		
@@ -70,7 +75,7 @@ public class CheckoutServlet extends HttpServlet {
 		request.setAttribute("carrello", carrello);
 		request.setAttribute("totale", totale);
 		
-		request.getRequestDispatcher("checkout.jsp").forward(request, response);
+		request.getRequestDispatcher("/Checkout.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -84,12 +89,17 @@ public class CheckoutServlet extends HttpServlet {
 		
 		if (via == null || via.trim().isEmpty() || citta == null || citta.trim().isEmpty() || cap == null || cap.trim().isEmpty() || 
 				provincia == null || provincia.trim().isEmpty() || nazione == null || nazione.trim().isEmpty()) {
-			request.getRequestDispatcher("400.jsp").forward(request, response);
+			request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 		
 		HttpSession session = request.getSession();
 		Utente utente = (Utente) session.getAttribute("utente");
+		if (utente == null) {
+		    request.setAttribute("error", "Sessione scaduta o utente non loggato.");
+		    request.getRequestDispatcher("/Login.jsp").forward(request, response); 
+		    return;
+		}
 		
 		ProdottoCarrelloDAO prodottoCarrelloDAO = new ProdottoCarrelloDAO();
 		OrdineDAO ordineDAO = new OrdineDAO();
@@ -102,13 +112,13 @@ public class CheckoutServlet extends HttpServlet {
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al db: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 		
 		if (carrello == null || carrello.isEmpty()) {
 			request.setAttribute("error", "Carrello vuoto");
-			request.getRequestDispatcher("carrello.jsp").forward(request, response);
+			request.getRequestDispatcher("/Carrello.jsp").forward(request, response);
 			return;
 		}
 		
@@ -147,11 +157,11 @@ public class CheckoutServlet extends HttpServlet {
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore impossibilie completare l'ordine: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 		
 		session.setAttribute("numeroPezziCarrello", 0); 
-		response.sendRedirect(request.getContextPath() + "/confermaOrdine.jsp");
+		response.sendRedirect(request.getContextPath() + "/ConfermaOrdine.jsp");
 	}
 }

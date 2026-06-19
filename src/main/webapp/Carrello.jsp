@@ -13,8 +13,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileCarrello.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileCarrello.css" type="text/css">
 		<meta charset="UTF-8">
 
 		<title>Carrello</title>
@@ -35,7 +35,6 @@
 					  				<p>Il carrello è vuoto.</p>
 								</div>
 							</div>
-			<div class="prodotti-carrello">
 					<% } else { 
 		           		 	for (int i = 0; i < carrello.size(); i++) { 
 		           		 		ProdottoCarrello item = carrello.get(i);
@@ -52,6 +51,7 @@
 		                		}
 						%>	  
 						
+			<div class="prodotti-carrello">
 				<div class="prodotto-carrello" onclick="location.href='DettaglioProdotto?idProdotto=<%=p.getIdProdotto()%>'">
 					<div class="immagine_prodotto">
 						<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
@@ -98,7 +98,7 @@
 					Svuota Carrello
 				</a>
 			
-				<a class="bottone-checkout" href="<%= request.getContextPath() %>/CheckoutServlet">
+				<a class="bottone-checkout" href="<%= request.getContextPath() %>/user/CheckoutServlet">
 					Procedi al Checkout
 				</a>
 			</div>

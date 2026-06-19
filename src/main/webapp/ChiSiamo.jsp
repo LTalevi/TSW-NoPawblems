@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
-		<link rel="stylesheet" href="stylesheets/StileChiSiamo.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileChiSiamo.css" type="text/css">
 		<meta charset="UTF-8">
 		
 		<title>Chi Siamo</title>

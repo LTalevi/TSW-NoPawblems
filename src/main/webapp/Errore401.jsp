@@ -4,8 +4,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="stylesheets/main.css" type="text/css">
-	<link rel="stylesheet" href="stylesheets/Error.css" type="text/css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/Error.css" type="text/css">
 	
 	<title>Pagina non trovata</title>
 </head>
@@ -16,7 +16,7 @@
 
 	<div class="main_content_wrapper">
 		<div class="immagine_errore">
-			<img src="img/errori/errore_401.png" alt="Immagine errore 401">
+			<img src="<%= request.getContextPath() %>/img/errori/errore_401.png" alt="Immagine errore 401">
 		</div>
 		
 		<div class="testo_bottone_home">
