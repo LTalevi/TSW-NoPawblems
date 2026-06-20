@@ -64,7 +64,14 @@
 							Taglia: <%= variante.getTaglia() %> - Colore: <%= variante.getColore() %>
 						</p>
 						<span class="prezzo_prodotto"><%= String.format("%.2f", variante.getPrezzo()) %>€</span>
-						<span class="quantita_prodotto">Q.tà: <%= item.getQuantita() %></span>
+						<div class="quantita_prodotto" onclick="event.stopPropagation();">
+							<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post">
+								<input type="hidden" name="azione" value="modifica">
+								<input type="hidden" name="idVariante" value="<%= variante.getIdVariante() %>">
+								<label for="quantita_<%= variante.getIdVariante() %>">Q.tà:</label>
+								<input type="number" id="quantita_<%= variante.getIdVariante() %>" name="nuovaQuantita" value="<%= item.getQuantita() %>" min="1" max="<%= variante.getDisponibilita() %>" onchange="this.form.submit()">
+							</form>
+						</div>
 					</div>
 					
 					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" onclick="event.stopPropagation();" class="formRimozione" style="margin-top: 10px;">
