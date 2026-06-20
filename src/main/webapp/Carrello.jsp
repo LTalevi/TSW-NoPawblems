@@ -61,17 +61,17 @@
 						<h3 class="nome_prodotto"><%= (p != null) ? p.getNome() : "Prodotto" %></h3>
 						<p class="descrizione_prodotto"><%= (p != null) ? p.getDescrizione() : "" %></p>
 						<p class="varianti_scelte">
-							Taglia: <%= variante.getTaglia() %> - Colore: <%= variante.getColore() %>
+							<label for="taglia">Taglia:</label> <%= variante.getTaglia() %> - <label for="colore">Colore:</label> <%= variante.getColore() %>
 						</p>
-						<span class="prezzo_prodotto"><%= String.format("%.2f", variante.getPrezzo()) %>€</span>
 						<div class="quantita_prodotto" onclick="event.stopPropagation();">
 							<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post">
 								<input type="hidden" name="azione" value="modifica">
 								<input type="hidden" name="idVariante" value="<%= variante.getIdVariante() %>">
-								<label for="quantita_<%= variante.getIdVariante() %>">Q.tà:</label>
-								<input type="number" id="quantita_<%= variante.getIdVariante() %>" name="nuovaQuantita" value="<%= item.getQuantita() %>" min="1" max="<%= variante.getDisponibilita() %>" onchange="this.form.submit()">
+								<label for="quantita_<%= variante.getIdVariante() %>">Q.tà: </label> 
+								 <input type="number" id="quantita_<%= variante.getIdVariante() %>" name="nuovaQuantita" value="<%= item.getQuantita() %>" min="1" max="<%= variante.getDisponibilita() %>" onchange="this.form.submit()">
 							</form>
 						</div>
+						<p><label for="prezzo">Prezzo:</label> <span class="prezzo_prodotto"> <%= String.format("%.2f", variante.getPrezzo()) %>€</span></p>
 					</div>
 					
 					<form action="<%= request.getContextPath() %>/CarrelloServlet" method="post" onclick="event.stopPropagation();" class="formRimozione" style="margin-top: 10px;">

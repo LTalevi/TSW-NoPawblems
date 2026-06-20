@@ -21,7 +21,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     padding: 90px 30px 30px 30px;
     gap: 20px;
@@ -102,7 +102,7 @@ body {
 
 .info_prodotto span {
 	display: inline-block;
-	padding: 5px;
+	padding: 5px 13px;
 	border: 1px solid var(--secondary-color);
 	color: var(--tertiary-color);
 }
@@ -110,6 +110,37 @@ body {
 .info_prodotto span:hover {
 	border-color: var(--tertiary-color);
 	color: var(--secondary-color);
+}
+
+.info_prodotto .quantita_prodotto {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.info_prodotto .quantita_prodotto form {
+	display: flex;
+    flex-direction: row;
+    align-items: center; 
+    gap: 12px;           
+    width: auto;
+}
+
+.quantita_prodotto input {
+	flex: 1;
+	padding: 8px 13px;
+	font-size: 16px;
+	outline: none;
+	font-family: var(--font-family);
+	border: 1px solid var(--secondary-color);
+	background-color: var(--background-color);
+	color: var(--tertiary-color);
+}
+
+.info_prodotto label {
+	font-weight: bold;
+	color: var(--tertiary-color);
 }
 
 .riepilogo {
