@@ -110,7 +110,7 @@ public class GestioneProfiloServlet extends HttpServlet {
 					
 					if (via == null || via.trim().isEmpty() || citta == null || citta.trim().isEmpty() || cap == null || cap.trim().isEmpty() || 
 							provincia == null || provincia.trim().isEmpty() || nazione == null || nazione.trim().isEmpty()) {
-						request.getRequestDispatcher("/400.jsp").forward(request, response);
+						request.getRequestDispatcher("/Errore400.jsp").forward(request, response);
 			            return;
 					}
 					
@@ -141,14 +141,14 @@ public class GestioneProfiloServlet extends HttpServlet {
 					}
 					
 					if (idIndirizzo == null) {
-				        request.getRequestDispatcher("/400.jsp").forward(request, response);
+				        request.getRequestDispatcher("/Errore404.jsp").forward(request, response);
 				        return;
 				    }
 					
 					Indirizzo daCancellare = indirizzoDAO.doRetrieveByKey(idIndirizzo);
 					if ( daCancellare == null || !(daCancellare.getUtente() == utente.getIdUtente())) {
 					    request.setAttribute("error", "Non hai i permessi per eliminare questo indirizzo.");
-					    request.getRequestDispatcher("/403.jsp").forward(request, response);
+					    request.getRequestDispatcher("/Errore403.jsp").forward(request, response);
 					    return;
 					}
 					
@@ -160,7 +160,7 @@ public class GestioneProfiloServlet extends HttpServlet {
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al database: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 		

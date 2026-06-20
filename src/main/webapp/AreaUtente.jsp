@@ -45,6 +45,8 @@
 				
 				<div class="contenitore">
 					
+				<form action="<%=request.getContextPath() %>/user/GestioneProfiloServlet" method="POST">
+					<input type="hidden" name="action" value="modificaUtente"/>
 					
 					<div class="dati">
 						<div class="campo_titolo">
@@ -52,68 +54,92 @@
 								<h2>Dati Personali</h2>	
 							</div>
 							
-							<button class="bottone_modifica">
+							<button type="button" class="bottone_modifica" id="bottoneModifica" onclick="modificaDati(event)">
 								<i class="material-icons">edit</i>
 							</button>
+
+							<button class="bottone_salva_modifica" id="bottoneSalva" style="display: none">
+								<i class="material-icons">save</i>
+							</button>
 						</div>
+						
 						
 						<div class="campo_testo">
 							<div class="testo">
 								<label for="nome">Nome:</label>
-								<p><%=utente.getNome() %></p>
+								<p class="dati"><%=utente.getNome() %></p>
+
+								<input type="text" name="nome" id="nome" class="nome" placeholder="<%=utente.getNome() %>"
+									value="<%=utente.getNome() %>" required style="display: none"/>
 							</div>
 							
 							<div class="testo">
 								<label for="cognome">Cognome:</label>
-								<p><%=utente.getCognome() %></p>
+								<p class="dati"><%=utente.getCognome() %></p>
+
+								<input type="text" name="cognome" id="cognome" class="cognome" placeholder="<%=utente.getCognome() %>"
+									value="<%=utente.getCognome() %>" required style="display: none"/>
 							</div>
 							
 							<div class="testo">
 								<label for="email">E-mail:</label>
-								<p><%=utente.getEmail() %></p>
+								<p class="dati"><%=utente.getEmail() %></p>
+
+								<input type="email" name="email" id="email" class="email" placeholder="<%=utente.getEmail() %>"
+									value="<%=utente.getEmail() %>" required style="display: none"/>
 							</div>
 	
 							<div class="testo">
 								<label for="telefono">Telefono:</label>
-								<p><%=utente.getTelefono() %></p>					
+								<p class="dati"><%=utente.getTelefono() %></p>					
+
+								<input type="tel" name="telefono" id="telefono" class="telefono" placeholder="<%=utente.getTelefono() %>"
+									value="<%=utente.getTelefono() %>" required style="display: none"/>
 							</div>
 						</div>
 					</div>
+				</form>
 	
+				
 					<div class="indirizzi">
 						<div class="campo_titolo">
 							<div class="titolo">
 								<h2>Indirizzi Salvati</h2>	
 							</div>
-							
-							<button class="bottone_modifica">
-								<i class="material-icons">edit</i>
-							</button>
 						</div>
 					
 					<%	
 					
 						if(indirizzi == null || indirizzi.isEmpty()){
 							%>
-							<p class="n/a" style="text-align:center; width:100%; margin:auto;">Non ci sono indirizzi salvati.</p>
+							<p class="none" style="text-align:center; width:100%; margin:auto;">Non ci sono indirizzi salvati.</p>
 							<%
 							}
 						else{
 							int n = 0;
 							
 							for(Indirizzo i : indirizzi){
+								long idIndirizzo = i.getIdIndirizzo();
 								String via = i.getVia();
 								String provincia = i.getProvincia();
 								String citta = i.getCitta();
 								String cap = i.getCap();
 								String nazione = i.getNazione();
-								n++;
 							%>
 							
-							<div class="campo_testo">
-								<div class="testo">
-									<label for="indirizzo">Indirizzo <%=n %>:</label>
-									<p><%=nazione%>, <%=citta%> (<%=provincia %>), <%=cap %>, <%=via %></p>
+							<div class="indirizzo_rimozione">
+								<form action="<%=request.getContextPath() %>/user/GestioneProfiloServlet" method="POST">
+									<input type="hidden" name="action" value="rimuoviIndirizzo"/>
+									<input type="hidden" name="idIndirizzo" value="<%= idIndirizzo %>"/>
+									<button class="bottone_rimuovi">
+										<i class="material-icons">remove</i>
+									</button>					
+								</form>
+							
+								<div class="campo_testo">
+									<div class="testo">
+										<p><%=nazione%>, <%=citta%> (<%=provincia %>), <%=cap %>, <%=via %></p>
+									</div>
 								</div>
 							</div>
 							
@@ -121,6 +147,58 @@
 								}
 							}	
 							%>	
+							
+						<form action="<%=request.getContextPath() %>/user/GestioneProfiloServlet" method="POST">
+							<input type="hidden" name="action" value="aggiungiIndirizzo"/>
+							
+								<button type="button" class="bottone_aggiungi" id="bottoneAggiungi" onclick="aggiungiIndirizzo(event)">
+									<i class="material-icons">add</i>
+								</button>	
+							
+								<div class="input-errore-container">
+									<div class="input" id="input_via" style="display: none">
+										<label for="via">Via:</label>
+										<input type="text" name="via" id="via" placeholder="Via Roma 1" oninput="valida_via()" required/>
+									</div>
+										<span id="errore_via" class="errore"></span>
+								</div>
+								
+								<div class="input-errore-container">
+									<div class="input" id="input_citta" style="display: none">
+										<label for="citta">Città:</label>
+										<input type="text" name="citta" id="citta" placeholder="Roma" oninput="valida_citta()" required/>
+									</div>
+										<span id="errore_citta" class="errore"></span>
+								</div>
+								
+								<div class="input-errore-container">
+									<div class="input" id="input_cap" style="display: none">
+										<label for="cap">CAP:</label>
+										<input type="text" name="cap" id="cap" placeholder="84012" oninput="valida_cap()" required/>
+									</div>
+										<span id="errore_cap" class="errore"></span>
+								</div>
+								
+								<div class="input-errore-container">
+									<div class="input" id="input_provincia" style="display: none">
+										<label for="provincia">Provincia:</label>
+										<input type="text" name="provincia" id="provincia" placeholder="Roma" oninput="valida_provincia()" required/>
+									</div>
+										<span id="errore_provincia" class="errore"></span>
+								</div>
+								
+								<div class="input-errore-container">
+									<div class="input" id="input_nazione" style="display: none">
+										<label for="nazione">Nazione:</label>
+										<input type="text" name="nazione" id="nazione" placeholder="Italia" oninput="valida_nazione()" required/>
+									</div>
+										<span id="errore_nazione" class="errore"></span>
+								</div>
+								
+								<button type="submit" class="bottone_aggiungi" id="bottoneAggiungi1" onclick="aggiungiIndirizzo(event)" style="display: none">
+									Aggiungi il nuovo indirizzo!
+								</button>
+						</form>
 					</div>		
 					
 					<div class="ordini">
@@ -134,7 +212,7 @@
 					
 						if(ordini == null || ordini.isEmpty()){
 							%>
-							<p class="n/a" style="text-align:center; width:100%; margin:auto;">Non ci sono ordini registrati.</p>
+							<p class="none" style="text-align:center; width:100%; margin:auto;">Non ci sono ordini registrati.</p>
 							<%
 							}
 						else{
@@ -178,6 +256,8 @@
 					</button>
 				</div>
 			</main>
+			
 		<jsp:include page="fragments/Footer.jsp"/>
+		<script src="<%=request.getContextPath() %>/scripts/ModificaDati.js"></script>
 	</body>
 </html>

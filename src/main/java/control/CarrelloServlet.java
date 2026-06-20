@@ -42,7 +42,7 @@ public class CarrelloServlet extends HttpServlet {
 			}catch(SQLException s) {
 				s.printStackTrace();
 				request.setAttribute("error", "Errore nel caricamento del carrello: " + s.getMessage());
-	            request.getRequestDispatcher("/500.jsp").forward(request, response);
+	            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
 	            return;
 			}		
 		} else {
@@ -209,7 +209,7 @@ public class CarrelloServlet extends HttpServlet {
 	    } catch (SQLException s) {
 	    	s.printStackTrace();
 			request.setAttribute("error", "Errore nell'aggiornamento dal carrello: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 	    }
 		
