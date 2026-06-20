@@ -7,7 +7,7 @@
 
 <%
 	List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) request.getAttribute("carrello"); 
-	//List<Prodotto> prodottiDettaglio = (List<Prodotto>) request.getAttribute("prodottiDettaglio"); 
+	List<Prodotto> prodottiDettaglio = (List<Prodotto>) request.getAttribute("prodottiDettaglio"); 
 %>
 
 <!DOCTYPE html>
@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/stylesheets/main.css" type="text/css">
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/stylesheets/StileCheckout.css" type="text/css">
 		<meta charset="UTF-8">
+		<base href="${pageContext.request.contextPath}/">
 		<title>Checkout</title>
 	</head>
 	
@@ -97,11 +98,15 @@
 	       		 		ProdottoCarrello item = carrello.get(i);
 	       		 		VarianteProdotto variante = item.getVariante();
 	
-	       		 		//Prodotto p = (prodottiDettaglio != null && i < prodottiDettaglio.size()) ? prodottiDettaglio.get(i) : null;
+	       		 		Prodotto p = (prodottiDettaglio != null && i < prodottiDettaglio.size()) ? prodottiDettaglio.get(i) : null;
 	       		 		
-	        			String urlImmagine = "img/errori/ImmagineMancante.png"; 
-	   					String altImmagine = "Prodotto";
+	        			String urlImmagine = request.getContextPath() + "/img/errori/ImmagineMancante.png"; 
+	   					String altImmagine = (p != null) ? p.getNome() : "Prodotto";
 	            
+	   					if (p != null && p.getImmagini() != null && !p.getImmagini().isEmpty()) {
+                    		urlImmagine = p.getImmagini().get(0).getUrl();
+                    		altImmagine = p.getImmagini().get(0).getAlt();
+                		}
 	            		%>
 	            		<div class="prodotto">
 							<div class="immagine_prodotto">
@@ -109,8 +114,8 @@
 							</div>
 							
 							<div class="info_prodotto">
-								<h3 class="nome_prodotto">Prodotto</h3>
-								<p class="descrizione_prodotto">Dettaglio</p>
+								<h3 class="nome_prodotto"><%= (p != null) ? p.getNome() : "Prodotto" %></h3>
+								<p class="descrizione_prodotto"><%= (p != null) ? p.getDescrizione() : "" %></p>
 								<p class="varianti_scelte">
 									Taglia: <%= variante.getTaglia() %> - Colore: <%= variante.getColore() %>
 								</p>
