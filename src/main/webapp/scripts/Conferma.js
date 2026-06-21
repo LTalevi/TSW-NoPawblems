@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", function() {
               form.submit(); 
 			  chiudiConferma();
             }
+           else if(form && azioneCorrente === "rimuoviIndirizzo") {
+              form.submit(); 
+			  chiudiConferma();
+            }
 			else if(azioneCorrente === "svuota"){
 				chiudiConferma(); 
                 fetch('CarrelloServlet', {
@@ -59,6 +63,17 @@ function apriConfermaSvuota(event) {
     event.preventDefault(); 
     azioneCorrente = "svuota";
     form = null;
+    
+    const finestra = document.getElementById("overlay-finestra");
+    if (finestra) {
+        finestra.style.display = "flex";
+    }
+}
+
+function apriConfermaIndirizzo(event, button) {
+    event.preventDefault(); 
+    azioneCorrente = "rimuoviIndirizzo";
+    form = button.closest(".formRimozione");
     
     const finestra = document.getElementById("overlay-finestra");
     if (finestra) {
