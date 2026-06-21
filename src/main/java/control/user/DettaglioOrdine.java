@@ -2,6 +2,8 @@ package control.user;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import model.ordine.Ordine;
 import model.ordine.OrdineDAO;
+import model.prodotto.Prodotto;
+import model.prodotto.ProdottoDAO;
 import model.utente.Utente;
 
 @WebServlet("/user/DettaglioOrdine")
@@ -30,6 +34,8 @@ public class DettaglioOrdine extends HttpServlet {
 		Long idOrdine = null;
 		OrdineDAO ordineDAO = new OrdineDAO();
 		Ordine ordine = null;
+		ProdottoDAO prodottoDAO = new ProdottoDAO();
+		List<Prodotto> prodottiDettaglio = new ArrayList<>();
 		
 		if (idOrdineParam != null && !idOrdineParam.trim().isEmpty()) {
 			try {
@@ -52,6 +58,17 @@ public class DettaglioOrdine extends HttpServlet {
 			    request.getRequestDispatcher("/403.jsp").forward(request, response);
 			    return;
 			}
+			
+		    for (model.dettaglioordine.DettaglioOrdine item : ordine.getDettagli()) {
+		            try {
+		                long idPadre = item.getVariante().getProdottoPadre();
+		                Prodotto prodotto = prodottoDAO.doRetrieveByKey(idPadre);
+		                prodottiDettaglio.add(prodotto);
+		            } catch (SQLException e) {
+		                e.printStackTrace();
+		                prodottiDettaglio.add(null);
+		            }
+		        }
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al database: " + s.getMessage());
@@ -60,8 +77,9 @@ public class DettaglioOrdine extends HttpServlet {
 		}
 		
 		request.setAttribute("ordine", ordine);
+		request.setAttribute("prodottiDettaglio", prodottiDettaglio);
 		
-		request.getRequestDispatcher("dettaglioOrdine.jsp").forward(request, response);
+		request.getRequestDispatcher("/DettaglioOrdine.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

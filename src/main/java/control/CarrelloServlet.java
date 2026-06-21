@@ -65,8 +65,8 @@ public class CarrelloServlet extends HttpServlet {
 	            
 	            try {
 	                long idPadre = item.getVariante().getProdottoPadre();
-	                Prodotto p = prodottoDAO.doRetrieveByKey(idPadre);
-	                prodottiDettaglio.add(p);
+	                Prodotto prodotto = prodottoDAO.doRetrieveByKey(idPadre);
+	                prodottiDettaglio.add(prodotto);
 	            } catch (SQLException e) {
 	                e.printStackTrace();
 	                prodottiDettaglio.add(null);

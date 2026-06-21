@@ -156,7 +156,8 @@ public class CheckoutServlet extends HttpServlet {
 		    ordine.setDataOrdine(LocalDateTime.now()); 
 	        ordine.setStato("InElaborazione");
 	        ordine.setTotale(totale);
-	        ordine.setNumeroFattura("FAT-" + System.currentTimeMillis());
+	        java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("yyyy-MMddHHmmss");
+	        ordine.setNumeroFattura("FATT-" + java.time.LocalDateTime.now().format(dtf));
 		   
 			ordineDAO.doSaveOrdineCompleto(ordine, carrello);
 			

@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+.main-wrapper {
+    flex: 1 0 auto;
+    flex-grow: 1; 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding: 90px 30px 30px 30px;
+    gap: 20px;
+}
+
+.info-ordine-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px 70px;
+    border: 2px solid var(--border-color);
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    margin-bottom: 10px;
+}
+
+.info-box { flex: 1; min-width: 250px; }
+.info-box h3 { color: var(--secondary-text-color); background-color: var(--primary-color); padding: 10px; margin-top: 0; }
+.info-box p { margin: 5px 0; line-height: 1.5; }
+.info-box span { color: var(--tertiary-color); font-weight: bold; }
+
+.dettagli-ordine {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.dettaglio-ordine {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-sizing: border-box;
+    border: 2px solid var(--border-color);
+    transition: scale 0.3s ease-in-out;
+    background-color: var(--background-color);
+}
+
+.prodotto-carrello:hover { scale: 1.01; }
+
+.info_prodotto {
+    display: flex;
+    flex-direction: column;   
+    width: 100%; 
+}
+
+.info_prodotto h3 {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 0;
+    color: var(--secondary-text-color);
+    background-color: var(--primary-color);
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.info_prodotto_dati {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 25px;
+}
+
+.miniatura-prodotto {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.dati-riga {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.dati-riga p { margin: 0; color: var(--primary-text-color); }
+.dati-riga label { font-weight: bold; color: var(--tertiary-color); margin-right: 5px; }
+
+.subtotale-riga {
+    margin-left: auto;
+    font-size: 1.1em;
+}
+
+.riepilogo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 70px 0;
+    box-sizing: border-box;
+    border-top: 2px solid var(--border-color);
+}
+
+.riepilogo .costo-totale {
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid var(--secondary-color);
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+}
+
+.bottone-stampa {
+    display: block;
+    width: 250px;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none; 
+    border-width: 2px;
+    border-style: outset;
+    border-color: var(--border-color);
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bottone-stampa:hover {
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+}
+
+@media print {
+    header, footer, nav, .bottone-stampa { display: none; }
+    
+    body { 
+    	background: white; 
+    	color: black;
+    	margin: 0; 
+    	padding: 0;
+    }
+    
+    .main-wrapper { 
+    	padding: 0; 
+    	gap: 10px; 
+    }
+    
+    .info-ordine-header, .prodotto-carrello { 
+    	border: 1px solid #ccc; 
+    	break-inside: avoid; 
+    }
+    
+    .info-box h3, .info_prodotto h3 { 
+    	background-color: #eee; 
+    	color: #000; 
+    	border-bottom: 1px solid #000; 
+    }
+    
+    .miniatura-prodotto { 
+    	display: none; 
+    }
+    
+    .riepilogo { 
+    	border-top: 2px solid #000; 
+    	padding: 10px 0; 
+    }
+    
+    .riepilogo .costo-totale { 
+    	border: none; 
+    	font-weight: bold; 
+    	font-size: 20px; 
+    	color: black; 
+    }
+}

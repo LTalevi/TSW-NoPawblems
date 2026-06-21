@@ -15,11 +15,6 @@
 	if(sessione != null){	
 		utente = (Utente) sessione.getAttribute("utente");
 	}
-		
-	if(utente == null){
-		response.sendRedirect(request.getContextPath() + "/RegistrazioneServlet");
-		return;
-	}
 	
 	List<Indirizzo> indirizzi = (List<Indirizzo>) request.getAttribute("indirizzi");
 	List<Ordine> ordini = (List<Ordine>) request.getAttribute("ordini");
@@ -237,6 +232,9 @@
 							<div class="campo_testo">
 								<div class="testo">
 									<label for="ordine">Ordine <%=n %>:</label>
+									<a href="<%= request.getContextPath() %>/user/DettaglioOrdine?idOrdine=<%= o.getIdOrdine() %>">
+										Vedi Dettaglio Ordine
+									</a>
 									<p><span class="grassetto">Ordine spedito in data:</span><br/> <%=data %><br/><br/>
 									<span class="grassetto">Indirizzo di Spedizione:</span><br/> <%=nazioneSpedizione%>,
 									 <%=cittaSpedizione%> (<%=provinciaSpedizione %>), <%=capSpedizione %>, <%=viaSpedizione %></p>
