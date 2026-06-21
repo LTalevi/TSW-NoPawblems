@@ -18,6 +18,9 @@
 	
 	List<Indirizzo> indirizzi = (List<Indirizzo>) request.getAttribute("indirizzi");
 	List<Ordine> ordini = (List<Ordine>) request.getAttribute("ordini");
+	
+	String successo = (String) sessione.getAttribute("success");
+	String errore = (String) sessione.getAttribute("error");
 %>
 
 <!DOCTYPE html>
@@ -35,6 +38,24 @@
 		<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 			
 			<main class="wrapper">
+				<%
+					if(errore != null && !errore.trim().isEmpty()){
+						%>
+						<div class="blocco-errore-successo">
+							<p class="testoErrore"><%=errore %></p>
+						</div>
+						<%
+					}
+					else if(successo != null && !successo.trim().isEmpty()){
+						%>
+						<div class="blocco-errore-successo">
+							<p class="testoSuccesso"><%=successo %></p>
+						</div>
+						<%
+					}
+				%>
+				
+			
 				<div class="saluto">
 					<h1>Ciao, <span class="gradiente"><%=utente.getNome() %></span>!</h1>
 				</div>
