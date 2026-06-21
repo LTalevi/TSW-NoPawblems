@@ -4,8 +4,10 @@
 <%@ page import="model.prodotto.Prodotto" %>
 <%@ page import="model.prodottocarrello.ProdottoCarrello" %>
 <%@ page import="model.varianteprodotto.VarianteProdotto" %>
+<%@ page import="model.indirizzo.Indirizzo" %>
 
 <%
+	List<Indirizzo> indirizzi = (List<Indirizzo>) request.getAttribute("indirizzi");
 	List<ProdottoCarrello> carrello = (List<ProdottoCarrello>) request.getAttribute("carrello"); 
 	List<Prodotto> prodottiDettaglio = (List<Prodotto>) request.getAttribute("prodottiDettaglio"); 
 %>
@@ -34,6 +36,44 @@
 					<fieldset>
 						<div class="campi-dati">
 							<form action="<%= request.getContextPath() %>/user/CheckoutServlet" method="POST">
+									<input type="hidden" name="idIndirizzoSalvato" id="idIndirizzoSalvato" value=""/>
+
+									<%
+										if(indirizzi != null && !indirizzi.isEmpty()){
+									%>
+									
+									
+									<div class="input-errore-container" style="margin-bottom: 20px;">
+										<label for="indirizzoSelezionato">Utilizza un indirizzo già salvato: </label>
+										<select class="selezionaIndirizzo" id="selezionaIndirizzo" onchange="autocompila()">
+											<option value="nuovo">Nuovo Indirizzo</option>
+											<%
+												for(Indirizzo i : indirizzi){
+													long idIndirizzo = i.getIdIndirizzo();
+													String via = i.getVia();
+													String provincia = i.getProvincia();
+													String citta = i.getCitta();
+													String cap = i.getCap();
+													String nazione = i.getNazione();
+													%>
+													<option class="indirizzoSelezionato" value=
+														"<%= idIndirizzo %>"
+														data-via="<%= via %>"
+														data-citta="<%= citta %>"
+														data-cap="<%= cap %>"
+														data-provincia="<%= provincia %>"
+														data-nazione="<%= nazione %>">
+														<%=nazione%>, <%=citta%> (<%=provincia %>), <%=cap %>, <%=via %>
+													</option>
+													<%
+												}
+											%>
+										</select>
+									</div>
+									<%
+									}
+								%>
+								
 								<div class="input-errore-container">
 									<div class="input" id="input_via">
 										<label for="via">Via:</label>
@@ -74,7 +114,7 @@
 										<span id="errore_nazione" class="errore"></span>
 								</div>
 								
-								<div class="check">
+								<div class="check" id="box-salva-indirizzo">
 									<p class="via">Salvare indirizzo per prossimi acquisti?</p>
 									<input type="checkbox" name="salvaIndirizzo" id="salvaIndirizzo"/>
 								</div>
@@ -147,5 +187,6 @@
 		
 		<jsp:include page="fragments/Footer.jsp"/>
 		<script src="<%=request.getContextPath() %>/scripts/ValidazioneIndirizzo.js"></script>
+		<script src="<%=request.getContextPath() %>/scripts/IndirizzoSalvato.js"></script>
 	</body>
 </html>

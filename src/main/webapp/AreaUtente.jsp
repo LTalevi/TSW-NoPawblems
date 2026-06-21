@@ -149,8 +149,6 @@
 							<%
 							}
 						else{
-							int n = 0;
-							
 							for(Indirizzo i : indirizzi){
 								long idIndirizzo = i.getIdIndirizzo();
 								String via = i.getVia();

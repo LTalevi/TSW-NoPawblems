@@ -258,3 +258,14 @@
     font-weight: bold; 
     display: inline-block;
 }
+
+select {
+	flex: 1;
+	padding: 10px 15px;
+	border-radius: 4px;
+	outline: none;
+	font-family: var(--font-family);
+	border: 2px solid var(--border-color);
+	background-color: var(--background-color);
+	color: var(--primary-text-color);
+}
