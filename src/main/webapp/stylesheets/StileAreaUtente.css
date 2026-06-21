@@ -260,3 +260,28 @@ button.bottone_aggiungi:hover {
 	border-color: var(--primary-color) !important;
 	background-color: #E8F5E9;
 }
+
+a.dettaglio_ordine {
+	width: 150px;
+	border-radius: 8px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 16px;
+	transition: all 0.2s ease-in-out;
+	margin-left: 5px;
+	margin-right: 10px;
+	text-decoration: none;
+	padding: 10px;
+	border: 2px solid var(--background-color);
+	background-color: var(--secondary-color);
+	color: var(--background-color);
+}
+
+a.dettaglio_ordine:hover {
+	background-color: var(--background-color);
+	color: var(--tertiary-color);
+	border-color: var(--tertiary-color);
+}

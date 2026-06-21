@@ -243,15 +243,14 @@
 							    String stato = o.getStato();
 							    float totale = o.getTotale();
 							    String numeroFattura = o.getNumeroFattura();
-							    n++;
 							%>
 							
 							<div class="campo_testo">
 								<div class="testo">
-									<label for="ordine">Ordine <%=n %>:</label>
-									<a href="<%= request.getContextPath() %>/user/DettaglioOrdine?idOrdine=<%= o.getIdOrdine() %>">
+									<a class="dettaglio_ordine" href="<%= request.getContextPath() %>/user/DettaglioOrdine?idOrdine=<%= o.getIdOrdine() %>">
 										Vedi Dettaglio Ordine
 									</a>
+									
 									<p><span class="grassetto">Ordine spedito in data:</span><br/> <%=data %><br/><br/>
 									<span class="grassetto">Indirizzo di Spedizione:</span><br/> <%=nazioneSpedizione%>,
 									 <%=cittaSpedizione%> (<%=provinciaSpedizione %>), <%=capSpedizione %>, <%=viaSpedizione %></p>
