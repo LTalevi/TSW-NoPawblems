@@ -53,11 +53,17 @@ public class DettaglioOrdine extends HttpServlet {
 		try {
 			ordine = ordineDAO.doRetrieveByKey(idOrdine);
 			
-			if (ordine == null || !(ordine.getUtente() == utente.getIdUtente())) {
-			    request.setAttribute("error", "Non hai i permessi per visualizzare questo ordine.");
-			    request.getRequestDispatcher("/403.jsp").forward(request, response);
-			    return;
-			}
+			if (ordine == null) {
+                request.setAttribute("error", "Ordine non trovato.");
+                request.getRequestDispatcher("/Errore404.jsp").forward(request, response);
+                return;
+            }
+            
+            if (!(ordine.getUtente() == utente.getIdUtente()) && !(utente.isAdmin())) {
+                request.setAttribute("error", "Non hai i permessi per visualizzare questo ordine.");
+                request.getRequestDispatcher("/403.jsp").forward(request, response);
+                return;
+            } 
 			
 		    for (model.dettaglioordine.DettaglioOrdine item : ordine.getDettagli()) {
 		            try {
@@ -72,7 +78,7 @@ public class DettaglioOrdine extends HttpServlet {
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al database: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 		

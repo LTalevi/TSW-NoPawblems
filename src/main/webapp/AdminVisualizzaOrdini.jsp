@@ -92,7 +92,7 @@
 									<span class="grassetto">Indirizzo di Spedizione:</span><br/> <%=nazioneSpedizione%>,
 									 <%=cittaSpedizione%> (<%=provinciaSpedizione %>), <%=capSpedizione %>, <%=viaSpedizione %><br/><br/>
 									<span class="grassetto">Totale:</span><br/> <%=String.format("%.2f", totale) %>€<br/><br/>
-									<span class="grassetto">Numero Fattura:</span><br/> <%=numeroFattura %>€<br/><br/>
+									<span class="grassetto">Numero Fattura:</span><br/> <%=numeroFattura %><br/><br/>
 								</p>
 
 								<a class="dettaglio_ordine" href="<%= request.getContextPath() %>/user/DettaglioOrdine?idOrdine=<%= o.getIdOrdine() %>">
