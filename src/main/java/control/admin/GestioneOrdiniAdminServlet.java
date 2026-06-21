@@ -66,11 +66,11 @@ public class GestioneOrdiniAdminServlet extends HttpServlet {
 			}
 
 			request.setAttribute("ordiniAdmin", ordini);
-			request.getRequestDispatcher("/admin/visualizzaOrdini.jsp").forward(request, response);
+			request.getRequestDispatcher("/AdminVisualizzaOrdini.jsp").forward(request, response);
 		} catch (SQLException s) {
 			s.printStackTrace();
 			request.setAttribute("error", "Errore accesso al database: " + s.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
             return;
 		}
 	}

@@ -284,6 +284,16 @@
 				</div>
 				
 				<div class="logout">
+					<%
+						if(utente != null && utente.isAdmin()){
+								%>
+									<button class="bottone_admin" onclick="window.location.href='<%=request.getContextPath() %>/admin/GestioneOrdiniAdminServlet'">
+										Area Admin
+									</button>
+								<%
+							}
+					%>
+					
 					<button class="bottone_logout" onclick="window.location.href='<%=request.getContextPath() %>/LogoutServlet'">
 						Logout
 					</button>

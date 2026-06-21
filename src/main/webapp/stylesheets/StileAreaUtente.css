@@ -88,7 +88,14 @@ body {
     border: 1px solid var(--background-color);  
 }
 
-.logout .bottone_logout {
+.logout {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 15px;
+}
+
+.logout .bottone_logout, .logout .bottone_admin {
 	display: block;
     width: 250px;
     padding: 12px;
@@ -104,7 +111,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.logout .bottone_logout:hover {
+.logout .bottone_logout:hover, .logout .bottone_admin:hover {
 	background-color: var(--background-color);
     color: var(--secondary-color);
 }
