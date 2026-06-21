@@ -112,7 +112,7 @@
 
 								<div class="input-errore-container" id="input_email">
 									<input type="email" name="email" id="email" class="email" placeholder="<%=utente.getEmail() %>" oninput="valida_email()"
-										value="<%=utente.getEmail() %>" required style="display: none"/>
+										value="<%=utente.getEmail() %>" data-context="<%= request.getContextPath() %>" required style="display: none"/>
 										
 									<span id="errore_email" class="errore"></span>
 								</div>

@@ -60,14 +60,15 @@ function valida_email(){
 	const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 	
 	const emailValue = email.value.trim();
-
+	const contextPath = email.dataset.context;
+	
 	if (!regex.test(emailValue)) {
 		form_dati.email = false;
 		gestisci_stato(container, errore, false, "L' email inserita non è valida.", "dati");
 		return;
 	}
 
-	const url = `EmailCheck?email=${encodeURIComponent(emailValue)}`;
+	const url = `${contextPath}/EmailCheck?email=${encodeURIComponent(emailValue)}`;
 	
 	fetch(url)
 		.then(response => response.json())
