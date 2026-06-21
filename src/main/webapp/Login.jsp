@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%
+	String errore = (String )request.getAttribute("error");
+%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,6 +21,12 @@
 					<img src="img/logo/logo_NoPawblems_esteso.jpeg"/>
 				</a>
 			</header>
+			
+			<% if (errore != null && !errore.isEmpty()) { %>
+						<div class="errore-server">
+							<%= errore %>
+						</div>
+					<% } %>
 			
 			<div class="campi-dati">
 				<form action="LoginServlet" method="POST">
