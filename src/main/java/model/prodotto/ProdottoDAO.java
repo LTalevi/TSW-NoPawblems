@@ -241,16 +241,22 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 		}
 	}
 	
-	public List<Prodotto> doRetrieveByFilter(Long idCategoria, Long idPadre, Float prezzoMin, Float prezzoMax, String ricerca, String ordinamento) throws SQLException {
+	public List<Prodotto> doRetrieveByFilter(Long idCategoria, Long idPadre, Float prezzoMin, Float prezzoMax, String ricerca, String ordinamento, Boolean attivo) throws SQLException {
 	    String queryProdotti = "SELECT p.*, "
 	            + "c.id_categoria, c.id_padre, c.nome AS nome_categoria, c.descrizione AS descrizione_categoria, "
 	            + "v.id_variante, v.taglia, v.colore, v.colore_hex, v.prezzo, v.iva, v.disponibilita "
 	            + "FROM prodotto p "
 	            + "JOIN categoria c ON p.categoria = c.id_categoria "
 	            + "LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
-	            + "WHERE p.attivo = true";
+	            + "WHERE 1=1"; 
+	            
 	    String queryFiltri = "";
 	    List<Object> parametri = new ArrayList<>();
+
+	    if (attivo != null) {
+	        queryFiltri += " AND p.attivo = ?";
+	        parametri.add(attivo);
+	    }
 	    
 	    if (idCategoria != null && idCategoria > 0) {
 	        queryFiltri += " AND p.categoria = ?";
@@ -357,7 +363,7 @@ public class ProdottoDAO implements InterfaceDAO<Prodotto, Long> {
 	            + "    FROM prodotto p "
 	            + "    JOIN categoria c ON p.categoria = c.id_categoria "
 	            + "    LEFT JOIN variante_prodotto v ON p.id_prodotto = v.prodotto_padre "
-	            + "    WHERE p.attivo = true" + queryFiltri
+	            + "    WHERE 1=1" + queryFiltri 
 	            + ") AS p_filtrati ON img.prodotto = p_filtrati.id_prodotto";
 
 	    try (Connection connection = ConnectionPool.getConnection()){

@@ -69,7 +69,7 @@ public class CatalogoServlet extends HttpServlet {
 		ProdottoDAO prodottoDAO = new ProdottoDAO();
 		
 		try {
-			List<Prodotto> catalogo = prodottoDAO.doRetrieveByFilter(idCategoria, idPadre, prezzoMin, prezzoMax, ricerca, ordinamento);
+			List<Prodotto> catalogo = prodottoDAO.doRetrieveByFilter(idCategoria, idPadre, prezzoMin, prezzoMax, ricerca, ordinamento, true);
 			
 			request.setAttribute("prodotti", catalogo);
 			request.setAttribute("idCategoria", idCategoria);

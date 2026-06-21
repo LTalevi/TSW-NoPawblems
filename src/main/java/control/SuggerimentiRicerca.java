@@ -36,7 +36,7 @@ public class SuggerimentiRicerca extends HttpServlet {
 
         try {
             ProdottoDAO prodottoDAO = new ProdottoDAO();
-            List<Prodotto> prodotti = prodottoDAO.doRetrieveByFilter(null, null, null, null, query.trim(), null);
+            List<Prodotto> prodotti = prodottoDAO.doRetrieveByFilter(null, null, null, null, query.trim(), null, true);
             
             int count = 0;
             for (Prodotto p : prodotti) {
