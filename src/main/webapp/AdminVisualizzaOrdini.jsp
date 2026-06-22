@@ -58,6 +58,35 @@
 				<h1><span class="gradiente">Visualizzazione Ordini</span></h1>
 			</div>
 			
+				<div class="Filtri">
+					<form action="<%=request.getContextPath() %>/admin/GestioneOrdiniAdminServlet" method="POST">
+						<div class="categoria">
+							<fieldset>
+								<legend>Imposta Filtri di Ricerca</legend>
+										<div class="input-filtro">
+				                            <label for="idCliente" class="grassetto">Id Cliente</label>
+				                            <input type="number" name="idCliente" value="idCliente"/>
+				                        </div>
+				                        
+				                        <div class="input-filtro">
+				                            <label for="dataInizio" class="grassetto">Data di Inizio</label>
+				                            <input type="date" name="dataInizio" value="dataInizio"/>
+				                        </div>
+				                        
+				                        <div class="input-filtro">
+				                            <label for="dataFine" class="grassetto">Data di Fine</label>
+				                            <input type="date" class="radio" name="dataFine" value="dataFine"/>
+				                        </div>
+	
+								<button type="submit">Applica Filtri.</button>
+	
+							</fieldset>
+							
+						</div>
+				
+					</form>
+				</div>
+			
 			<div class="contenitore">
 				<%
 				if(ordini == null || ordini.isEmpty()){
@@ -85,21 +114,38 @@
 					%>
 					<div class="campo_testo">
 							<div class="testo">
-								<p>
-									<span class="grassetto">Utente che ha effettuato l'ordine:</span><br/> <%=u %><br/><br/>
-									<span class="grassetto">Ordine spedito in data:</span><br/> <%=data %><br/><br/>
-									<span class="grassetto">Stato Ordine:</span><br/> <%=stato %><br/><br/>
-									<span class="grassetto">Indirizzo di Spedizione:</span><br/> <%=nazioneSpedizione%>,
-									 <%=cittaSpedizione%> (<%=provinciaSpedizione %>), <%=capSpedizione %>, <%=viaSpedizione %><br/><br/>
-									<span class="grassetto">Totale:</span><br/> <%=String.format("%.2f", totale) %>€<br/><br/>
-									<span class="grassetto">Numero Fattura:</span><br/> <%=numeroFattura %><br/><br/>
-								</p>
-
-								<a class="dettaglio_ordine" href="<%= request.getContextPath() %>/user/DettaglioOrdine?idOrdine=<%= o.getIdOrdine() %>">
-									Vedi Dettaglio Ordine
-								</a>
-								
+								<div class="griglia-ordine">
+									<div class="cella">
+										<span class="grassetto">Utente:</span><br/> <%=u %>
+									</div>
+									
+									<div class="cella">
+										<span class="grassetto">Spedito in data:</span><br/> <%=data %>
+									</div>
+									
+									<div class="cella">
+										<span class="grassetto">Stato:</span><br/> <%=stato %>
+									</div>
+									
+									<div class="cella">
+										<span class="grassetto">Indirizzo:</span><br/> <%=nazioneSpedizione%>,
+											 <%=cittaSpedizione%> (<%=provinciaSpedizione %>), <%=capSpedizione %>, <%=viaSpedizione %>
+									</div>
+									
+									<div class="cella">
+										<span class="grassetto">Totale:</span><br/> <%=String.format("%.2f", totale) %>€
+									</div>
+									
+									<div class="cella">
+										<span class="grassetto">N. Fattura:</span><br/> <%=numeroFattura %>
+									</div>
+								</div>
 							</div>
+							
+							<a class="dettaglio_ordine" href="<%= request.getContextPath() %>/user/DettaglioOrdine?idOrdine=<%= o.getIdOrdine() %>">
+								Vedi Dettaglio Ordine
+							</a>
+								
 						</div>
 					<%
 					}
