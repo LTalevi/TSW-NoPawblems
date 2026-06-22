@@ -21,6 +21,10 @@
 	
 	String successo = (String) sessione.getAttribute("success");
 	String errore = (String) sessione.getAttribute("error");
+	
+	String idClienteForm = request.getParameter("idCliente") != null ? request.getParameter("idCliente") : "";
+	String dataInizioForm = request.getParameter("dataInizio") != null ? request.getParameter("dataInizio") : "";
+	String dataFineForm = request.getParameter("dataFine") != null ? request.getParameter("dataFine") : "";
 %>
 
 <!DOCTYPE html>
@@ -64,21 +68,21 @@
 							<fieldset>
 								<legend>Imposta Filtri di Ricerca</legend>
 										<div class="input-filtro">
-				                            <label for="idCliente" class="grassetto">Id Cliente</label>
-				                            <input type="number" name="idCliente" value="idCliente"/>
+				                            <label for="idCliente" class="grassetto">ID Cliente</label>
+				                            <input type="number" name="idCliente" value="<%= idClienteForm %>"/>
 				                        </div>
 				                        
 				                        <div class="input-filtro">
 				                            <label for="dataInizio" class="grassetto">Data di Inizio</label>
-				                            <input type="date" name="dataInizio" value="dataInizio"/>
+				                            <input type="date" name="dataInizio" value="<%= dataInizioForm %>"/>
 				                        </div>
 				                        
 				                        <div class="input-filtro">
 				                            <label for="dataFine" class="grassetto">Data di Fine</label>
-				                            <input type="date" class="radio" name="dataFine" value="dataFine"/>
+				                            <input type="date" class="radio" name="dataFine" value="<%= dataFineForm %>"/>
 				                        </div>
 	
-								<button type="submit">Applica Filtri.</button>
+								<button type="submit">Applica Filtri</button>
 	
 							</fieldset>
 							
@@ -116,7 +120,7 @@
 							<div class="testo">
 								<div class="griglia-ordine">
 									<div class="cella">
-										<span class="grassetto">Utente:</span><br/> <%=u %>
+										<span class="grassetto">ID Utente:</span><br/> <%=u %>
 									</div>
 									
 									<div class="cella">
