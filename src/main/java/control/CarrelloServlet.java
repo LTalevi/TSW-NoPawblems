@@ -144,7 +144,10 @@ public class CarrelloServlet extends HttpServlet {
 	                    
 	                    session.setAttribute("carrello", carrello);
 	                }
-	                break;
+	                
+                    
+                    response.sendRedirect(request.getContextPath() + "/DettaglioProdotto?idProdotto=" + var.getProdottoPadre());
+	                return;
 	        }
 	                
 	            case "rimuovi": {

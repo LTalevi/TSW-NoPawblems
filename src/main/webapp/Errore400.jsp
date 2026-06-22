@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/Error.css" type="text/css">
 	
-	<title>Internal Server Error</title>
+	<title>Bad Request</title>
 </head>
 
 <body>
@@ -16,14 +16,14 @@
 
 	<div class="main_content_wrapper">
 		<div class="immagine_errore">
-			<img src="<%= request.getContextPath() %>/img/errori/errore_500.png" alt="Immagine errore 500">
+			<img src="<%= request.getContextPath() %>/img/errori/errore_401.png" alt="Immagine errore 401">
 		</div>
 		
 		<div class="testo_bottone_home">
 			<div class="testo_errore">
-				<h1>Errore 500 (Internal Server Error) - Oh no! Sembra che ci sia un problema sul server :(</h1>
+				<h1>Errore 400 (Bad Request) -  :(</h1>
 				<p>
-					Non è stato possibile elaborare la richiesta.
+
 				</p>
 			</div>
 			

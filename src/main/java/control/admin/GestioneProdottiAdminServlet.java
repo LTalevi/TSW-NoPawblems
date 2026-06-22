@@ -67,12 +67,12 @@ public class GestioneProdottiAdminServlet extends HttpServlet {
             
             request.setAttribute("prodottiAdmin", prodotti);
             request.setAttribute("ricerca", ricerca != null ? ricerca.trim() : ""); 
-            request.getRequestDispatcher("/catalogoAdmin.jsp").forward(request, response);
+            request.getRequestDispatcher("/GestioneProdottiAdmin.jsp").forward(request, response);
             
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Errore nel caricamento dei dati: " + e.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
         }
     }
 
@@ -297,7 +297,7 @@ public class GestioneProdottiAdminServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Errore nel database durante l'operazione: " + e.getMessage());
-            request.getRequestDispatcher("/500.jsp").forward(request, response);
+            request.getRequestDispatcher("/Errore500.jsp").forward(request, response);
         }
     }
 }

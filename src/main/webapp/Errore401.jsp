@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/Error.css" type="text/css">
 	
-	<title>Pagina non trovata</title>
+	<title>Unauthorized</title>
 </head>
 
 <body>

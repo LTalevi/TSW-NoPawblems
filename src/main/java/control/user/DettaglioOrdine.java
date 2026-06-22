@@ -46,7 +46,7 @@ public class DettaglioOrdine extends HttpServlet {
 		}
 		
 		if (idOrdine == null) {
-	        request.getRequestDispatcher("/400.jsp").forward(request, response);
+	        request.getRequestDispatcher("/Errore400.jsp").forward(request, response);
 	        return;
 	    }
 		
@@ -61,7 +61,7 @@ public class DettaglioOrdine extends HttpServlet {
             
             if (!(ordine.getUtente() == utente.getIdUtente()) && !(utente.isAdmin())) {
                 request.setAttribute("error", "Non hai i permessi per visualizzare questo ordine.");
-                request.getRequestDispatcher("/403.jsp").forward(request, response);
+                request.getRequestDispatcher("/Errore403.jsp").forward(request, response);
                 return;
             } 
 			
