@@ -152,7 +152,7 @@
 					
 						if(indirizzi == null || indirizzi.isEmpty()){
 							%>
-							<p class="none" style="text-align:center; width:100%; margin:auto;">Non ci sono indirizzi salvati.</p>
+							<p class="none">Non ci sono indirizzi salvati.</p>
 							<%
 							}
 						else{
@@ -250,7 +250,7 @@
 					
 						if(ordini == null || ordini.isEmpty()){
 							%>
-							<p class="none" style="text-align:center; width:100%; margin:auto;">Non ci sono ordini registrati.</p>
+							<p class="none">Non ci sono ordini registrati.</p>
 							<%
 							}
 						else{

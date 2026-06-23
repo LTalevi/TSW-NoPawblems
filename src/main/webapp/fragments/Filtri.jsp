@@ -11,6 +11,7 @@
 	<form action="<%= request.getContextPath() %>/CatalogoServlet" method="GET">
 		<div class="prezziMinMax">
 			<fieldset>
+				<legend>Filtra per Prezzo</legend>
 				<label for="prezzoMin">Prezzo Minimo:</label>
 				<input type="number" id="prezzoMin" name="prezzoMin" step="0.01" min="0" value="<%= pMinForm != null ? pMinForm : "" %>">
 			
@@ -21,7 +22,7 @@
 		
 		<div class="ordinamento">
 			<fieldset>
-				<label for="ordinamento">Ordina per:</label>
+				<legend>Ordinamento</legend>
 				<select id="ordinamento" name="ordinamento">
 					<option value="prezzoCrescente" <%= "prezzoCrescente".equals(ordForm) ? "selected" : "" %>>Prezzo Crescente</option>
                     <option value="prezzoDecrescente" <%= "prezzoDecrescente".equals(ordForm) ? "selected" : "" %>>Prezzo Decrescente</option>

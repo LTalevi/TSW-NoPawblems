@@ -81,3 +81,30 @@ function validaAggiunta() {
     }
     return true;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector('.form-aggiunta-carrello');
+    const btnCarrello = document.getElementById('btnAggiungiCarrello');
+
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            if (!validaAggiunta()) return;
+
+            if (btnCarrello.classList.contains('attivo') || btnCarrello.disabled) {
+                return; 
+            }
+
+            event.preventDefault();
+
+            btnCarrello.classList.add('attivo');
+            btnCarrello.textContent = "Prodotto Aggiunto al Carrello!";
+
+            setTimeout(() => {
+                btnCarrello.classList.remove('attivo');
+                btnCarrello.disabled = true;
+
+                form.submit();
+            }, 2000);
+        });
+    }
+});

@@ -8,7 +8,7 @@
 	</div>
 	
 	<div class="titolo">
-		<h2>Esplora Prodotti</h2>
+		<h2><span class="gradiente">Esplora Prodotti</span></h2>
 	</div>
 	
 	<div class="visualizzazione">

@@ -208,9 +208,16 @@ footer {
 }
 
 .Filtri fieldset {
+	display: flex;
 	border: 1px solid var(--primary-color);
 	border-radius: 6px;
 	padding: 10px 15px;
+	align-items: center;
+	gap: 20px;
+}
+
+.Filtri .prezzoMinMax {
+	align-items: center;
 }
 
 .titolo {
@@ -259,4 +266,55 @@ footer {
 .radio_container .radio input[type="radio"]:checked ~ .radio_contenuto {
 	background-color: var(--primary-color);
 	color: var(--background-color);
+}
+
+.Filtri input, .Filtri select {
+	padding: 5px;
+	width: 200px;
+	border: 2px solid var(--border-color);
+	border-radius: 4px;
+	outline: none;
+	box-sizing: border-box;
+	outline: none;
+	margin: 0;
+	font-size: 16px;
+}
+
+.Filtri button[type="submit"] {
+	width: 150px;
+	border-radius: 8px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 16px;
+	transition: all 0.2s ease-in-out;
+	margin-left: 5px;
+	margin-right: 10px;
+	text-decoration: none;
+	padding: 10px;
+	border: 2px solid var(--background-color);
+	background-color: var(--primary-color);
+	color: var(--background-color);
+}
+
+.Filtri button[type="submit"]:hover {
+	border: 2px solid var(--primary-color);
+	background-color: var(--background-color);
+	color: var(--primary-color);
+}
+
+.gradiente {
+	background-image: linear-gradient(35deg, var(--tertiary-color), var(--secondary-color), var(--primary-color));
+	-webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: bold; 
+    display: inline-block;
+}
+
+.titolo h2 {
+	font-size: 24px;
 }

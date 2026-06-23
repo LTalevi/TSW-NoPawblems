@@ -257,6 +257,21 @@ body {
     text-align: center;
 }
 
+@keyframes animazione {
+	0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.bottone-aggiunta-carrello.attivo {
+    background: linear-gradient(270deg, #3F778D, #1E406D, #D34F73, #B6025C, #cccccc);
+    background-size: 800% 800%;
+    animation: animazione 2s ease infinite;
+    color: #ffffff; 
+    border-color: transparent;
+    pointer-events: none;
+}
+
 .bottone-aggiunta-carrello:disabled {
     background-color: #888888 !important;
     color: #ffffff !important;
@@ -264,3 +279,4 @@ body {
     cursor: not-allowed;
     opacity: 0.65;
 }
+

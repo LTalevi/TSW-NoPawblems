@@ -7,6 +7,7 @@ body {
 	min-height: 100vh;
 	flex-grow: 1;
 	background-color: #cccccc;
+	margin: 0;
 }
 
 
@@ -40,17 +41,19 @@ body {
 
 .contenitore {
 	display: grid;	
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	border: 2px solid var(--primary-color);
 	border-radius: 8px;
 	gap: 20px;
 	padding: 30px;
-	margin: 0;
+	margin: 0 auto;
 	align-items: start;
+	max-width: 1400px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .dati {
-	grid-column: 1;
 	border: 2px solid var(--primary-color);
 	border-radius: 4px;
 	padding: 20px;
@@ -159,7 +162,6 @@ body {
 }
 
 .indirizzi {
-	grid-column: 2;
 	border: 2px solid var(--primary-color);
 	border-radius: 4px;
 	padding: 20px;
@@ -168,7 +170,6 @@ body {
 }
 
 .ordini {
-	grid-column: 3;
 	border: 2px solid var(--primary-color);
 	border-radius: 4px;
 	padding: 20px;
@@ -332,3 +333,12 @@ p.testoErrore {
 	color: var(--tertiary-color);
 	border: 2px solid var(--tertiary-color);
 }
+
+p.none {
+	text-align: center;
+	align-items: center;
+	padding: 20px;
+	width: 100%;
+	margin-bottom: 30px;
+}
+

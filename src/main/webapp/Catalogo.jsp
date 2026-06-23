@@ -57,9 +57,6 @@
         	%>
 			</div>
 		</div>
-	
-
-
 
 		<jsp:include page="/fragments/Footer.jsp"/>
 	</body>
