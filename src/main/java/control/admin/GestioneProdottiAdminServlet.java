@@ -148,7 +148,10 @@ public class GestioneProdottiAdminServlet extends HttpServlet {
                                 nuovaVariante.setTaglia(taglia);
                                 nuovaVariante.setColore(colore);
                                 
-                                String hex = coloriHex[j].trim();
+                                String hex = "#000000";
+                                if (coloriHex != null && j < coloriHex.length && coloriHex[j] != null) {
+                                    hex = coloriHex[j].trim();
+                                }	
                                 nuovaVariante.setColoreHex(hex);
 
                                 varianteProdottoDAO.doSave(nuovaVariante);
@@ -240,35 +243,34 @@ public class GestioneProdottiAdminServlet extends HttpServlet {
                     String[] colori = request.getParameterValues("colore");
                     String[] coloriHex = request.getParameterValues("coloreHex");
 
-                    int indexId = 0; 
-                    if (taglie != null && colori != null) {
-                        for (int i = 0; i < taglie.length; i++) {
-                            String taglia = (taglie[i] != null) ? taglie[i].trim() : "";
-                            for (int j = 0; j < colori.length; j++) {
-                                String colore = (colori[j] != null) ? colori[j].trim() : "";
+                    if (idVarianti != null) {
+                        for (int i = 0; i < idVarianti.length; i++) {
+                            String idVarStr = idVarianti[i];
+                            String taglia = (taglie != null && i < taglie.length && taglie[i] != null) ? taglie[i].trim() : "";
+                            String colore = (colori != null && i < colori.length && colori[i] != null) ? colori[i].trim() : "";
+                            String hex = "#000000";
+                            if (coloriHex != null && i < coloriHex.length && coloriHex[i] != null) {
+                                hex = coloriHex[i].trim();
+                            }
 
-                                VarianteProdotto var = new VarianteProdotto();
-                                var.setProdottoPadre(idProdotto);
-                                var.setPrezzo(prezzo);
-                                var.setDisponibilita(disponibilita);
-                                var.setIva(iva);
-                                var.setTaglia(taglia);
-                                var.setColore(colore);
-                                
-                                String hex = coloriHex[j].trim();
-                                var.setColoreHex(hex);
+                            VarianteProdotto var = new VarianteProdotto();
+                            var.setProdottoPadre(idProdotto);
+                            var.setPrezzo(prezzo);
+                            var.setDisponibilita(disponibilita);
+                            var.setIva(iva);
+                            var.setTaglia(taglia);
+                            var.setColore(colore);
+                            var.setColoreHex(hex);
 
-                                if (idVarianti != null && indexId < idVarianti.length && idVarianti[indexId] != null && !idVarianti[indexId].trim().isEmpty()) {
-                                    try {
-                                        var.setIdVariante(Long.parseLong(idVarianti[indexId].trim()));
-                                        varianteProdottoDAO.doUpdate(var); 
-                                    } catch (NumberFormatException e) {
-                                        varianteProdottoDAO.doSave(var);
-                                    }
-                                } else {
+                            if (idVarStr != null && !idVarStr.trim().isEmpty()) {
+                                try {
+                                    var.setIdVariante(Long.parseLong(idVarStr.trim()));
+                                    varianteProdottoDAO.doUpdate(var); 
+                                } catch (NumberFormatException e) {
                                     varianteProdottoDAO.doSave(var);
                                 }
-                                indexId++;
+                            } else {
+                                varianteProdottoDAO.doSave(var);
                             }
                         }
                     }
@@ -297,7 +299,7 @@ public class GestioneProdottiAdminServlet extends HttpServlet {
                     break;
             }
             
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Errore nel database durante l'operazione: " + e.getMessage());
             request.getRequestDispatcher("/Errore500.jsp").forward(request, response);

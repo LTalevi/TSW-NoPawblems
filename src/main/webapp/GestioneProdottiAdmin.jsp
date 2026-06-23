@@ -62,9 +62,22 @@
 									<label for="ricerca" class="grassetto">Cerca per Nome</label>
 									<input type="text" name="ricerca" id="ricerca" value="<%= ricercaForm %>" placeholder="Es: Collare"/>
 								</div>
-								<div class="input-filtro">
-									<label for="idCategoria" class="grassetto">Id Categoria</label>
-									<input type="number" name="idCategoria" id="idCategoria" value="<%= idCategoriaForm %>"/>
+								<div class="input-filtro" style="min-width: 200px;">
+    								<label class="grassetto">Categoria</label>
+    								<div class="radio_container" style="display: flex; gap: 10px; margin-top: 5px;">
+        							<label class="radio">
+            							<input type="radio" class="radio" name="idCategoria" value="" <%= idCategoriaForm.isEmpty() ? "checked" : "" %>>
+            							<span class="radio_contenuto">Tutti</span>
+        							</label>
+							        <label class="radio">
+							            <input type="radio" class="radio" name="idCategoria" value="1" <%= idCategoriaForm.equals("1") ? "checked" : "" %>>
+							            <span class="radio_contenuto">Cane</span>
+							        </label>
+							        <label class="radio">
+							            <input type="radio" class="radio" name="idCategoria" value="2" <%= idCategoriaForm.equals("2") ? "checked" : "" %>>
+							            <span class="radio_contenuto">Gatto</span>
+							        </label>
+							    </div>
 								</div>
 								<div class="input-filtro">
 									<label for="prezzoMin" class="grassetto">Prezzo Min (€)</label>
@@ -112,8 +125,17 @@
 									
 									<br/><br/>
 									
-									<label class="grassetto">ID Categoria</label>
-									<input type="number" name="idCategoria" id="idCategoriaForm" required>
+									<label class="grassetto">Categoria</label>
+									<div class="radio_container" style="display: flex; gap: 10px; margin-bottom: 15px; margin-top: 5px;">
+									    <label class="radio">
+									        <input type="radio" class="radio" name="idCategoria" id="catCane" value="1" required>
+									        <span class="radio_contenuto">Cane</span>
+									    </label>
+									    <label class="radio">
+									        <input type="radio" class="radio" name="idCategoria" id="catGatto" value="2" required>
+									        <span class="radio_contenuto">Gatto</span>
+									    </label>
+									</div>
 								</div>
 								
 								<div class="dati-numerici">
@@ -236,16 +258,15 @@
 					
 					<div class="bottoni">
 						
-						<button class="bottone-modifica" onclick='avviaModifica(
-							"<%= p.getIdProdotto() %>", 
-							"<%= p.getNome().replace("\"", "&quot;") %>", 
-							"<%= p.getDescrizione().replace("\"", "&quot;").replace("\n", "\\n") %>", 
-							"<%= p.getCategoria() != null ? p.getCategoria().getIdCategoria() : "" %>", 
-							"<%= prezzo %>", 
-							"<%= disponibilita %>", 
-							"<%= iva %>", 
-							<%= jsonVarianti.toString() %>
-						)'>
+						<button class="bottone-modifica" 
+							data-id="<%= p.getIdProdotto() %>" 
+							data-nome="<%= p.getNome().replace("\"", "&quot;") %>" 
+							data-descrizione="<%= p.getDescrizione().replace("\"", "&quot;").replace("\n", "&#10;") %>"
+							data-categoria="<%= p.getCategoria() != null ? p.getCategoria().getIdCategoria() : "" %>" 
+							data-prezzo="<%= prezzo %>" 
+							data-disponibilita="<%= disponibilita %>" 
+							data-iva="<%= iva %>" 
+							data-varianti="<%= jsonVarianti.toString().replace("\"", "&quot;") %>">
 							Modifica Articolo
 						</button>
 						
