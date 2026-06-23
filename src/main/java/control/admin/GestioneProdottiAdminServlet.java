@@ -163,6 +163,8 @@ public class GestioneProdottiAdminServlet extends HttpServlet {
                     File uploadDir = new File(appPath + File.separator + UPLOAD_DIR);
                     if (!uploadDir.exists()) uploadDir.mkdirs();
 
+                    String contentType = request.getContentType();
+                    if (contentType != null && contentType.toLowerCase().startsWith("multipart/")) {
                     for (Part part : request.getParts()) {
                         if (part.getName().equals("immagine") && part.getSize() > 0) {
                             String originalName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
@@ -179,6 +181,7 @@ public class GestioneProdottiAdminServlet extends HttpServlet {
                             nuovaImmagine.setUrl("img/prodotti/" + uniqueFileName);  
                             nuovaImmagine.setAlt(alt);
                             immagineDAO.doSave(nuovaImmagine);
+                        	}
                         }
                     }
 

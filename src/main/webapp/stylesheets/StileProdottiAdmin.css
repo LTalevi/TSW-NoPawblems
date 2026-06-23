@@ -1,0 +1,395 @@
+@charset "UTF-8";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+	display:flex;
+    flex-direction:column;
+	width: 100%;
+	min-height: 100vh;
+	flex-grow: 1;
+}
+
+.main-wrapper {
+	width: 100%;
+    padding: 90px 30px 30px 30px;
+	background-color: var(--background-color);
+	color: var(--primary-text-color);
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.titolo {
+	display: block;
+	text-align: center;
+	align-items: center;
+	font-size: 24px;
+	margin-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.gradiente {
+	background-image: linear-gradient(35deg, var(--tertiary-color), var(--secondary-color), var(--primary-color));
+	-webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: bold; 
+    display: inline-block;
+}
+
+.modifiche.nonAttivo {
+	display: none;
+}
+
+.modifiche.attivo {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	padding: 30px;
+	margin: 0 auto;
+}
+
+.product-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+	margin-top: 60px;
+	gap: 30px;
+	padding: 20px;
+    min-height: 400px;
+}
+
+.prodotto {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid var(--border-color);
+	transition: transform 0.3s ease-in-out;
+	
+	color: var(--primary-text-color);
+	background-color: var(--background-color);
+}
+
+.prodotto.esaurito {
+	filter: grayscale(100%); 
+    opacity: 0.6;           
+    border-color: #ccc;      
+    background-color: #f9f9f9; 
+    transition: all 0.3s ease;
+}
+
+.prodotto.esaurito:hover {
+	filter: grayscale(50%); 
+    opacity: 0.8;           
+}
+
+.prodotto:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.info_prodotto, .info_prodotto p, .prezzo_prodotto {
+	font-family: inherit;
+	color: inherit;
+}
+
+.info_prodotto {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+
+.info_prodotto h3 {
+	display: block;
+	width: 100%;
+	font-weight: bold;
+	padding: 10px;
+	border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+}
+
+.info_prodotto p {
+	margin-top: 10px;
+	font-weight: 300;
+	margin: 0;
+}
+
+.prezzo_prodotto {
+	font-weight: bold;
+	display: block;
+	margin: 0;
+}
+
+.bottoni {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	padding: 5px;
+	margin-top: 10px;
+	gap: 10px;
+	align-items: center;
+}
+
+.bottoni form {
+	display: block;
+	flex: 1; 
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+button.bottone-modifica, button.bottone-cancella, button.bottone-scheda {
+    display: inline-flex;
+    flex: 1;
+    width: 100%;
+    height: 45px;            
+    padding: 0 5px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; 
+    border-width: 2px;
+    border-style: outset;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: auto;
+}
+
+button.bottone-modifica, button.bottone-scheda {
+    border-color: var(--border-color);
+	background-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+button.bottone-cancella {
+	border-color: var(--border-color);
+	background-color: var(--secondary-color);
+    color: var(--background-color);
+}
+
+button.bottone-modifica:hover, button.bottone-scheda:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
+button.bottone-cancella:hover {
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+}
+
+.prodotto img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.prodotto-non-disponibile {
+	font-weight: bold;
+}
+
+.grassetto {
+	font-weight: bold;
+}
+
+.filtri fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filtri legend {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: var(--primary-text-color);
+    margin-bottom: 10px;
+}
+
+.filtri-modifica {
+    display: flex;
+    flex-direction: row;       /* Affianca Filtri e Inserimento */
+    align-items: flex-start;   /* Allinea i box in alto */
+    justify-content: space-between;
+    gap: 30px;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.filtri {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;                   
+    min-width: 320px;
+    padding: 25px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--background-color);
+}
+
+.filtri fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.filtri legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-text-color);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.griglia-filtri, .blocco-dati-prodotto, #blocco-inserimento-varianti, #blocco-modifica-varianti, #blocco-inserimento-immagine, .dati-numerici {
+    display: flex !important;
+    flex-direction: column;   
+    gap: 16px;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.input-filtro, .campo-form {
+    display: flex;
+    flex-direction: column; 
+    gap: 6px;
+    width: 100%;
+}
+
+.input-filtro label, .campo-form label {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--primary-text-color);
+    text-align: left;
+}
+
+.input-filtro input, .input-filtro select, .campo-form input, .campo-form textarea, .campo-form select, 
+.dati-testo input, .dati-numerici input {
+    padding: 10px;
+    width: 100%;             
+    height: 42px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    outline: none;
+    font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+    margin-bottom: 0;         
+}
+
+ .dati-testo textarea {
+ 	padding: 10px;
+ 	width: 100%;             
+    height: 100px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 0;         
+ }
+
+.campo-form textarea {
+    width: 100%;
+}
+
+#blocco-inserimento-varianti {
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px dashed var(--border-color);
+}
+
+.campi-lineari {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.campi-lineari input {
+    flex: 1;
+}
+
+.filtri .bottoni {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.filtri .bottoni button, .filtri .bottoni a {
+    max-width: 180px;
+}
+
+.gruppo-variante {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.titolo-variante {
+    font-size: 0.95rem;
+    color: var(--primary-text-color);
+}
+
+.griglia-checkbox {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.griglia-checkbox.colori {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+}
+
+.opzione-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal;
+    user-select: none;
+}
+
+#blocco-inserimento-varianti input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0;
+    cursor: pointer;
+}
+
+.badge-colore {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid #000000;
+}
+
+@media (max-width: 900px) {
+    .filtri-modifica {
+        flex-direction: column;
+    }
+}
