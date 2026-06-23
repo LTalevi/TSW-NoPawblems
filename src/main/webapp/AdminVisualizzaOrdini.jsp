@@ -19,8 +19,15 @@
 	List<Ordine> ordini = (List<Ordine>) request.getAttribute("ordiniAdmin");
 	List<Indirizzo> indirizzi = (List<Indirizzo>) request.getAttribute("indirizzi");
 	
-	String successo = (String) sessione.getAttribute("success");
-	String errore = (String) sessione.getAttribute("error");
+	String successo = null;
+	String errore = null;
+	
+	if (sessione != null) {
+		successo = (String) sessione.getAttribute("success");
+		errore = (String) sessione.getAttribute("error");
+		sessione.removeAttribute("success");
+		sessione.removeAttribute("error");
+	}
 	
 	String idClienteForm = request.getParameter("idCliente") != null ? request.getParameter("idCliente") : "";
 	String dataInizioForm = request.getParameter("dataInizio") != null ? request.getParameter("dataInizio") : "";

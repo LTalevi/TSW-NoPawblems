@@ -393,3 +393,37 @@ button.bottone-cancella:hover {
         flex-direction: column;
     }
 }
+
+.blocco-errore-successo {
+	display: block !important;
+	width: 100%;
+	background-color: var(--background-color);
+	max-width: 1200px;
+	margin: 10px auto -30px auto;
+	padding: 10px 30px;;
+	box-sizing: border-box;
+}
+
+p.testoSuccesso, p.testoErrore {
+	display: block !important;
+	padding: 24px;
+	margin-bottom: 20px;
+	border-radius: 4px;
+	font-weight: bold;
+	text-align: center;
+	font-size: 14px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+p.testoSuccesso {
+	background-color: #E8F5E9;
+	color: var(--primary-color);
+	border: 2px solid var(--primary-color);	
+}
+
+p.testoErrore {
+	background-color: #f8d7da;
+	color: var(--tertiary-color);
+	border: 2px solid var(--tertiary-color);
+}

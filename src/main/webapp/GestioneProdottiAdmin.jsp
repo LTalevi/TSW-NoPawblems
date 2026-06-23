@@ -48,6 +48,23 @@
 		<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 
 		<main class="main-wrapper">
+			<%
+				if(errore != null && !errore.trim().isEmpty()){
+					%>
+					<div class="blocco-errore-successo">
+						<p class="testoErrore"><%=errore %></p>
+					</div>
+					<%
+				}
+				else if(successo != null && !successo.trim().isEmpty()){
+					%>
+					<div class="blocco-errore-successo">
+						<p class="testoSuccesso"><%=successo %></p>
+					</div>
+					<%
+				}
+			%>
+				
 			<div class="titolo">
 				<h1><span class="gradiente">Catalogo Prodotti</span></h1>
 			</div>
