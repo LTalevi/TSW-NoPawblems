@@ -42,7 +42,7 @@
 	</button>
 		
 	<div class="bottone_catalogo">
-		<button class="" onclick="window.location.href='<%=request.getContextPath() %>/CatalogoServlet'">
+		<button class="btnCatalogo" onclick="window.location.href='<%=request.getContextPath() %>/CatalogoServlet'">
 			<p>Scopri il nostro <span class="gradiente">Cat</span>alogo</p>
 		</button>
 	</div>

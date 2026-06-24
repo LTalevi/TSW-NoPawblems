@@ -192,3 +192,52 @@
 .bottone-homepage:active {
     transform: translateY(0);
 }
+
+@media (max-width: 700px) {
+	.prodotti_cane, 
+    .prodotti_gatto {
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+    .slide-prodotto {
+        flex-direction: column !important;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .prodotti_cane .testo-laterale { 
+    	order: 2; 
+    }
+    
+    .prodotti_cane .immagine-laterale {
+    	order: 1;
+    }
+    
+    .prodotti_gatto .testo-laterale {
+    	order: 2; 
+    }
+    
+    .prodotti_gatto .immagine-laterale { order: 1; }
+
+    .testo-laterale {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .immagine-laterale {
+        width: 100%;
+        max-height: 250px; 
+    }
+
+    .immagine-laterale img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .arrow_button {
+        width: 35px;
+        height: 35px;
+    }
+}
