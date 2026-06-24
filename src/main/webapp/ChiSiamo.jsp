@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<jsp:include page="fragments/head.jsp"/>
 		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileChiSiamo.css" type="text/css">
-		<meta charset="UTF-8">
 		
 		<title>Chi Siamo</title>
 	</head>

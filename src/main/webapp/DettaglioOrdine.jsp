@@ -24,11 +24,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Dettaglio Ordine #<%= ordine.getIdOrdine() %></title>
-        
-        <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<jsp:include page="fragments/head.jsp"/>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileDettaglioOrdine.css" type="text/css">        
+
+        <title>Dettaglio Ordine #<%= ordine.getIdOrdine() %></title>
     </head>
     
     <body>

@@ -36,10 +36,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<jsp:include page="fragments/head.jsp"/>
 		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileProdottiAdmin.css" type="text/css">
 	
-		<meta charset="UTF-8">
 		<title>Gestione Prodotti Admin</title>
 	</head>
 		

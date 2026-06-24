@@ -37,10 +37,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<jsp:include page="fragments/head.jsp"/>
 		<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/StileOrdiniAdmin.css" type="text/css">
 		
-		<meta charset="UTF-8">
 		<title>Admin Visualizza Ordini</title>
 	</head>
 

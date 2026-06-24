@@ -19,10 +19,20 @@ footer {
 .footer_wrapper {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: stretch;
 	justify-content: space-between;
 	gap: 20px;
 	padding: 30px;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.grid-wrapper {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 40px;
+	align-items: start;
+	width: 100%;
 }
 
 .copyright {
@@ -31,16 +41,19 @@ footer {
 	justify-items: center;
 	gap: 15px;
 	margin: 40px 0 0 0;
+	justify-content: center;
 }
 
 .logo_copy {
 	font-size: 12px;
 	display: block;
+	display: flex;
 }
 
 .testo_copy {
 	font-size: 12px;
 	font-style: italic;
+	text-align: center;
 }
 
 .lista_links {
@@ -57,10 +70,10 @@ footer {
 .icona_zampa {
 	font-size: 16px;
 	vertical-align: middle;
-	margin: 10px;
+	margin-right: 8px;
 }
 
-.links_footer a {
+.links_footer a, .chiSiamo a {
 	color: var(--background-color);
 	text-decoration: none;
 	font-size: 16px;
@@ -70,29 +83,37 @@ footer {
 	border-radius: 20px;
 }
 
-.links_footer a:hover {
+.links_footer a:hover, .chiSiamo a:hover {
 	background-color: var(--background-color);
 	color: var(--primary-color);
 }
 
-.links_footer a:after {
+.links_footer a:after, .chiSiamo a:after {
 	background-color: var(--primary-color);
 	color: var(--background-color);
 }
 
 .logo_footer {
 	display: block;
-	height: 45px;
-	width: 55px;
+	height: 115px;
+	width: 115px;
 	background-size: cover;
+	overflow: hidden;
 	background-repeat: no-repeat;
 	border: 2px solid;
-	 
-	border-color: #13112B;
+	border-radius: 50%;
+	margin: 0 auto;
 	background-color: var(--background-color);
 }
 
 .logo_footer img {
+	display: block;
 	width: 100%;
-	aspect-ratio: 16/9;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chiSiamo {
+	display: flex;
+	flex-direction: column;
 }

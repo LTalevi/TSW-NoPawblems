@@ -16,9 +16,9 @@
 
 <html>
 	<head>
-		<link rel="stylesheet" href="<%=request.getContextPath() %>/stylesheets/main.css" type="text/css">
+		<jsp:include page="fragments/head.jsp"/>
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/stylesheets/StileCheckout.css" type="text/css">
-		<meta charset="UTF-8">
+
 		<base href="${pageContext.request.contextPath}/">
 		<title>Checkout</title>
 	</head>

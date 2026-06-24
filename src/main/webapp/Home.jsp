@@ -11,8 +11,7 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/stylesheets/main.css" type="text/css">
+	<jsp:include page="fragments/head.jsp"/>
 	
 	<title>NoPawblems</title>
 </head>
