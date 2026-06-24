@@ -25,7 +25,7 @@
 	
 		<section class="prodotti-cane">
 			<div class="titolo-blocco">
-				<h2>Prodotti Cane</h2>
+				<h2><span class="gradiente">Prodotti Cane</span></h2>
 			</div>
 			
 			<div class="blocco-immagine-testo">
@@ -54,7 +54,7 @@
 								<p><%= p.getDescrizione() %></p>
 							</div>
 							
-							<a class="bottone-homepage" href="<%= request.getContextPath() %>/DettaglioProdottoServlet?idProdotto=<%= p.getIdProdotto() %>">
+							<a class="bottone-homepage" href="<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%= p.getIdProdotto() %>">
            						Acquista ora
         					</a>
 						</div>
@@ -79,7 +79,7 @@
 		
 		<section class="prodotti-gatto">
 			<div class="titolo-blocco">
-				<h2>Prodotti Gatto</h2>
+				<h2><span class="gradiente">Prodotti Gatto</span></h2>
 			</div>
 			
 			<div class="blocco-immagine-testo">
@@ -92,7 +92,7 @@
 		  				<p style="text-align:center; width:100%; margin:auto;">Nessun prodotto disponibile al momento.</p>
 					<% } else { 
 	           		 	for (Prodotto p : prodottiGatto) { 
-	            			String urlImmagine = "img/Header_img/Header_img_2.png"; // Placeholder Gatto
+	            			String urlImmagine = "img/Header_img/Header_img_2.png";
 	       					String altImmagine = p.getNome();
 	                
 	                		if (p.getImmagini() != null && !p.getImmagini().isEmpty()) {
@@ -112,7 +112,7 @@
 								<p><%= p.getDescrizione() %></p>
 							</div>
 							
-							<a class="bottone-homepage" href="<%= request.getContextPath() %>/DettaglioProdottoServlet?idProdotto=<%= p.getIdProdotto() %>">
+							<a class="bottone-homepage" href="<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%= p.getIdProdotto() %>">
            						Acquista ora
         					</a>
 						</div>
