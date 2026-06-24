@@ -34,8 +34,11 @@
 			<i class="material-icons">account_circle</i>	
 		</button>
 	
-		<button class="Carrello" aria-label="Apri carrello" onclick="window.location.href='<%=request.getContextPath() %>/CarrelloServlet'">
-			<i class="material-icons">shopping_cart</i>	
+		<button class="Carrello" id="btn-nav-carrello" aria-label="Apri carrello" onclick="window.location.href='<%=request.getContextPath() %>/CarrelloServlet'">
+		    <i class="material-icons">shopping_cart</i>	
+		    <span id="badge-carrello" class="badge-carrello">
+		        <%= session.getAttribute("numeroPezziCarrello") != null ? session.getAttribute("numeroPezziCarrello") : "0" %>
+		    </span>
 		</button>
 	</div>
 	

@@ -144,11 +144,29 @@ public class CarrelloServlet extends HttpServlet {
 	                    
 	                    session.setAttribute("carrello", carrello);
 	                }
-	                
-                    
-                    response.sendRedirect(request.getContextPath() + "/DettaglioProdotto?idProdotto=" + var.getProdottoPadre());
-	                return;
-	        }
+
+		            int nuovoTotalePezzi = 0;
+		            if (utente != null) {
+		                List<ProdottoCarrello> attualeCarrello = prodottoCarrelloDAO.doRetrieveByUtente(utente.getIdUtente());
+		                for (ProdottoCarrello item : attualeCarrello) {
+		                    nuovoTotalePezzi += item.getQuantita();
+		                }
+		            } else {
+		                List<ProdottoCarrello> carrelloSessione = (List<ProdottoCarrello>) session.getAttribute("carrello");
+		                if (carrelloSessione != null) {
+		                    for (ProdottoCarrello item : carrelloSessione) {
+		                        nuovoTotalePezzi += item.getQuantita();
+		                    }
+		                }
+		            }
+		            session.setAttribute("numeroPezziCarrello", nuovoTotalePezzi);
+	  
+		            response.setContentType("application/json");
+		            response.setCharacterEncoding("UTF-8");
+	          
+		            response.getWriter().write("{\"status\":\"success\", \"nuovoTotale\":" + nuovoTotalePezzi + "}");
+		               return;
+	            }
 	                
 	            case "rimuovi": {
 	            	Long idVariante = Long.parseLong(request.getParameter("idVariante"));

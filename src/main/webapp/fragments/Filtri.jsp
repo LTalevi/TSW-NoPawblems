@@ -54,6 +54,6 @@
 			</fieldset>
 		</div>
 		
-		<button type="submit">Applica Filtri.</button>
+		<button type="submit">Applica Filtri</button>
 	</form>
 </div>

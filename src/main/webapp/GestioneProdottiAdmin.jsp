@@ -104,12 +104,14 @@
 									<input type="number" step="0.01" name="prezzoMax" id="prezzoMax" value="<%= prezzoMaxForm %>"/>
 								</div>
 								<div class="input-filtro">
-									<label for="ordinamento" class="grassetto">Ordina per</label>
-									<select name="ordinamento" id="ordinamento">
-										<option value="" <%= ordinamentoForm.isEmpty() ? "selected" : "" %>>Nessuno</option>
-										<option value="PREZZO_ASC" <%= ordinamentoForm.equals("PREZZO_ASC") ? "selected" : "" %>>Prezzo: Crescente</option>
-										<option value="PREZZO_DESC" <%= ordinamentoForm.equals("PREZZO_DESC") ? "selected" : "" %>>Prezzo: Decrescente</option>
-									</select>
+								    <label for="ordinamento" class="grassetto">Ordina per</label>
+								    <select name="ordinamento" id="ordinamento">
+								        <option value="" <%= ordinamentoForm.isEmpty() ? "selected" : "" %>>Nessuno</option>
+								        <option value="prezzoCrescente" <%= ordinamentoForm.equals("prezzoCrescente") ? "selected" : "" %>>Prezzo: Crescente</option>
+								        <option value="prezzoDecrescente" <%= ordinamentoForm.equals("prezzoDecrescente") ? "selected" : "" %>>Prezzo: Decrescente</option>
+								        <option value="nomeAZ" <%= ordinamentoForm.equals("nomeAZ") ? "selected" : "" %>>Ordine Alfabetico</option>
+                    					<option value="nomeZA" <%= ordinamentoForm.equals("nomeZA") ? "selected" : "" %>>Ordine Alfabetico Inverso</option>
+								    </select>
 								</div>
 							</div>
 							

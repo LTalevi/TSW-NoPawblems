@@ -88,23 +88,92 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (form) {
         form.addEventListener('submit', function(event) {
-            if (!validaAggiunta()) return;
+            event.preventDefault(); 
 
-            if (btnCarrello.classList.contains('attivo') || btnCarrello.disabled) {
+            if (!validaAggiunta() || btnCarrello.disabled || btnCarrello.classList.contains('loading')) {
                 return; 
             }
 
-            event.preventDefault();
+            const testoOriginale = btnCarrello.textContent;
 
-            btnCarrello.classList.add('attivo');
-            btnCarrello.textContent = "Prodotto Aggiunto al Carrello!";
+            btnCarrello.classList.add('loading');
+            btnCarrello.disabled = true;
+            btnCarrello.innerHTML = 'Inserimento...';
 
-            setTimeout(() => {
-                btnCarrello.classList.remove('attivo');
-                btnCarrello.disabled = true;
+            const formData = new FormData(form);
+            const dataUrlEncoded = new URLSearchParams(formData);
 
-                form.submit();
-            }, 2000);
+            fetch(form.action, {
+                method: 'POST',
+                body: dataUrlEncoded,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("Errore del server");
+                return response.json(); 
+            })
+            .then(data => {
+                if (data.status === "success") {
+
+                    btnCarrello.classList.remove('loading');
+                    btnCarrello.style.backgroundColor = "#2ecc71";
+                    btnCarrello.innerHTML = 'Aggiunto! ✓';
+
+                    const navCarrelloBtn = document.getElementById('btn-nav-carrello');
+                    const badgeCarrello = document.getElementById('badge-carrello');
+
+                    if (navCarrelloBtn) {
+  
+                        navCarrelloBtn.classList.remove('anim-wobble');
+                        void navCarrelloBtn.offsetWidth; 
+                        navCarrelloBtn.classList.add('anim-wobble');
+                    }
+
+                    if (badgeCarrello) {
+                        badgeCarrello.classList.remove('anim-pop');
+                        void badgeCarrello.offsetWidth;
+
+                        badgeCarrello.textContent = data.nuovoTotale; 
+                        badgeCarrello.classList.add('anim-pop');
+                    }
+
+                    setTimeout(() => {
+                        btnCarrello.style.backgroundColor = "";
+                        btnCarrello.disabled = false;
+                        btnCarrello.textContent = testoOriginale;
+                    }, 2000);
+                }
+            })
+            .catch(error => {
+                console.error("Errore:", error);
+                alert("Errore durante l'aggiunta al carrello.");
+                btnCarrello.classList.remove('loading');
+                btnCarrello.disabled = false;
+                btnCarrello.textContent = testoOriginale;
+                btnCarrello.style.backgroundColor = "";
+            });
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const immaginePrincipale = document.querySelector('.immagine-principale-prodotto img');
+    const miniature = document.querySelectorAll('.miniature-immagini img');
+
+    if (immaginePrincipale && miniature.length > 0) {
+        miniature.forEach(miniatura => {
+
+            miniatura.addEventListener('click', function() {
+
+                immaginePrincipale.src = this.src;
+                immaginePrincipale.alt = this.alt;
+
+                immaginePrincipale.style.opacity = 0.5;
+                setTimeout(() => {
+                    immaginePrincipale.style.opacity = 1;
+                    immaginePrincipale.style.transition = "opacity 0.3s ease-in-out";
+                }, 50);
+            });
         });
     }
 });
