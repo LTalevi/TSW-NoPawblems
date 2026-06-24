@@ -111,7 +111,6 @@ nav {
     background-color: transparent;
     border: 2px solid transparent;
     transition: background-color 0.4s ease, border-color 0.4s ease;
-    overflow: hidden;
 }
 
 .search_wrapper.active {
@@ -429,7 +428,7 @@ header::after {
         position: absolute;
         width: 90%;
         max-width: 450px;
-        z-index: 9998;
+        z-index: 600;
         top: 75px;
         left: 50%;
         transform: translateX(-50%);
