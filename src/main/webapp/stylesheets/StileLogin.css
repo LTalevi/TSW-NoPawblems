@@ -32,7 +32,6 @@ body {
 .main-wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 500px;
     width: 100%;
     gap: 20px;
     justify-content: center;
@@ -70,7 +69,7 @@ header {
 }
 
 .campi-dati {
-	padding: 30px 15px;;
+	padding: 30px 15px;
 	border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     background-color: var(--background-color);
@@ -219,7 +218,7 @@ button[type="submit"]:hover:not([disabled]) {
 
 .invito-ad-accedere a, .invito-a-registrarsi a {
 	font-size: 16px;
-	font-weight: italic;
+	font-style: italic;
 	text-decoration: none;
 	color: var(--secondary-color);
 }
@@ -252,7 +251,7 @@ button[type="submit"]:hover:not([disabled]) {
 		width: 100%;
 	}
 	
-	input {
+	.input input {
 		font-size: 14px;
 		width: 100%;
 	}

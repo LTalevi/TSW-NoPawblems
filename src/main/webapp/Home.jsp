@@ -48,6 +48,11 @@
 					%>	  	
 		  			
 		  			<div class="slide-prodotto">
+						
+						<div class="immagine-laterale">
+							<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
+						</div>
+
 						<div class="testo-laterale">
 							<div class="descrizione-prodotto-homepage">
 								<h3><%= p.getNome() %></h3>
@@ -57,10 +62,6 @@
 							<a class="bottone-homepage" href="<%= request.getContextPath() %>/DettaglioProdotto?idProdotto=<%= p.getIdProdotto() %>">
            						Acquista ora
         					</a>
-						</div>
-						
-						<div class="immagine-laterale">
-							<img src="<%= urlImmagine %>" alt="<%= altImmagine %>">
 						</div>
 					</div>
 					
