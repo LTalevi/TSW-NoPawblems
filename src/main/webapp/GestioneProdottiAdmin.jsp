@@ -73,12 +73,12 @@
 					<form action="<%= request.getContextPath() %>/admin/GestioneProdottiAdminServlet" method="GET">
 						<fieldset>
 							<legend>Filtra Catalogo</legend>
-							<div class="griglia-filtri" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+							<div class="griglia-filtri">
 								<div class="input-filtro">
 									<label for="ricerca" class="grassetto">Cerca per Nome</label>
 									<input type="text" name="ricerca" id="ricerca" value="<%= ricercaForm %>" placeholder="Es: Collare"/>
 								</div>
-								<div class="input-filtro" style="min-width: 200px;">
+								<div class="input-filtro">
     								<label class="grassetto">Categoria</label>
     								<div class="radio_container" style="display: flex; gap: 10px; margin-top: 5px;">
         							<label class="radio">
