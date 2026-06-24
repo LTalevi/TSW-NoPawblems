@@ -59,4 +59,5 @@
 			</div>
 		</div>
 	</main>
+	<script src="<%= request.getContextPath() %>/scripts/GuidaAlleTaglie.js"></script>
 </div>
