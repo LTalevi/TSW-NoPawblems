@@ -25,10 +25,13 @@ body {
 .titolo {
     display: block;
     text-align: center;
-    align-items: center;
+    font-size: 24px;
+}
+
+.titolo h1 {
+    font-weight: bold;
     font-size: 26px;
-    margin-bottom: 10px;
-    border-bottom: none; 
+    margin: 0;
 }
 
 .gradiente {
@@ -483,7 +486,7 @@ button.bottone-cancella:hover {
 
 @media (max-width: 700px) {
     .main-wrapper {
-        padding: 130px 15px 30px 15px; 
+        padding: 150px 15px 30px 15px; 
         align-items: center;
         justify-content: center;
         overflow-x: hidden;
@@ -555,4 +558,7 @@ button.bottone-cancella:hover {
         width: 100%;
     }
     
+    .titolo {
+    	font-size: 18px;
+    }
 }
