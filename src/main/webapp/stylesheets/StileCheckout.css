@@ -4,268 +4,316 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    flex-grow: 1;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+.main-wrapper {
+    flex: 1 0 auto;
+    flex-grow: 1; 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .wrapper {
-	display: flex;
-	flex-direction: row;
-	flex-grow: 1;
-	padding: 120px 60px 60px 60px;
-	margin: 0;
-	align-items: flex-start;
-	justify-content: center;
-	gap: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 120px 30px 60px 30px;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
 }
 
 .wrapper .titolo {
-	padding: 10px;
-	align-items: center;
-	text-align: center;
-	display: block;
-	width: 100%;
-	background-color: var(--primary-color);
-	color: var(--secondary-text-color);
+    padding: 10px 20px;
+    text-align: center;
+    display: block;
+    width: auto;
+    margin: 0 auto 20px auto;
+    background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);
+    color: var(--primary-color);
+    border-radius: 20px;
 }
 
 .wrapper .titolo h2 {
-	font-weight: bold;
-	font-size: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
 }
 
 .dati, .riepilogo {
-	align-items: center;
-	justify-content: center;
-	display: flex;
-	flex-direction: column;
-	width: 50%;
-	border: 2px solid var(--border-color);
-	border-radius: 8px;
-}
-
-.input {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: 15px;	
-	width: 100%;
-	box-sizing: border-box;
-}
-
-.input-errore-container {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	gap: 4px;
-}
-
-.input input {
-	flex: 1;
-	padding: 10px 15px;
-	border-radius: 4px;
-	outline: none;
-	font-family: var(--font-family);
-	border: 2px solid var(--border-color);
-	background-color: var(--background-color);
-	color: var(--primary-text-color);
-}
-
-.input input:focus {
-	border-color: var(--tertiary-color);
-}
-
-.input label, .input-telefono label {
-	width: 80px;
-	text-align: left;
-	font-weight: bold;
-}
-
-.errore {
-	display: none;
-	font-weight: bold;
-	font-size: 12px;
-	width: 100%;
-	padding: 20px;
-	margin-top: 5px;
-	border-radius: 4px;
-	border: 2px solid var(--tertiary-color);
-	background-color: #f7d2d2;
-	color: var(--tertiary-color);
-}
-
-.input.non_valido input {
-	border-color: var(--secondary-color) !important;
-	background-color: #FFF0F2;	
-}
-
-.input.valido  input {
-	border-color: var(--primary-color) !important;
-	background-color: #E8F5E9;
-}
-
-.dati-spedizione fieldset {
-	border: 2px solid var(--border-color);
-	padding: 20px;
-	border-radius: 8px;
-	background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: stretch;
+    justify-content: flex-start;
+    border: 2px solid color-mix(in srgb, var(--border-color) 30%, transparent);
+    border-radius: 25px;
+    background-color: var(--background-color);
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
 }
 
 .dati-spedizione {
-	width: 100%;
-	padding: 30px 40px;
-	background-color: var(--secondary-color);	
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
 }
 
 .dati-spedizione form {
-	display: flex;
-	flex-direction: column;
-	gap: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dati-spedizione fieldset {
+    border: 2px dashed color-mix(in srgb, var(--primary-color) 30%, transparent);
+    padding: 25px;
+    border-radius: 20px;
+    background-color: color-mix(in srgb, var(--primary-color) 2%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;	
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-errore-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.input label, .input-telefono label {
+    width: 90px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.input input, select {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 25px;
+    outline: none;
+    font-family: var(--font-family);
+    border: 2px solid color-mix(in srgb, var(--border-color) 50%, transparent);
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.input input:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--primary-color) 15%, transparent);
+}
+
+.input.non_valido input {
+    border-color: var(--tertiary-color) !important;
+    background-color: color-mix(in srgb, var(--tertiary-color) 6%, #ffffff) !important;	
+}
+
+.input.valido input {
+    border-color: var(--primary-color) !important;
+    background-color: color-mix(in srgb, var(--secondary-color) 6%, #ffffff) !important;
+}
+
+.errore {
+    display: none;
+    font-weight: bold;
+    font-size: 13px;
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 5px;
+    border-radius: 15px;
+    border: 2px solid var(--tertiary-color);
+    background-color: color-mix(in srgb, var(--tertiary-color) 10%, #ffffff);
+    color: var(--tertiary-color);
+}
+
+.dati-spedizione button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: var(--secondary-text-color);
+    box-shadow: 0 6px 15px color-mix(in srgb, var(--primary-color) 30%, transparent);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 10px;
+}
+
+.dati-spedizione button[type="submit"]:hover:not([disabled]) {
+    background-color: transparent;
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px color-mix(in srgb, var(--primary-color) 40%, transparent);
+}
+
+.dati-spedizione button[type="submit"]:disabled {
+    background-color: color-mix(in srgb, var(--secondary-text-color) 20%, var(--border-color)) !important;
+    border-color: transparent !important;
+    color: color-mix(in srgb, var(--secondary-text-color) 50%, transparent) !important;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
 }
 
 .prodotti {
     display: flex;
-	flex-direction: column;
-	width: 100%;
-	padding: 30px 20px;
-	gap: 30px;
-	background-color: var(--secondary-color);
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
+    gap: 20px;
+    background-color: transparent;
 }
 
 .prodotto {
-	width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 30px;
-    padding: 0 30px;
+    gap: 20px;
+    padding: 15px 25px;
     box-sizing: border-box;
     text-decoration: none;
-    border: 2px solid var(--border-color);
-    transition: scale 0.3s ease-in-out;
+    border: 2px solid color-mix(in srgb, var(--border-color) 20%, transparent);
+    border-radius: 20px;
     background-color: var(--background-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
 }
 
 .prodotto:hover {
-	scale: 1.01;
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--primary-color) 40%, transparent);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
 .immagine_prodotto {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0 0 0 30px;
-	height: 300px;
-    width: 35%;
-    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 25%;
+    max-width: 150px;
     background-color: var(--background-color);
+    border-radius: 12px;
     overflow: hidden;
     order: 1;
 }
 
 .immagine_prodotto img {
-	width: 100%;
+    width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: center;
     display: block;
 }
 
 .info_prodotto {
-	display: flex;
+    display: flex;
     flex-direction: column;   
-    justify-content: space-between;  
+    justify-content: center;  
     align-items: flex-start;
-    gap: 10px;
-    min-height: 100px;
-    width: 55%;
-    gap: 10px;
-    padding: 0 10px 10px;
+    gap: 8px;
+    width: 70%;
+    padding: 0 0 0 15px;
     border: none;
-    border-left: 2px solid var(--border-color);
+    border-left: 2px dashed color-mix(in srgb, var(--border-color) 40%, transparent);
     order: 2;
 }
 
 .info_prodotto h3 {
-	display: inline-block;
-	width: 100%;
-	padding: 10px;
-	color: var(--secondary-text-color);
-	background-color: var(--primary-color);
+    display: inline-block;
+    width: auto;
+    padding: 5px 15px;
+    margin: 0;
+    font-size: 16px;
+    color: var(--primary-color); 
+    background-color: color-mix(in srgb, var(--primary-color) 8%, transparent);
+    border-radius: 15px;
 }
 
 .info_prodotto p {
-	display: inline-block;
-	width: 100%;
-	color: var(--primary-text-color);
+    margin: 0;
+    font-size: 14px;
+    color: var(--primary-text-color);
+    opacity: 0.8;
 }
 
 .info_prodotto span {
-	display: inline-block;
-	padding: 5px;
-	border: 1px solid var(--secondary-color);
-	color: var(--tertiary-color);
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 13px;
+    border-radius: 12px;
+    border: 2px solid color-mix(in srgb, var(--primary-color) 40%, transparent);
+    color: var(--tertiary-color);
+    transition: all 0.3s ease;
 }
 
 .info_prodotto span:hover {
-	border-color: var(--tertiary-color);
-	color: var(--secondary-color);
-}
-
-.dati-spedizione button[type="submit"]:disabled {
-	background-color: #CCCCCC;
-	color: #666666;
-	border: 2px solid #666666;
-	cursor: not-allowed;
-}
-
-.dati-spedizione button[type="submit"] {
-	padding: 10px 15px;
-	border-radius: 4px;
-	width: 100%;
-	background-color: var(--primary-color);
-	color: var(--background-color);
-	border: 2px solid var(--background-color);
-	cursor: pointer;
-}
-
-.dati-spedizione button[type="submit"]:hover:not([disabled]) {
-	background-color: var(--background-color);
-	color: var(--primary-color);
-	border-color: var(--primary-color);
+    border-color: var(--tertiary-color);
+    color: var(--primary-color);
 }
 
 .costi {
-	display: flex;
-	flex-direction: row;
-	justify-items: space-between;
-	gap: 10px;
-	padding: 20px;
-	background-color: var(--background-color);
-	border: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 25px;
+    margin-top: 10px;
+    background-color: color-mix(in srgb, var(--primary-color) 3%, transparent);
+    border: 2px solid color-mix(in srgb, var(--border-color) 30%, transparent);
+    border-radius: 20px;
 }
 
 .costi p {
-	font-weight: bold;
-	font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
 }
 
 .gradiente {
-	background-image: linear-gradient(35deg, var(--tertiary-color), var(--secondary-color), var(--primary-color));
-	-webkit-background-clip: text;
+    background-image: linear-gradient(35deg, var(--tertiary-color), var(--secondary-color), var(--primary-color));
+    -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    font-weight: bold; 
+    font-weight: 900; 
+    font-size: 20px;
     display: inline-block;
-}
-
-select {
-	flex: 1;
-	padding: 10px 15px;
-	border-radius: 4px;
-	outline: none;
-	font-family: var(--font-family);
-	border: 2px solid var(--border-color);
-	background-color: var(--background-color);
-	color: var(--primary-text-color);
 }

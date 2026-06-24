@@ -1,56 +1,103 @@
 @charset "UTF-8";
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 20px;
-	flex-grow: 1;
-	padding: 90px 30px 30px 30px;
-	border: 2px solid var(--border-color);
-	border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    flex-grow: 1;
+    padding: 120px 50px 60px 50px;
+    max-width: 1000px;
+    margin: 100px auto;
+    
+    background-color: var(--background-color);
+    border: 2px solid color-mix(in srgb, var(--primary-color) 15%, transparent);
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
 }
 
 .Titolo {
-	display: block;
-	text-align: center;
-	justify-content: center;
-	width: 100%;
-	border: none;
-	border-bottom: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 25px;
+    border: none;
+    border-bottom: 2px dashed color-mix(in srgb, var(--border-color) 40%, transparent);
 }
 
 .Titolo h2 {
-	font-size: 24px;
-	font-weight: bold;
-	color: var(--primary-color);
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin: 0 0 10px 0;
 }
 
 .Titolo h3 {
-	font-size: 14px;
-	font-style: italic;
-	color: var(--secondary-color);	
+    font-size: 18px;
+    font-style: italic;
+    color: var(--secondary-color);	
+    margin: 0;
+    font-weight: normal;
 }
 
 .Testo {
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	justify-content: center;
-	width: 100%;
-	gap: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
 }
 
 .Testo p {
-	color: var(--primary-text-color);
+    color: var(--primary-text-color);
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0;
 }
 
 .Testo q {
-	font-style: italic;
-	color: var(--primary-color);
+    font-style: italic;
+    font-weight: bold;
+    color: var(--secondary-color);
 }
 
 .Testo blockquote {
-	color: var(--primary-color);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--primary-color);
+    margin: 20px auto;
+    padding: 20px 30px;
+    max-width: 80%;
+    
+    background-color: color-mix(in srgb, var(--primary-color) 4%, transparent);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 0 15px 15px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+@media (max-width: 700px) {
+    .wrapper {
+        padding: 110px 25px 40px 25px;
+        margin: 20px;
+        border-radius: 20px;
+    }
+
+    .Titolo h2 {
+        font-size: 28px;
+    }
+
+    .Testo blockquote {
+        max-width: 100%;
+        font-size: 16px;
+        padding: 15px 20px;
+    }
 }

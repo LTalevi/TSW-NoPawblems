@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .main-wrapper {
     flex: 1 0 auto;
     flex-grow: 1; 
@@ -8,30 +12,64 @@
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
-    padding: 90px 30px 30px 30px;
-    gap: 20px;
+    padding: 120px 30px 60px 30px; /* Uniformato il padding superiore per l'header */
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
+/* ==========================================================================
+   HEADER ORDINE (Info Generali, Spedizione e Stato)
+   ========================================================================== */
 .info-ordine-header {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    padding: 20px 70px;
-    border: 2px solid var(--border-color);
+    padding: 30px;
+    border: 2px solid color-mix(in srgb, var(--border-color) 30%, transparent);
     background-color: var(--background-color);
     color: var(--primary-text-color);
-    margin-bottom: 10px;
+    border-radius: 25px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
 }
 
-.info-box { flex: 1; min-width: 250px; }
-.info-box h3 { color: var(--secondary-text-color); background-color: var(--primary-color); padding: 10px; margin-top: 0; }
-.info-box p { margin: 5px 0; line-height: 1.5; }
-.info-box span { color: var(--tertiary-color); font-weight: bold; }
+.info-box { 
+    flex: 1; 
+    min-width: 250px; 
+}
 
+/* Titoli dei box info modernizzati (Stile badge invece del blocco pieno vecchio stile) */
+.info-box h3 { 
+    display: inline-block;
+    color: var(--primary-color); 
+    background-color: color-mix(in srgb, var(--primary-color) 8%, transparent); 
+    padding: 6px 16px; 
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.info-box p { 
+    margin: 8px 0; 
+    line-height: 1.6; 
+    font-size: 15px;
+}
+
+/* Stato dell'ordine o evidenziati */
+.info-box span { 
+    color: var(--tertiary-color); 
+    font-weight: bold; 
+}
+
+/* ==========================================================================
+   LISTA PRODOTTI DELL'ORDINE
+   ========================================================================== */
 .dettagli-ordine {
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 20px; 
 }
 
 .dettaglio-ordine {
@@ -40,12 +78,20 @@
     flex-direction: column;
     padding: 0;
     box-sizing: border-box;
-    border: 2px solid var(--border-color);
-    transition: scale 0.3s ease-in-out;
+    border: 2px solid color-mix(in srgb, var(--border-color) 20%, transparent);
+    border-radius: 20px;
     background-color: var(--background-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+    overflow: hidden; /* Mantiene gli h3 dentro gli angoli arrotondati */
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.prodotto-carrello:hover { scale: 1.01; }
+/* Hover sulla riga prodotto (Corretto il selettore precedente) */
+.dettaglio-ordine:hover { 
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--secondary-color) 30%, transparent);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+}
 
 .info_prodotto {
     display: flex;
@@ -53,14 +99,17 @@
     width: 100%; 
 }
 
+/* Intestazione della riga prodotto */
 .info_prodotto h3 {
     width: 100%;
-    padding: 10px 15px;
+    padding: 12px 20px;
     margin: 0;
-    color: var(--secondary-text-color);
-    background-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: color-mix(in srgb, var(--primary-color) 5%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--border-color) 30%, transparent);
     box-sizing: border-box;
     font-size: 16px;
+    font-weight: bold;
 }
 
 .info_prodotto_dati {
@@ -69,36 +118,51 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px 15px;
+    padding: 20px;
     gap: 25px;
 }
 
+/* Miniatura Prodotto Arrotondata */
 .miniatura-prodotto {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     object-fit: contain;
-    border: 1px solid var(--border-color);
-    background-color: #fff;
-    border-radius: 4px;
+    border: 2px solid color-mix(in srgb, var(--border-color) 30%, transparent);
+    background-color: #ffffff;
+    border-radius: 12px; /* Addio ai vecchi 4px squadrati */
 }
 
 .dati-riga {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     align-items: center;
     flex-grow: 1;
 }
 
-.dati-riga p { margin: 0; color: var(--primary-text-color); }
-.dati-riga label { font-weight: bold; color: var(--tertiary-color); margin-right: 5px; }
+.dati-riga p { 
+    margin: 0; 
+    color: var(--primary-text-color); 
+    font-size: 15px;
+}
+
+.dati-riga label { 
+    font-weight: bold; 
+    color: var(--primary-color); 
+    margin-right: 5px; 
+}
 
 .subtotale-riga {
     margin-left: auto;
-    font-size: 1.1em;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-text-color);
 }
 
+/* ==========================================================================
+   RIEPILOGO COSTI E BOTTONE DI STAMPA
+   ========================================================================== */
 .riepilogo {
     width: 100%;
     display: flex;
@@ -106,80 +170,100 @@
     align-items: flex-end;
     justify-content: center;
     gap: 20px;
-    padding: 20px 70px 0;
+    padding: 25px 0 0 0;
     box-sizing: border-box;
-    border-top: 2px solid var(--border-color);
+    border-top: 2px dashed color-mix(in srgb, var(--border-color) 40%, transparent);
 }
 
+/* Box Costo Totale coerente con il checkout */
 .riepilogo .costo-totale {
-    padding: 10px;
+    padding: 12px 25px;
     font-size: 18px;
-    border: 2px solid var(--secondary-color);
-    background-color: var(--background-color);
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px solid color-mix(in srgb, var(--secondary-color) 30%, transparent);
+    background-color: color-mix(in srgb, var(--secondary-color) 5%, transparent);
     color: var(--secondary-color);
 }
 
+/* Bottone Stampa (In colore secondario con effetto hollow su hover) */
 .bottone-stampa {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 250px;
-    padding: 12px;
+    padding: 14px;
     text-align: center;
     text-decoration: none; 
-    border-width: 2px;
-    border-style: outset;
-    border-color: var(--border-color);
+    border: 2px solid var(--secondary-color);
     background-color: var(--secondary-color);
-    color: var(--background-color);
+    color: #ffffff;
+    border-radius: 50px;
     cursor: pointer;
-    transition: background-color 0.3s;
     font-size: 16px;
     font-weight: bold;
+    box-shadow: 0 6px 15px color-mix(in srgb, var(--secondary-color) 20%, transparent);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .bottone-stampa:hover {
-    background-color: var(--background-color);
+    background-color: transparent;
     color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px color-mix(in srgb, var(--secondary-color) 30%, transparent);
 }
 
+/* ==========================================================================
+   MEDIA QUERY PER LA STAMPA (Ottimizzata e pulita)
+   ========================================================================== */
 @media print {
-    header, footer, nav, .bottone-stampa { display: none; }
+    header, footer, nav, .bottone-stampa { 
+        display: none !important; 
+    }
     
     body { 
-    	background: white; 
-    	color: black;
-    	margin: 0; 
-    	padding: 0;
+        background: #ffffff !important; 
+        color: #000000 !important;
+        margin: 0; 
+        padding: 0;
     }
     
     .main-wrapper { 
-    	padding: 0; 
-    	gap: 10px; 
+        padding: 0; 
+        gap: 15px; 
     }
     
-    .info-ordine-header, .prodotto-carrello { 
-    	border: 1px solid #ccc; 
-    	break-inside: avoid; 
+    .info-ordine-header, .dettaglio-ordine { 
+        border: 1px solid #000000 !important; 
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        break-inside: avoid; 
     }
     
     .info-box h3, .info_prodotto h3 { 
-    	background-color: #eee; 
-    	color: #000; 
-    	border-bottom: 1px solid #000; 
+        background-color: #f0f0f0 !important; 
+        color: #000000 !important; 
+        border-bottom: 1px solid #000000 !important; 
+        border-radius: 0 !important;
+        padding: 5px 10px !important;
+        display: block !important;
     }
     
     .miniatura-prodotto { 
-    	display: none; 
+        display: none !important; 
     }
     
     .riepilogo { 
-    	border-top: 2px solid #000; 
-    	padding: 10px 0; 
+        border-top: 2px solid #000000 !important; 
+        padding: 15px 0 !important; 
     }
     
     .riepilogo .costo-totale { 
-    	border: none; 
-    	font-weight: bold; 
-    	font-size: 20px; 
-    	color: black; 
+        border: none !important; 
+        background: transparent !important;
+        font-weight: bold !important; 
+        font-size: 20px !important; 
+        color: #000000 !important; 
+        padding: 0 !important;
     }
 }
