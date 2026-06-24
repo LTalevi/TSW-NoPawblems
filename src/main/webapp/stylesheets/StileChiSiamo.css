@@ -86,8 +86,9 @@
 
 @media (max-width: 700px) {
     .wrapper {
-        padding: 110px 25px 40px 25px;
+        padding: 40px 25px 40px 25px;; 
         margin: 20px;
+        margin-top: 140px;
         border-radius: 20px;
     }
 
@@ -95,6 +96,10 @@
         font-size: 28px;
     }
 
+	.Titolo h3 {
+        font-size: 15px; 
+    }
+    
     .Testo blockquote {
         max-width: 100%;
         font-size: 16px;

@@ -211,7 +211,8 @@ footer {
 .toggle_filter_button:hover {
     background-color: var(--primary-color);
     color: var(--background-color);
-    transform: scale(1.1) rotate(90deg); 
+    transform: scale(1.05);
+    transition: transform 0.3s ease; 
 }
 
 .Filtri {
@@ -348,4 +349,96 @@ footer {
     color: transparent;
     font-weight: 900; 
     display: inline-block;
+}
+
+@media (max-width: 700px) {
+
+    .header_catalogo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 15px;
+        text-align: center;
+        margin-top: 135px;
+    }
+
+    .titolo {
+        order: 1;
+        margin: 0;
+    }
+
+    .titolo h2 {
+        font-size: 22px;
+    }
+
+    .toggle_filter_button {
+        order: 2;
+        grid-column: unset;
+        justify-self: center;
+        width: 100%;
+        max-width: 200px;
+        border-radius: 25px;
+        height: 45px;
+    }
+
+    .visualizzazione {
+        order: 3;
+        grid-column: unset;
+        justify-self: center;
+    }
+
+    .toggle_filtri {
+        top: 125px;
+        padding: 20px 15px;
+        max-height: calc(100vh - 125px); 
+        overflow-y: auto; 
+    }
+
+    .Filtri form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .Filtri fieldset {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        padding: 20px 15px;
+        gap: 12px;
+    }
+
+    .Filtri input, 
+    .Filtri select {
+        width: 100% !important;
+    }
+
+    .Filtri button[type="submit"] {
+        width: 100%;
+        margin-left: 0;
+        padding: 14px;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr !important;
+        width: 100%;
+        max-width: 350px; 
+        margin: 20px auto 0 auto;
+        padding: 0;
+    }
+
+    .prodotto {
+        width: 100%;
+    }
+    
+    .prodotto img {
+        height: 200px;
+    }
+
+    .prodotto a.bottone-acquista,
+    .prodotto a.bottone-acquista:link {
+        width: calc(100% - 30px);
+        padding: 14px;
+    }
 }
