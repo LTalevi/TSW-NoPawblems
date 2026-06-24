@@ -117,3 +117,20 @@ footer {
 	display: flex;
 	flex-direction: column;
 }
+
+@media (max-width: 700px) {
+	.footer-wrapper {
+		padding: 20px 15px;
+	}
+	
+	.grid-wrapper {
+		text-align: center;
+		gap: 30px;
+		justify-content: center;
+	}
+	
+	.lista_links {
+        align-items: center; 
+        margin: 10px 0;
+    }
+}
