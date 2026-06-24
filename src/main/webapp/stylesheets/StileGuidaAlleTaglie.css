@@ -8,89 +8,133 @@
 	top: 0 !important;
 	left: 0 !important;
 	align-items: center !important;
-    justify-content: center !important;
-    z-index: 99999 !important;
-	background-color: rgba(0, 0, 0, 0.5) !important;
+	justify-content: center !important;
+	z-index: 99999 !important;
+	background-color: rgba(0, 0, 0, 0.6) !important;
+	backdrop-filter: blur(3px);
 }
 
-.overlay-finestra .wrapper {
+.overlay-finestra .modal-wrapper {
 	display: flex;
 	flex-direction: column;
-	padding: 20px;
+	padding: 20px 30px 30px 30px;
 	align-items: center;
-	justify-content: space-between;
 	width: 450px;
-	min-height: 200px;
-    height: auto;
-    gap: 5px;
+	max-width: 90%;
 	background-color: var(--background-color);
 	border: 2px solid var(--secondary-color);
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+	border-radius: 12px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.Chiudi-finestra {
+.modal-chiudi {
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
-	padding: 0;
 }
 
-.Chiudi-finestra .chiudi {
+.modal-chiudi .btn-chiudi {
 	background: transparent;
-	padding: 2px;
+	padding: 5px;
 	border: none;
 	color: var(--secondary-color);
 	cursor: pointer;             
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out, color 0.3s;
 }
 
-.Chiudi-finestra .chiudi:hover {
-	transform: scale(1.2);	
+.modal-chiudi .btn-chiudi:hover {
+	transform: scale(1.2) rotate(90deg);
+	color: var(--primary-color);
+}
+
+.modal-titolo h2 {
+	margin-top: 0;
+	color: var(--primary-color);
+}
+
+.modal-contenuto {
+	width: 100%;
+}
+
+.selettore-animali {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+	width: 100%;
+	justify-content: center;
+}
+
+.btn-tab {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 20px;
+	font-size: 16px;
+	font-family: var(--font-family);
+	font-weight: bold;
+	color: var(--primary-text-color);
+	background-color: transparent;
+	border: 2px solid var(--border-color);
+	border-radius: 20px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.btn-tab:hover {
+	border-color: var(--secondary-color);
+	color: var(--secondary-color);
+}
+
+.btn-tab.attivo {
+	background-color: var(--primary-color);
+	color: var(--secondary-text-color);
+	border-color: var(--primary-color);
 }
 
 .Contenuto {
 	width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 2px solid var(--border-color);
-    box-sizing: border-box;
 }
 
-.Contenuto .Testo {
-	display: grid;
-    grid-template-columns: 1fr 1fr 1fr;	
-    gap: 15px;	
-    text-align: center;
+.sezione-taglie {
+	display: none; 
+	animation: fadeIn 0.4s ease; 
 }
 
-.Contenuto .Testo .cm {
-	grid-column: 1;
+.sezione-taglie.attiva {
+	display: block; 
 }
 
-.Contenuto .Testo .titolo {
+.tabella-taglie {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.tabella-taglie th {
 	font-weight: bold;
-	margin-bottom: 12px;
+	color: var(--primary-color);
+	padding-bottom: 12px;
+	border-bottom: 2px solid var(--border-color);
 }
 
-.Contenuto .Testo .taglie {
-	font-weight: 300;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	list-style-type: none; 
-	padding: 0;           
-	margin: 0;
-	gap: 5px;              
+.tabella-taglie td {
+	padding: 12px 5px;
+	border-bottom: 1px solid var(--border-color);
+	color: var(--primary-text-color);
 }
 
-.Contenuto .Testo .petto {
-	grid-column: 2;
+.tabella-taglie tbody tr:nth-child(even) {
+	background-color: rgba(0, 0, 0, 0.02);
 }
 
-.Contenuto .Testo .schiena {
-	grid-column: 3;
+.tabella-taglie tbody tr:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(5px); }
+	to { opacity: 1; transform: translateY(0); }
 }

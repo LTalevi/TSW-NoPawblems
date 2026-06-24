@@ -45,6 +45,7 @@
 
 	<body>
 		<jsp:include page="/fragments/Nav.jsp"/>
+		<jsp:include page="/fragments/GuidaAlleTaglie.jsp"/>
 		
 		<main class="wrapper">
 			<%
