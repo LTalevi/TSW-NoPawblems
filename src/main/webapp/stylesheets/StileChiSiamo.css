@@ -84,7 +84,7 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .wrapper {
         padding: 40px 25px 40px 25px;; 
         margin: 20px;

@@ -379,3 +379,87 @@ p.none {
     opacity: 0.6;
     margin: 0;
 }
+
+@media (max-width: 800px) {
+
+    .wrapper {
+        padding: 145px 15px 40px 15px;
+        gap: 20px;
+    }
+
+    .saluto {
+        font-size: 22px;
+    }
+
+    .contenitore {
+        grid-template-columns: 1fr;
+        padding: 15px;
+        gap: 20px;
+        border-radius: 20px;
+    }
+
+    .dati, .indirizzi, .ordini {
+        padding: 20px 15px;
+        gap: 15px;
+        border-radius: 15px;
+    }
+
+    .testo, 
+    .testo input, 
+    .input-errore-container .input {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .testo label, 
+    .input-errore-container .input label {
+        min-width: unset;
+        text-align: left;
+        font-size: 13px;
+    }
+
+    .testo p, 
+    .testo input, 
+    .input-errore-container input,
+    .input-errore-container {
+        max-width: 100% !important;
+        width: 100%;
+    }
+
+    .campo_titolo {
+        align-items: center;
+        padding-bottom: 10px;
+    }
+
+    .logout {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .logout .bottone_admin, 
+    .logout .bottone_logout {
+        width: 100%;
+        max-width: 100%;
+        padding: 12px;
+    }
+
+    button.bottone_aggiungi,
+    a.dettaglio_ordine {
+        width: 100%;
+        margin: 10px 0 0 0;
+        padding: 12px;
+    }
+
+    .blocco-errore-successo {
+        padding: 0 15px;
+        margin: 10px auto;
+    }
+
+    p.testoSuccesso, 
+    p.testoErrore {
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+}

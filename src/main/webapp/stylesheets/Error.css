@@ -102,7 +102,7 @@ body {
     box-shadow: 0 10px 20px color-mix(in srgb, var(--secondary-color) 30%, transparent);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .main_content_wrapper {
         flex-direction: column;
         text-align: center;

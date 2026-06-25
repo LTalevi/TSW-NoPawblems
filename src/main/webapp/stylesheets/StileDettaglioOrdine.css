@@ -12,15 +12,12 @@
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
-    padding: 120px 30px 60px 30px; /* Uniformato il padding superiore per l'header */
+    padding: 120px 30px 60px 30px;
     gap: 30px;
     max-width: 1300px;
     margin: 0 auto;
 }
 
-/* ==========================================================================
-   HEADER ORDINE (Info Generali, Spedizione e Stato)
-   ========================================================================== */
 .info-ordine-header {
     display: flex;
     flex-wrap: wrap;
@@ -38,7 +35,6 @@
     min-width: 250px; 
 }
 
-/* Titoli dei box info modernizzati (Stile badge invece del blocco pieno vecchio stile) */
 .info-box h3 { 
     display: inline-block;
     color: var(--primary-color); 
@@ -57,15 +53,11 @@
     font-size: 15px;
 }
 
-/* Stato dell'ordine o evidenziati */
 .info-box span { 
     color: var(--tertiary-color); 
     font-weight: bold; 
 }
 
-/* ==========================================================================
-   LISTA PRODOTTI DELL'ORDINE
-   ========================================================================== */
 .dettagli-ordine {
     display: flex;
     flex-direction: column;
@@ -82,11 +74,10 @@
     border-radius: 20px;
     background-color: var(--background-color);
     box-shadow: 0 4px 15px rgba(0,0,0,0.01);
-    overflow: hidden; /* Mantiene gli h3 dentro gli angoli arrotondati */
+    overflow: hidden;
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover sulla riga prodotto (Corretto il selettore precedente) */
 .dettaglio-ordine:hover { 
     transform: translateY(-2px);
     border-color: color-mix(in srgb, var(--secondary-color) 30%, transparent);
@@ -99,7 +90,6 @@
     width: 100%; 
 }
 
-/* Intestazione della riga prodotto */
 .info_prodotto h3 {
     width: 100%;
     padding: 12px 20px;
@@ -122,14 +112,13 @@
     gap: 25px;
 }
 
-/* Miniatura Prodotto Arrotondata */
 .miniatura-prodotto {
     width: 70px;
     height: 70px;
     object-fit: contain;
     border: 2px solid color-mix(in srgb, var(--border-color) 30%, transparent);
     background-color: #ffffff;
-    border-radius: 12px; /* Addio ai vecchi 4px squadrati */
+    border-radius: 12px;
 }
 
 .dati-riga {
@@ -160,9 +149,6 @@
     color: var(--primary-text-color);
 }
 
-/* ==========================================================================
-   RIEPILOGO COSTI E BOTTONE DI STAMPA
-   ========================================================================== */
 .riepilogo {
     width: 100%;
     display: flex;
@@ -175,7 +161,6 @@
     border-top: 2px dashed color-mix(in srgb, var(--border-color) 40%, transparent);
 }
 
-/* Box Costo Totale coerente con il checkout */
 .riepilogo .costo-totale {
     padding: 12px 25px;
     font-size: 18px;
@@ -186,7 +171,6 @@
     color: var(--secondary-color);
 }
 
-/* Bottone Stampa (In colore secondario con effetto hollow su hover) */
 .bottone-stampa {
     display: flex;
     align-items: center;
@@ -213,9 +197,107 @@
     box-shadow: 0 10px 20px color-mix(in srgb, var(--secondary-color) 30%, transparent);
 }
 
-/* ==========================================================================
-   MEDIA QUERY PER LA STAMPA (Ottimizzata e pulita)
-   ========================================================================== */
+@media (max-width: 800px) {
+
+    .main-wrapper {
+        padding: 145px 15px 40px 15px;
+        gap: 20px;
+    }
+
+    .info-ordine-header {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 20px;
+        border-radius: 20px;
+    }
+
+    .info-box {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .info-box h3 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dettaglio-ordine {
+        border-radius: 15px;
+    }
+
+    .info_prodotto h3 {
+        font-size: 15px;
+        padding: 10px 15px;
+    }
+
+    .info_prodotto_dati {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .miniatura-prodotto {
+        width: 80px;
+        height: 80px;
+    }
+
+    .dati-riga {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .dati-riga p {
+        font-size: 14px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed color-mix(in srgb, var(--border-color) 20%, transparent);
+        padding-bottom: 6px;
+    }
+
+    .dati-riga label {
+        margin-right: 0;
+    }
+
+    .subtotale-riga {
+        margin-left: 0;
+        margin-top: 5px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        color: var(--secondary-color);
+    }
+
+    .subtotale-riga::before {
+        content: "Subtotale articolo:";
+        font-weight: bold;
+        color: var(--primary-text-color);
+    }
+
+    .riepilogo {
+        align-items: center;
+        padding: 20px 0 0 0;
+    }
+
+    .riepilogo .costo-totale {
+        width: 100%;
+        text-align: center;
+        font-size: 17px;
+        padding: 10px 20px;
+    }
+
+    .bottone-stampa {
+        width: 100%;
+        max-width: 100%;
+        padding: 14px;
+    }
+}
+
 @media print {
     header, footer, nav, .bottone-stampa { 
         display: none !important; 

@@ -360,3 +360,80 @@ body {
     animation: popEffect 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
 }
+
+@media (max-width: 800px) {
+
+    .main-wrapper {
+        padding: 145px 15px 30px 15px;
+        gap: 30px;
+    }
+
+    .prodotto {
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .immagini, 
+    .dettagli {
+        width: 100%;
+        flex: none; 
+    }
+
+    .immagine-principale-prodotto {
+        border-radius: 20px;
+    }
+
+    .immagini-secondarie-prodotto {
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .miniature-immagini {
+        width: 70px; 
+        height: 55px;
+        border-radius: 10px;
+    }
+
+
+    .dettagli {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+
+    .dettagli h3 {
+        font-size: 20px;
+        padding: 8px 18px;
+        width: 100%;
+    }
+
+    .descrizione-prodotto {
+        font-size: 14px; 
+    }
+
+    .prezzo-prodotto {
+        font-size: 26px;
+        margin: 5px 0;
+    }
+
+    .selettore-gruppo {
+        padding: 12px 15px;
+        gap: 12px;
+    }
+
+    .opzioni {
+        gap: 10px;
+    }
+
+    .btn-taglia {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .bottone-aggiunta-carrello {
+        width: 100%;
+        max-width: 100%;
+        padding: 14px; 
+        font-size: 15px;
+    }
+}
