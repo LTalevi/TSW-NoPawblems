@@ -20,7 +20,8 @@
 		
 		<div class="testo_bottone_home">
 			<div class="testo_errore">
-				<h1>Errore 404 (Page not Found) - Ops! sembra che la pagina non sia stata trovata :(</h1>
+				<h1>Errore 404 (Page not Found)</h1>
+				<h2>Ops! sembra che la pagina non sia stata trovata :(</h2>
 				<p>
 					La pagina potrebbe essere stata spostata o non esistere più.
 				</p>

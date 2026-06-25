@@ -20,7 +20,8 @@
 		
 		<div class="testo_bottone_home">
 			<div class="testo_errore">
-				<h1>Errore 400 (Bad Request) - Oh no! Sembra che la richesta sia errata :(</h1>
+				<h1>Errore 400 (Bad Request)</h1>
+				<h2>Oh no! Sembra che la richesta sia errata :(</h2>
 				<p>
 					Non è stato possibile elaborare la richiesta.
 				</p>

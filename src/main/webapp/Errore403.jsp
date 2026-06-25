@@ -20,7 +20,8 @@
 		
 		<div class="testo_bottone_home">
 			<div class="testo_errore">
-				<h1>Errore 403 (Forbidden) - Ci dispiace, ma non puoi accedere a questa pagina :(</h1>
+				<h1>Errore 403 (Forbidden)</h1>
+				<h2>Ci dispiace, ma non puoi accedere a questa pagina :(</h2>
 				<p>
 					Sembra tu non possegga i permessi specifici per accedere a questa risorsa.
 				</p>

@@ -20,7 +20,8 @@
 		
 		<div class="testo_bottone_home">
 			<div class="testo_errore">
-				<h1>Errore 500 (Internal Server Error) - Oh no! Sembra che ci sia un problema sul server :(</h1>
+				<h1>Errore 500 (Internal Server Error)</h1>
+				<h2>Oh no! Sembra che ci sia un problema sul server :(</h2>
 				<p>
 					Non è stato possibile elaborare la richiesta.
 				</p>

@@ -62,8 +62,17 @@ body {
 .testo_errore h1 {
     font-size: 48px;
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: var(--primary-color);
+}
+
+.testo_errore h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+    line-height: 1.4;
 }
 
 .testo_errore p {
@@ -120,6 +129,11 @@ body {
     
     .testo_errore h1 {
         font-size: 36px;
+    }
+
+    .testo_errore h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
     }
     
     .testo_errore p {

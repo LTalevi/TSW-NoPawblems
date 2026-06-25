@@ -463,3 +463,70 @@ p.none {
         font-size: 13px;
     }
 }
+
+/* ==========================================================================
+   MEDIA QUERY AREA UTENTE (Tablet Layout - da 801px a 1150px)
+   ========================================================================= */
+@media (min-width: 801px) and (max-width: 1400px) {
+
+    /* 1. Bilanciamo il respiro della pagina */
+    .wrapper {
+        padding: 130px 20px 50px 20px;
+        gap: 25px;
+    }
+
+    /* 2. Forziamo la griglia a un layout pulito a DUE colonne (anziché 3 o 1) */
+    .contenitore {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+
+    /* 3. Ottimizzazione dei Box interni */
+    .dati, .indirizzi, .ordini {
+        padding: 20px;
+        gap: 18px;
+    }
+
+    /* 4. Manteniamo la riga (Label + Input) ma rendiamo i campi fluidi per evitare overflow */
+    .testo, 
+    .input-errore-container .input {
+        flex-direction: row; /* Restano affiancati, lo spazio c'è */
+        align-items: center;
+        width: 100%;
+    }
+
+    .testo label, 
+    .input-errore-container .input label {
+        min-width: 100px; /* Stringiamo leggermente la label per dare spazio all'input */
+        font-size: 13px;
+    }
+
+    /* Sganciamo il max-width fisso a 280px e usiamo un valore percentuale dinamico */
+    .testo p, 
+    .testo input, 
+    .input-errore-container input,
+    .input-errore-container {
+        max-width: calc(100% - 100px) !important; 
+        width: 100%;
+    }
+
+    /* 5. Sistemazione dei pulsanti di Logout e Admin */
+    .logout {
+        flex-direction: row; /* Li teniamo affiancati */
+        gap: 15px;
+    }
+
+    .logout .bottone_admin, 
+    .logout .bottone_logout {
+        width: calc(50% - 8px); /* Si dividono lo spazio a metà perfettamente */
+        max-width: 220px;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    button.bottone_aggiungi {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

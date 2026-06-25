@@ -20,7 +20,8 @@
 		
 		<div class="testo_bottone_home">
 			<div class="testo_errore">
-				<h1>Errore 401 (Unauthorized) - Ci dispiace, ma non puoi accedere alla risorsa :(</h1>
+				<h1>Errore 401 (Unauthorized)</h1>
+				<h2>Ci dispiace, ma non puoi accedere alla risorsa :(</h2>
 				<p>
 					Sembra che le credenziali inserite non siano valide o la sessione potrebbe essere scaduta.
 				</p>
