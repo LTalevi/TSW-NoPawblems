@@ -626,16 +626,20 @@ button.bottone-cancella:hover {
     }
 
     .filtri .bottoni {
-        justify-content: flex-end;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: 15px;
+        width: 100%;
     }
 
-    button.bottone-modifica, 
-    button.bottone-cancella, 
-    button.bottone-scheda {
-        flex: initial;
-        width: auto;
-        min-width: 160px;
-        padding: 12px 25px;
+    .filtri .bottoni form,
+    .filtri .bottoni a,
+    .filtri .bottoni button.bottone-modifica, 
+    .filtri .bottoni button.bottone-cancella, 
+    .filtri .bottoni button.bottone-scheda {
+        width: 100%;
+        max-width: 320px; 
+        margin: 0 auto;
     }
 }
