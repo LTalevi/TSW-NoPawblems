@@ -15,14 +15,6 @@ body {
     color: var(--primary-text-color);
 }
 
-.main-wrapper {
-    flex: 1 0 auto;
-    flex-grow: 1; 
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 .wrapper {
     display: flex;
     flex-direction: row;
@@ -316,4 +308,96 @@ body {
     font-weight: 900; 
     font-size: 20px;
     display: inline-block;
+}
+
+@media (max-width: 1200px) {
+	.wrapper {
+	    flex-direction: column;
+	    flex-grow: 1;
+	    width: 100%;
+	    margin: 0 auto;
+	    padding: 130px 30px 60px 30px;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 40px;
+	}
+
+	.wrapper .titolo h2 {
+	    font-weight: bold;
+	    font-size: 16px;
+	    margin: 0;
+	}
+	
+	.dati, .riepilogo {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 800px) {
+	.wrapper {
+        padding: 130px 15px 40px 15px; 
+    }
+	
+	.wrapper .titolo h2 {
+	    font-weight: bold;
+	    font-size: 16px;
+	    margin: 0;
+	}
+	
+	.input {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .input label, .input-telefono label {
+        width: 100%; 
+        text-align: left;
+    }
+
+    .input input, select {
+        width: 100%; 
+    }
+	
+	.prodotto {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 30px;
+	    padding: 15px 35px;
+	}
+	
+	.immagine_prodotto {
+	    height: auto;
+	    width: 100%;
+	    max-width: 180px;
+	    margin-top: 30px;
+	}
+	
+	.info_prodotto {
+	    display: flex;
+	    flex-direction: column;   
+	    justify-content: center;  
+	    align-items: center;
+	    text-align: center;
+	    gap: 20px;
+	    width: 100%;
+	    padding: 20px 20px;
+	    border: none;
+	    border-top: 2px dashed color-mix(in srgb, var(--border-color) 50%, transparent);
+	}
+	
+	.costi {
+		gap: 20px;
+	}
+	
+	.costi p {
+		font-size: 14px;
+	}
+	
+	.info_prodotto h3, .gradiente {
+		font-size: 16px;
+	}
 }

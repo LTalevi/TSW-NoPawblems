@@ -136,6 +136,8 @@ footer {
 	}
 	
 	.grid-wrapper {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
 		text-align: center;
 		gap: 30px;
 		justify-content: center;
