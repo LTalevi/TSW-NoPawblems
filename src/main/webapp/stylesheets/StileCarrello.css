@@ -335,3 +335,65 @@ form[action*="CarrelloServlet"] {
     color: var(--primary-color);
     text-align: left;
 }
+
+@media (max-width: 800px) {
+	.main-wrapper {
+	    flex: 1 0 auto;
+	    flex-grow: 1; 
+	    width: 100%;
+	    margin: 0 auto;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	    padding: 130px 30px 30px 30px;
+	    gap: 30px;
+	}
+	
+	.prodotto-carrello {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 30px;
+	    padding: 15px 35px;
+	}
+	
+	.immagine_prodotto {
+	    height: auto;
+	    width: 100%;
+	    max-width: 300px;
+	    margin-top: 30px;
+	}
+	
+	.info_prodotto {
+	    display: flex;
+	    flex-direction: column;   
+	    justify-content: center;  
+	    align-items: center;
+	    text-align: center;
+	    gap: 20px;
+	    width: 100%;
+	    padding: 20px 20px;
+	    border: none;
+	    border-top: 2px dashed color-mix(in srgb, var(--border-color) 50%, transparent);
+	}
+	
+	form[action*="CarrelloServlet"] {
+	    width: 100%; 
+	}
+	
+	.formRimozione button {
+	    display: block;
+	    width: 100%;               
+	}
+	
+	.riepilogo .bottone-checkout, .riepilogo .bottone-svuota-carrello {
+	    min-width: 0;
+	    font-size: 14px;
+	}
+	
+	.riepilogo .costo-totale {
+	    font-size: 14px;
+	}
+}
