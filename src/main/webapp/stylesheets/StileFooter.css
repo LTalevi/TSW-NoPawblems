@@ -118,7 +118,19 @@ footer {
 	flex-direction: column;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
+	.footer-wrapper {
+		padding: 30px 25px;
+	}
+	
+	.grid-wrapper {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+		gap: 60px;
+	}
+}
+
+@media (max-width: 800px) {
 	.footer-wrapper {
 		padding: 20px 15px;
 	}
@@ -133,4 +145,20 @@ footer {
         align-items: center; 
         margin: 10px 0;
     }
+    
+    .logo_footer {
+    	height: 85px;
+		width: 85px;
+    }
+    
+    .links_footer a, .chiSiamo a {
+		color: var(--background-color);
+		text-decoration: none;
+		font-size: 14px;
+		padding: 5px;
+	}
+	
+	.icona_zampa {
+		font-size: 14px;
+	}
 }
