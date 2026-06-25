@@ -36,7 +36,7 @@
 			</div>
 			
 			<div class="testo_copy">
-				<em>NoPawblems è un progetto realizzato da Vuolo Antonio (Leader) e Talevi Luigi. Tutti i diritti sono riservati.</em>
+				<em>NoPawblems è un progetto realizzato da Antonio Vuolo e Talevi Luigi. Tutti i diritti sono riservati.</em>
 			</div>
 		</section>
 	</main>
